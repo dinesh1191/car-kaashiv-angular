@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+    
+</body>
+</html>
+<div>
+    <mat-toolbar>
+        <span>Part Inventory</span>
+        <span class="spacer"></span>
+        <button mat-raised-button color="accent" (click)="openFormDialog()">Add Part</button>
+    </mat-toolbar>
+</div>
+
+<div *ngIf="loading" class="text-center mt-3">
+    <mat-spinner></mat-spinner>
+</div>
+<div class="container-fluid">
+
+<table mat-table [dataSource]="parts" class="mat-elevation">
+<ng-container matColumnDef="partId">
+    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <td *matCellDef="let p">{{p.partId}}</td>
+</ng-container>
+
+<ng-container matColumnDef="pName">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let p">{{p.pName}}</td>
+</ng-container>
+
+<ng-container matColumnDef="pPrice">
+    <th mat-header-cell *matHeaderCellDef>Price</th>
+    <td mat-cell *matCellDef="let p">{{p.pPrice}} | Currency:'INR'</td>
+</ng-container>
+
+<ng-container matColumnDef="pStock">
+    <th mat-header-cell *matHeaderCellDef>Stock</th>
+    <td mat-cell *matCellDef="let p">{{p.pStock}}</td>
+</ng-container>
+
+<ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let p">
+        <button mat-icon-button color="primary" (click)="openFormDialog(p)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="danger" (click)="deletePart(p.partId)"><mat-icon>delete</mat-icon></button>
+              
+    </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
+
+
+
+</table>
+</div>

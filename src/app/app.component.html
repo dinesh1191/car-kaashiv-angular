@@ -8,6 +8,7 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 <style>
+
   :host {
     --bright-blue: oklch(51.01% 0.274 263.83);
     --electric-violet: oklch(53.18% 0.28 296.97);
@@ -176,8 +177,21 @@
     }
   }
 </style>
+<!-- <div>
+<mat-toolbar color="primary">
+  <span class="ms-2">Car Kaashiv Angular</span>
+</mat-toolbar>
 
-<main class="main">
+<div class="p-4">
+  <button mat-raised-button color="accent">Material Button</button>
+  <button class="btn btn-primary ms-2">Bootstrap Button</button>
+</div>
+
+</div> -->
+
+
+
+<!-- <div class="main">
   <div class="content">
     <div class="left-side">
       <svg
@@ -320,9 +334,15 @@
           </svg>
         </a>
       </div>
-    </div>
-  </div>
-</main>
+      
+    </div>  -->
+
+<app-global-loader></app-global-loader>
+
+  <router-outlet/>
+  
+
+
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
@@ -333,4 +353,4 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 
-<router-outlet />
+
