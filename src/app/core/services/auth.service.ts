@@ -24,23 +24,12 @@ private apiUrl = `${environment.apiBaseUrl}/auth/login`;
   constructor(private http:HttpClient) { }
 
   login(payload:LoginRequest):Observable<any>{
-    return this.http.post<any>(this.apiUrl,payload)
-    .pipe(
-      tap(response =>{
-        if(response?.data?.token){
-          //step 1: store JWT in LocalStorage temporaily
-          localStorage.setItem('authToken',response.data.token);
-          localStorage.setItem('username',response.data.username);
-          localStorage.setItem('role',response.data.role);
-        }
-      })
-    )
+    return this.http.post(this.apiUrl, payload,{withCredentials:true})    
   };
 
-logout():void{
-  localStorage.removeItem('authToken');
-  localStorage.removeItem('username');
-  localStorage.removeItem('role');
+
+ logout():Observable<any>{
+ return this.http.post(this.apiUrl,{},{withCredentials:true})
 }
 
 isAuthenticated():boolean{
