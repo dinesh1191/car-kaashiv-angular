@@ -7,6 +7,7 @@ import { MATERIAL_IMPORTS } from './shared/material';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { apiResponseInterceptor } from './core/interceptors/api-response.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([apiResponseInterceptor])),//enables Angular’s HTTP client for your standalone components and services.
     provideAnimations(),
-    importProvidersFrom(BrowserAnimationsModule,  ...MATERIAL_IMPORTS)
+    importProvidersFrom(BrowserAnimationsModule,  ...MATERIAL_IMPORTS,ReactiveFormsModule)
     ]
 };

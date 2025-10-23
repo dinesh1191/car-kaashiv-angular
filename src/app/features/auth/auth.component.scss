@@ -1,0 +1,33 @@
+.auth-container {
+
+    max-width: 350px;
+    margin: 100px auto;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.form-group {
+    margin-bottom: 15px;
+
+    label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}  
+
+small {
+      color: red;
+      font-size: 12px;
+    }
