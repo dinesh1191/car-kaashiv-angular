@@ -32,14 +32,4 @@ private apiUrl = `${environment.apiBaseUrl}/auth/login`;
  return this.http.post(this.apiUrl,{},{withCredentials:true})
 }
 
-isAuthenticated():boolean{
-  return !!localStorage.getItem('authToken');//!! is a double negation operator converts any value into a strict boolean
-}
-
-getToken(){
-  return localStorage.getItem('authToken');
-}
- saveToken(token:string):void{
-  localStorage.setItem('auth_token',token);
- }
 }
