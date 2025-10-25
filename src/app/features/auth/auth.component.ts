@@ -43,8 +43,7 @@ export class AuthComponent {
     this.loaderService.show();
     this.authService.login(this.loginForm.value).subscribe({
       next:(res)=>{      
-       this.loaderService.hide()
-       this.authService.saveToken(res.data?.token)
+       this.loaderService.hide()      
        this.router.navigate(['/parts-list']);
        this.loaderService.show();
       },

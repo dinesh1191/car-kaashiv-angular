@@ -8,12 +8,12 @@ import { ApiResponse } from '../../../models/api-response.model';
   providedIn: 'root'
 })
 export class PartService {
-private apiUrl = `${environment.apiBaseUrl}/parts`;
+private apiUrl = `${environment.apiBaseUrl}`;
 private delete = this.apiUrl+`delete`
   constructor(private http:HttpClient) { }
 
   getParts(): Observable<ApiResponse<Part[]>> {
-  return this.http.get<ApiResponse<Part[]>>(`${this.apiUrl}`);
+  return this.http.get<ApiResponse<Part[]>>(`${this.apiUrl}/parts`,{withCredentials:true});
  }
 
   addPart(part:Part):Observable<ApiResponse<Part>> {

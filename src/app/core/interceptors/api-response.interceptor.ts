@@ -20,8 +20,15 @@ export const apiResponseInterceptor : HttpInterceptorFn=(req,next)=>{
   const loaderService = inject(LoaderService);
 
   loaderService.show(); //show loader when request starts
+  //include credentials(cookies)
+  const authReq = req.clone({
+    withCredentials:true
+ 
+  });
+  console.log("authReq",authReq.url,authReq);
+  loaderService.show();
 
-  return next(req).pipe(
+  return next(authReq).pipe(
     tap(event => {
       if(event instanceof HttpResponse){
         const body = event.body as ApiResponse<any>;

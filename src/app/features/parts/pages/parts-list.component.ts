@@ -11,6 +11,8 @@ import { PartsFormComponent } from '../components/parts-form.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule}from '@angular/material/progress-spinner';
 import { HttpClient, } from '@angular/common/http';
+import { AuthService } from '../../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   standalone:true,
@@ -35,6 +37,8 @@ export class PartsListComponent {
 
 constructor(
   private partService :PartService,
+  private authService :AuthService,
+  private router:Router,
   private dialog:MatDialog,
   private snackBar:MatSnackBar
 ) {}
@@ -85,10 +89,24 @@ constructor(
         if(res.success)this.loadParts; //reloads parts       
       },                  
     error: (err) => {
-      this.snackBar.open('server error occured');     
+      this.snackBar.open(err,'server error occured');     
     }   
   })
   }
+ }
+
+ onLogout(){
+    this.authService.logout().subscribe({
+      next:(res)=>{       
+        if(res.success)this.router.navigate(['/auth'])
+           this.snackBar.open(res.message,'Close',{duration:3000});
+      },
+       error: (err) => {
+      this.snackBar.open(err,'server error occured');     
+    } 
+    })
+
+
  }
 
 }

@@ -19,17 +19,17 @@ interface LoginResponse{
   providedIn: 'root'
 })
 export class AuthService {
-private apiUrl = `${environment.apiBaseUrl}/auth/login`;
+private apiUrl = `${environment.apiBaseUrl}`;
 
   constructor(private http:HttpClient) { }
 
   login(payload:LoginRequest):Observable<any>{
-    return this.http.post(this.apiUrl, payload,{withCredentials:true})    
+    return this.http.post(`${this.apiUrl}/auth/login`, payload, { withCredentials: true });
   };
 
 
  logout():Observable<any>{
- return this.http.post(this.apiUrl,{},{withCredentials:true})
+ return this.http.post(`${this.apiUrl}/auth/logout`,{withCredentials:true})
 }
 
 }
