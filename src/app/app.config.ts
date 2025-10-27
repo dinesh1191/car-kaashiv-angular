@@ -15,6 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([apiResponseInterceptor])),//enables Angular’s HTTP client for your standalone components and services.
     provideAnimations(),
-    importProvidersFrom(BrowserAnimationsModule,  ...MATERIAL_IMPORTS,ReactiveFormsModule)
+    importProvidersFrom(BrowserAnimationsModule,MATERIAL_IMPORTS,ReactiveFormsModule)
     ]
 };

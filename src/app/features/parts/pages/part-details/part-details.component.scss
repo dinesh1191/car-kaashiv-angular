@@ -1,0 +1,27 @@
+.container{
+    display:flex;
+    justify-content: center;
+    margin-top:40px   
+}
+
+.form-card{
+    width:500px;
+    padding:20px;
+}
+.file-name{
+    font-size: 0.9rem;
+    color:#555;
+}
+
+ mat-icon {
+    margin-right: 4px;
+  }
+  
+.file-upload {
+  margin: 10px 0;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}

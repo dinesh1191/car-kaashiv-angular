@@ -15,7 +15,7 @@
     <mat-toolbar>
         <span>Part Inventory</span>
         <span class="spacer"></span>
-        <button mat-raised-button color="accent" (click)="openFormDialog()">Add Part</button>
+        <button mat-raised-button color="accent" (click)="openPartDetails()">Add Part</button>
         <button mat-raised-button color="primary" (click)="onLogout()">Logout</button>
     </mat-toolbar>
 </div>
@@ -23,6 +23,12 @@
 <div *ngIf="loading" class="text-center mt-3">
     <mat-spinner></mat-spinner>
 </div>
+<div>      
+ <button matFab extended>
+  <mat-icon>home</mat-icon>
+  Homed
+</button>
+    </div>
 <div class="container-fluid">
 
 <table mat-table [dataSource]="parts" class="mat-elevation">
@@ -49,7 +55,7 @@
 <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let p">
-        <button mat-icon-button color="primary" (click)="openFormDialog(p)"><mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="primary" (click)="editPart(p.partId)"><mat-icon>edit</mat-icon></button>
         <button mat-icon-button color="danger" (click)="deletePart(p.partId)"><mat-icon>delete</mat-icon></button>
               
     </td>

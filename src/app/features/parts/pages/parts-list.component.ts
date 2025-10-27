@@ -49,7 +49,7 @@ constructor(
 
  loadParts(){
   this.loading = true;
-  this.partService.getParts().subscribe({
+  this.partService.getAllParts().subscribe({
     next:(res) => {   
       if(res.success && res.data){
         this.parts = res.data;
@@ -80,6 +80,15 @@ constructor(
       }
     });
  }
+ openPartDetails(){
+  this.router.navigate(['/part/details']);
+ }
+ editPart(partId:any){
+  console.log("posting part id to next page",partId)
+  this.router.navigate(['/part/details/',partId]);
+ }
+
+
 
  deletePart(id:number){
   if(confirm('Are you sure you wnat to delete this part?')){  
