@@ -52,12 +52,14 @@ ngOnInit(){
   console.log("paramMap partId",this.partId)
     
     if(this.partId){
-      this.isEditMode = true
-      this.loaderService.show();
+      this.isEditMode = true;      
       this.partService.getPartbyId(this.partId).subscribe({
         next:(res)=>{
+          setTimeout(() => {
+            console.log('timer running>>>>')
+          }, 5000);
           console.log('api called>>>>')
-          this.loaderService.hide();     
+          
           if(res.data){
              this.partForm.patchValue(res.data);
         } else {

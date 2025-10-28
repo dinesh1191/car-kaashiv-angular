@@ -40,15 +40,14 @@ export class AuthComponent {
       if(this.loginForm.invalid){
         return;     
      }
-    this.loaderService.show();
+    
     this.authService.login(this.loginForm.value).subscribe({
       next:(res)=>{      
        this.loaderService.hide()      
-       this.router.navigate(['/parts-list']);
-       this.loaderService.show();
+       this.authService.isLoggedIn = true; // sets user has valid cookie
+       this.router.navigate(['/parts-list']);       
       },
-      error:(err)=>{      
-        this.loaderService.hide();
+      error:(err)=>{          
         this.snackBar.open('Invalid credentials,'+{ err},'Close',{duration:2500})
       }       
     })     

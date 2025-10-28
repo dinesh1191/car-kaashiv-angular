@@ -16,18 +16,22 @@ import { inject } from '@angular/core';
 
 
 export const apiResponseInterceptor : HttpInterceptorFn=(req,next)=>{
-  const snackBar = inject(MatSnackBar);
+  const snackBar =  inject(MatSnackBar);
   const loaderService = inject(LoaderService);
 
-  loaderService.show(); //show loader when request starts
-  //include credentials(cookies)
-  const authReq = req.clone({
-    withCredentials:true
- 
-  });
-  console.log("authReq",authReq.url,authReq);
-  loaderService.show();
 
+ 
+  
+  //skip Loader if request has special header
+  const skipLoader = req.headers.has('skip-header');
+
+  if(!skipLoader)loaderService.show();
+
+const authReq = req.clone({
+  withCredentials:true,
+  headers:req.headers.delete('skip-loader') // remove header before sending to server
+}); //include http credentials(cookies)
+ 
   return next(authReq).pipe(
     tap(event => {
       if(event instanceof HttpResponse){
@@ -58,7 +62,10 @@ export const apiResponseInterceptor : HttpInterceptorFn=(req,next)=>{
     snackBar.open(errorMsg,'Close',{duration:5000});
       return throwError(()=>error);
     }),
-    finalize(()=>loaderService.hide())
+    finalize(()=>{
+      if(!skipLoader)loaderService.hide()//hide loader when request ends
+      }
+    )
   )
 }
 
