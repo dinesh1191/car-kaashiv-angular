@@ -31,8 +31,7 @@ import { Router } from '@angular/router';
   styleUrl: './parts-list.component.scss'
 })
 export class PartsListComponent {
-  parts: Part[] = [];
-  loading = true;
+  parts: Part[] = []; 
   displayedColumns = ['partId','pName','pPrice','pStock','actions'];
   userInfo: any;
 
@@ -46,20 +45,24 @@ constructor(
 
  ngOnInit(){
   this.loadParts();  
-  
+  this.authService.user$.subscribe(user=>{  
+    if(user){
+      console.log('Logged in as',user.name, 'Role',user.role);
+    }
+  })  
  }
 
  loadParts(){
-  this.loading = true;
+  
   this.partService.getAllParts().subscribe({
     next:(res) => {   
       if(res.success && res.data){
         this.parts = res.data;
-        this.loading = false;
+       
       }      
     },
     error: () => {
-      this.loading = false;
+    
       this.snackBar.open('Error loading Parts','Close',{duration:3000});
 
     }
@@ -106,7 +109,7 @@ constructor(
   }
  }
  getuserInfo(){
-  this.authService.getProfileDetails().subscribe({
+  this.authService.getUserProfile().subscribe({
     next: (res)=>{
       if(res.success){
       this.userInfo = res.data;
@@ -118,9 +121,14 @@ constructor(
 
  onLogout(){
     this.authService.logout().subscribe({
-      next:(res)=>{       
-        if(res.success)this.router.navigate(['/auth'])
+      next:(res)=>{     
+        console.log('Logout API response:', res);  
+        if(res.success){
+          console.log("inside if")
+           this.authService.clearUserProfile();           
            this.snackBar.open(res.message,'Close',{duration:3000});
+           this.router.navigate(['/auth']);
+        }
       },
        error: (err) => {
       this.snackBar.open(err,'server error occured');     

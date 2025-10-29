@@ -98,7 +98,7 @@ onsumbit(){
      this.snackBar.open("Please fill the required details", 'Close',{duration:3000})
       return;
   }
-  const empId = this.authService.getCurrentUser();
+  const empId = this.authService.currentUser;
     const data = { ...this.partForm.value,emp_id:empId,idt:getFormattedTimestamp,}
     const formData = this.partService.buildFormData(data,)
 
