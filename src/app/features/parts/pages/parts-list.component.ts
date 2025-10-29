@@ -34,6 +34,7 @@ export class PartsListComponent {
   parts: Part[] = [];
   loading = true;
   displayedColumns = ['partId','pName','pPrice','pStock','actions'];
+  userInfo: any;
 
 constructor(
   private partService :PartService,
@@ -45,6 +46,7 @@ constructor(
 
  ngOnInit(){
   this.loadParts();  
+  
  }
 
  loadParts(){
@@ -103,6 +105,16 @@ constructor(
   })
   }
  }
+ getuserInfo(){
+  this.authService.getProfileDetails().subscribe({
+    next: (res)=>{
+      if(res.success){
+      this.userInfo = res.data;
+      console.log(this.userInfo,"this.userInfo");
+      }       
+    }
+  })
+ }
 
  onLogout(){
     this.authService.logout().subscribe({
@@ -114,8 +126,6 @@ constructor(
       this.snackBar.open(err,'server error occured');     
     } 
     })
-
-
- }
+   }
 
 }

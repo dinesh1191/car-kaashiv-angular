@@ -5,7 +5,8 @@ import {
    HttpRequest,
    HttpResponse,
    HttpErrorResponse,
-   HttpInterceptorFn
+   HttpInterceptorFn,
+   HttpContextToken
   } from '@angular/common/http';
 import { Observable,throwError } from 'rxjs';
 import {catchError,finalize,map,tap} from 'rxjs';
@@ -13,24 +14,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiResponse } from '../../models/api-response.model';
 import { LoaderService } from '../services/loader.service';
 import { inject } from '@angular/core';
-
+export const SKIP_LOADER = new HttpContextToken(()=> false);
 
 export const apiResponseInterceptor : HttpInterceptorFn=(req,next)=>{
   const snackBar =  inject(MatSnackBar);
   const loaderService = inject(LoaderService);
 
 
- 
   
   //skip Loader if request has special header
-  const skipLoader = req.headers.has('skip-header');
+  //const skipLoader = req.headers.has('skip-header');
+  //new method
+  const skipLoader = req.headers.has('SKIP_LOADER');
 
   if(!skipLoader)loaderService.show();
 
-const authReq = req.clone({
-  withCredentials:true,
-  headers:req.headers.delete('skip-loader') // remove header before sending to server
-}); //include http credentials(cookies)
+const authReq = req.clone({withCredentials:true}); //include http credentials(cookies)
  
   return next(authReq).pipe(
     tap(event => {
