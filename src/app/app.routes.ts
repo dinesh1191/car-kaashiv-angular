@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { PartsListComponent } from './features/parts/pages/parts-list.component';
 import { AuthComponent } from './features/auth/auth.component';
 import { PartDetailsComponent } from './features/parts/pages/part-details/part-details.component';
-import { authGuard } from './core/services/auth.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     

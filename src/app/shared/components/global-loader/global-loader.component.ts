@@ -8,7 +8,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
   imports: [MatProgressSpinner, NgIf,AsyncPipe],
   standalone: true,
   template: 
-  `<div class="loader-overlay" *ngIf=" loaderService._isLoading$ | async">
+  `<div class="loader-overlay" *ngIf=" loaderService.isLoading$ | async">
 <mat-progress-spinner mode='indeterminate' diameter="50"></mat-progress-spinner>
   </div>`
    ,

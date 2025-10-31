@@ -337,7 +337,7 @@
       
     </div>  -->
 
-<app-global-loader></app-global-loader>
+<app-global-loader  *ngIf="loaderService.isLoading$ | async"></app-global-loader>
 
   <router-outlet/>
   

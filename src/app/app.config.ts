@@ -10,16 +10,17 @@ import { apiResponseInterceptor } from './core/interceptors/api-response.interce
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
 import { provideAppInitializer } from '@angular/core';
+import { unauthorizedInterceptor } from './core/interceptors/unauthorized.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([apiResponseInterceptor])),//enables Angular’s HTTP client for your standalone components and services.
+    provideHttpClient(withInterceptors([apiResponseInterceptor,unauthorizedInterceptor])),//enables Angular’s HTTP client for your standalone components and services.
     provideAnimations(),
     importProvidersFrom(BrowserAnimationsModule,MATERIAL_IMPORTS,ReactiveFormsModule),
     provideAppInitializer(() => 
-    { //executes below function during app bootstrap.
+    { //Executes below function during app bootstrap.
       const authService = inject(AuthService);
       return authService.initUserSession();
     }),

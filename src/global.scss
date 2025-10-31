@@ -1,0 +1,42 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/*Snackbar theme styles - modern Angular way */
+.mdc-snackbar {
+  border-radius: 8px !important;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.mdc-snackbar__label {
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+.mdc-snackbar__actions {
+  button {
+    color: #fff !important;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+}
+
+.mat-mdc-snack-bar-container.snackbar-success {
+  --mdc-snackbar-container-color: #4caf50;
+  --mdc-snackbar-supporting-text-color: #fff;
+  font-weight: 500;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error {
+  --mdc-snackbar-container-color: #ec574d;
+  --mdc-snackbar-supporting-text-color: #fff;
+  font-weight: 500;
+}
+
+.mat-mdc-snack-bar-container.snackbar-warning {
+  --mdc-snackbar-container-color: #ffa000;
+  --mdc-snackbar-supporting-text-color: #fff;
+  font-weight: 500;
+}

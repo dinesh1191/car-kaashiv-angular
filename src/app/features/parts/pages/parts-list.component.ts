@@ -13,20 +13,13 @@ import { MatProgressSpinnerModule}from '@angular/material/progress-spinner';
 import { HttpClient, } from '@angular/common/http';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { SharedModule } from '../../../shared/shared.module';
+import { SnackbarService } from '../../../core/services/snackbar.service';
 
 @Component({
   standalone:true,
   selector: 'app-parts-list',
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDialogModule,
-    MatSnackBarModule,   
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-  ],
+  imports: [SharedModule],
   templateUrl: './parts-list.component.html',
   styleUrl: './parts-list.component.scss'
 })
@@ -40,7 +33,8 @@ constructor(
   private authService :AuthService,
   private router:Router,
   private dialog:MatDialog,
-  private snackBar:MatSnackBar
+  private snackBar:MatSnackBar,
+  private snackBarService :SnackbarService
 ) {}
 
  ngOnInit(){
@@ -125,9 +119,10 @@ constructor(
         console.log('Logout API response:', res);  
         if(res.success){
           console.log("inside if")
-           this.authService.clearUserProfile();           
-           this.snackBar.open(res.message,'Close',{duration:3000});
-           this.router.navigate(['/auth']);
+           this.authService.clearUserProfile();          
+           this.snackBarService.show(res.message,'error')
+           this.router.navigate(['/auth']);         
+
         }
       },
        error: (err) => {

@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 import { FormGroup,FormBuilder,Validators, ReactiveFormsModule, } from '@angular/forms';
 import { MATERIAL_IMPORTS } from '../../shared/material';
 import { AuthService } from '../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from '../../core/services/loader.service';
+import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-auth',
@@ -24,7 +25,9 @@ export class AuthComponent {
     private authService :AuthService,
     private loaderService :LoaderService,
     private router :Router,
-    private snackBar:MatSnackBar
+    private route:ActivatedRoute,
+    private snackbarService:SnackbarService,
+   
   ){ }
 
    ngOnInit(){
@@ -45,12 +48,16 @@ export class AuthComponent {
       next:(res)=>{             
        this.authService.isLoggedIn = true; // sets user has valid cookie
        this.authService.getUserProfile().subscribe(()=>{
-          this.router.navigate(['/parts-list']);  
+       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'parts-list';//know from where route  came from
+       this.router.navigateByUrl(returnUrl);
+       this.snackbarService.show(res.message);
+
        });
         
       },
-      error:(err)=>{          
-        this.snackBar.open('Invalid credentials,'+{ err},'Close',{duration:2500})
+      error:(err)=>{   
+                     
+        this.snackbarService.show('Something went wrong Try again later','error',err)
       }       
     })     
     }

@@ -129,6 +129,7 @@ export class AuthService {
     }
   }
   /** Clear everything on logout */
+  /** backend already clears cookies on logout, so this handles frontend cleanup only */
   clearUserProfile(): void {
     this.userProfiles$.next(null); // clear the observable  
     sessionStorage.removeItem(this.User_PROFILE_KEY);

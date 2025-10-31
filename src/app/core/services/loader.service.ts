@@ -7,14 +7,14 @@ import { BehaviorSubject } from 'rxjs';
 export class LoaderService {
 
   constructor() { }
-    private _isLoading = new BehaviorSubject<boolean>(false);
-    public _isLoading$ = this._isLoading.asObservable();
+    private isLoading = new BehaviorSubject<boolean>(false);
+    public isLoading$ = this.isLoading.asObservable();
   
     show(){
-      this._isLoading.next(true);
+      this.isLoading.next(true);
     }
   
     hide(){
-      this._isLoading.next(false);
+      this.isLoading.next(false);
     }
 }

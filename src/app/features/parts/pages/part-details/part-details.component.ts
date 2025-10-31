@@ -6,13 +6,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from '../../../../core/services/loader.service';
 import { MATERIAL_IMPORTS } from '../../../../shared/material';
 import { CommonModule } from '@angular/common';
-import { getFormattedTimestamp } from '../../../../shared/utils/date-utlis';
+import { getFormattedTimestamp } from '../../../../core/utils/date-utlis';
 import { AuthService } from '../../../../core/services/auth.service';
+import { SharedModule } from '../../../../shared/shared.module';
 
 
 @Component({
   selector: 'app-part-details',
-  imports: [...MATERIAL_IMPORTS, RouterLink,CommonModule,ReactiveFormsModule],
+  imports: [SharedModule],
   templateUrl: './part-details.component.html',
   styleUrl: './part-details.component.scss'
 })
