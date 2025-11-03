@@ -1,0 +1,27 @@
+<div class="auth-container">
+    <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+        <mat-card class="p-4 w-100" style="max-width:400px;">
+            <h2 class="text-center m-3">Login Form</h2>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <small *ngIf="submitted && loginForm.get('username')?.invalid">
+                    Username is required
+                </small>
+                <mat-form-field appearance="outline" class="w-100 ">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password">
+
+                </mat-form-field>
+                <small *ngIf="submitted && loginForm.get('password')?.invalid">
+                    Password is required
+                </small>
+                <div class="text-center">
+                    <button mat-raised-button color="primary" type="submit">submit</button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>

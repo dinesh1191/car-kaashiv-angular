@@ -13,10 +13,9 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   /** Check if user profile is already in BehavoirSubject*/
   const currentUser = authService.currentUser;
-  if(currentUser){
+  if(currentUser){    
     return true; //already logged in and profile present
   }
-
   
   /** Try fetching user form session or auth/me */
    return authService.getUserProfile().pipe(
@@ -24,7 +23,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     catchError(() => {
       // Clear user and redirect to login with returnUrl
       authService.clearUserProfile();
-      router.navigate(['/auth'], { queryParams: { returnUrl: state.url } });
+      router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
       return of(false);
     })
    );     

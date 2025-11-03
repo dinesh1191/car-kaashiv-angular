@@ -62,6 +62,10 @@ export class AuthService {
     // Can't read HttpOnly, but you can infer login from app state (like a flag after login)
     return !!this.isLoggedIn; //!! return a "strict" boolean from a function
   }
+  get currentUser(): UserProfile | null {
+    // return value
+    return this.userProfiles$.value;
+  }
 
   /** Fetch current user profile from backend */
   getUserProfile(): Observable<any> {
@@ -138,8 +142,5 @@ export class AuthService {
     }
   }
 
-  get currentUser(): UserProfile | null {
-    // return value
-    return this.userProfiles$.value;
-  }
+  
 }

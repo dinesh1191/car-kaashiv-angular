@@ -12,7 +12,7 @@ export const unauthorizedInterceptor: HttpInterceptorFn = (req, next) => {
 
 
   // Track last valid route before making requests
-  if (!req.url.includes('/auth')) {
+  if (!req.url.includes('/login')) {
     lastVisitedUrl = router.url || lastVisitedUrl;
   }
 

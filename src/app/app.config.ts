@@ -22,7 +22,10 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => 
     { //Executes below function during app bootstrap.
       const authService = inject(AuthService);
+      if(authService.currentUser){
       return authService.initUserSession();
+      }
+      return;    
     }),
   ]
 };

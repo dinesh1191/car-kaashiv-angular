@@ -1,0 +1,11 @@
+.spacer {
+  flex: 1 1 auto;
+}
+.hero-section {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #e3f2fd, #bbdefb);
+}
