@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { PartsListComponent } from './features/parts/pages/parts-list.component';
-import { AuthComponent } from './features/auth/auth.component';
-import { PartDetailsComponent } from './features/parts/pages/part-details/part-details.component';
 import { authGuard } from './core/guards/auth.guard';
-import { LoginComponent } from './pages/login/login.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { LoginComponent } from './features/auth/login.component';
+import { PartsListComponent } from './features/employee/parts/parts-list.component';
+import { PartDetailsComponent } from './features/employee/parts/part-details/part-details.component';
+import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/employee-dashboard.component';
 
 export const routes: Routes = [
     // Public
@@ -16,10 +16,14 @@ export const routes: Routes = [
     { path: 'privacy', component: PrivacyComponent },
 
     // Protected routes
- 
-   { path :'parts-list', component: PartsListComponent,canActivate: [authGuard]},
+    { path: 'emp-dashboard', 
+      canActivate:[authGuard]
+     // loadChildren:() => import('./features/employee/emp-dashboard/')
+    },
+    { path :'parts-list', component: PartsListComponent,canActivate: [authGuard]},
     { path :'part/details', component: PartDetailsComponent,canActivate: [authGuard]},
-    { path :'part/details/:partId', component: PartDetailsComponent,canActivate: [authGuard]},    
+    { path :'part/details/:partId', component: PartDetailsComponent,canActivate: [authGuard]},
+
       // Wildcard fallback
     { path: '**', redirectTo:'index', pathMatch:'full'},
 ];

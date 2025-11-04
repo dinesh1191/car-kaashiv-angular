@@ -104,8 +104,8 @@ export class AuthService {
   private startAutoRefresh(): void {
     // Clear any existing timer before creating a new one
     this.stopAutoRefresh();
-    const REFRESH_INTERVAL_MS = 10 * 1000; // 10 seconds
-    //const REFRESH_INTERVAL_MS = 15 * 60 * 1000; //15 minutes
+    // const REFRESH_INTERVAL_MS = 10 * 1000; // 10 seconds
+    const REFRESH_INTERVAL_MS = 15 * 60 * 1000; //15 minutes
 
     this.refreshInterval = window.setInterval(() => {
       //only refresh if user still logged in

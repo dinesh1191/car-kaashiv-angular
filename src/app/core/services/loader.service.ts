@@ -11,10 +11,12 @@ export class LoaderService {
     public isLoading$ = this.isLoading.asObservable();
   
     show(){
-      this.isLoading.next(true);
+      //this.isLoading.next(true);
+      setTimeout(() => this.isLoading.next(true), 0);
     }
   
     hide(){
-      this.isLoading.next(false);
+     // this.isLoading.next(false);
+       setTimeout(() => this.isLoading.next(false), 0);
     }
 }

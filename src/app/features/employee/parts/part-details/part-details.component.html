@@ -10,27 +10,26 @@
         
         <mat-form-field appearance="fill" class="w-100 mb-0">
             <mat-label>Part price</mat-label>
-            <input matInput formControlName="part_price" />
-             <mat-error *ngIf="partForm.get('part_price')?.hasError('required')">Part price is Required</mat-error>
+            <input matInput formControlName="pPrice" />
+             <mat-error *ngIf="partForm.get('pPrice')?.hasError('required')">Part price is Required</mat-error>
         </mat-form-field>   
 
         <mat-form-field appearance="fill" class="w-100 mb-0">
-            <mat-label>Part Stock</mat-label>
+            <mat-label>Part Stock</mat-label>            
             <input matInput formControlName="pStock" />
              <mat-error *ngIf="partForm.get('pStock')?.hasError('required')">Part stock is Required</mat-error>
         </mat-form-field>
-
           <mat-form-field appearance="fill" class="w-110 mb-0">
             <mat-label>Part Detail</mat-label>
-            <textarea   matInput rows="2" matInput formControlName="part_detail"></textarea>
-            <mat-error *ngIf="partForm.get('part_detail')?.hasError('required')">Part detail is Required</mat-error>
-        </mat-form-field>
+            <textarea   matInput rows="2" matInput formControlName="pDetail"></textarea>
+            <mat-error *ngIf="partForm.get('pDetail')?.hasError('required')">Part detail is Required</mat-error>
+        </mat-form-field>    
            <div class="w-100 mb-3">
              <mat-label>Part Image</mat-label> <br>
-            <button mat-raised-button color="primary"  type="button" (click)="fileInput.click()" ><mat-icon>upload</mat-icon>Choose Image</button>         
+            <button mat-raised-button color="primary"  type="button" (click)="fileInput.click()"><mat-icon>upload</mat-icon>Choose Image</button>         
             <span class="ms-2 file-name">{{selectedFileName}}</span>  
-            <input type="file" #fileInput class="file-upload" style="display: none;" formControlName="part_image" (change)="onFileSelected($event)" accept="image/*"/>
-            <mat-error *ngIf="partForm.get('part_image')?.invalid && partForm.get('part_image')?.touched ">Please select an image</mat-error>        
+            <input type="file" #fileInput class="file-upload" style="display: none;" formControlName="imagePath" (change)="onFileSelected($event)" accept="image/*"/>
+            <mat-error *ngIf="partForm.get('imagePath')?.invalid && partForm.get('imagePath')?.touched ">Please select an image</mat-error>        
         </div>
        <div class="actions w-100 mb-0 text-center">
          <button mat-raised-button color="primary" type="submit" >

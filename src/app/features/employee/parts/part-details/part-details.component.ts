@@ -1,7 +1,7 @@
 import { Component ,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validator, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { PartService } from '../../services/part.service';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from '../../../../core/services/loader.service';
 import { MATERIAL_IMPORTS } from '../../../../shared/material';
@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { getFormattedTimestamp } from '../../../../core/utils/date-utlis';
 import { AuthService } from '../../../../core/services/auth.service';
 import { SharedModule } from '../../../../shared/shared.module';
+import { PartService } from '../part.service';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
 
 
 @Component({
@@ -31,7 +33,7 @@ constructor(
   private route:ActivatedRoute,
   private partService:PartService,
   private authService:AuthService,
-  private snackBar:MatSnackBar,
+  private snackBarService:SnackbarService,
   private loaderService:LoaderService,
  
 ){ }
@@ -40,12 +42,12 @@ ngOnInit(){
   //Initialize form
   this.partForm = this.fb.group({    
     pName:['',Validators.required,],
-    part_detail:['',Validators.required],
-    part_price:['',Validators.required,Validators.min(0)],
+    pDetail:['',Validators.required],
+    pPrice:['',Validators.required,Validators.min(0)],
     pStock:['',Validators.required,Validators.min(0)],
-    part_image:['',Validators.required]    
+    imagePath:['',Validators.required]    
   })  
-
+this.loaderService.show;
  console.log("on init triggered")
   this.route.paramMap.subscribe(p=>{
       this.partId = +p.get('partId')!
@@ -55,30 +57,21 @@ ngOnInit(){
     if(this.partId){
       this.isEditMode = true;      
       this.partService.getPartbyId(this.partId).subscribe({
-        next:(res)=>{
-          setTimeout(() => {
-            console.log('timer running>>>>')
-          }, 5000);
-          console.log('api called>>>>')
-          
+        next:(res)=>{       
           if(res.data){
+             this.snackBarService.show('Part fetched successfully.');
              this.partForm.patchValue(res.data);
+             console.log(res.data.part_image)
+       
         } else {
-          this.snackBar.open('No data found for this part.', 'Close', { duration: 2500 });
+          this.snackBarService.show('No data found for this part.');
         }
         },
         error:(err)=>{
-          this.snackBar.open('Something went wrong'+{err},'Close',{duration:2500})
+          this.snackBarService.show('Something went wrong',err);
         }
       })      
-    }
-
-  
-}
-
-ngViewDidEnter(){
- 
-
+    }  
 }
 
 onFileSelected(event:Event):void{
@@ -87,16 +80,16 @@ if(input.files && input.files.length > 0){
    this.selectedFile = input.files[0];
    this.selectedFileName = this.selectedFile.name
 }
-this.partForm.patchValue({'part_image':this.selectedFileName})
+this.partForm.patchValue({'imagePath':this.selectedFileName})
 
 }
 
 
 onsumbit(){
   // Manually mark the hidden file input as 'touched' so validation errors (like required) show up on submit
-  this.partForm.get('part_image')?.markAsTouched();
+  this.partForm.get('imagePath')?.markAsTouched();
    if(this.partForm.invalid){
-     this.snackBar.open("Please fill the required details", 'Close',{duration:3000})
+     this.snackBarService.show("Please fill the required details")
       return;
   }
   const empId = this.authService.currentUser;
@@ -108,13 +101,13 @@ onsumbit(){
       next:(res)=>{
           if(res){
             this.loaderService.hide()
-            this.snackBar.open(res?.message || "Part added successfully","Close",{duration:3000})
+            this.snackBarService.show(res?.message);
             this.router.navigate(['/parts']);
           }
       },
-      error:()=> {
+      error:(err)=> {
         this.loaderService.hide()
-        this.snackBar.open("something went wrong. Try again.",'Close', {duration:3000 })}
+        this.snackBarService.show("something went wrong. Try again.",err)}
     })
    }
   

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PartsFormComponent } from './parts-form.component';
+import { ManageEmployeeComponent } from './manage-employee.component';
 
-describe('PartsFormComponent', () => {
-  let component: PartsFormComponent;
-  let fixture: ComponentFixture<PartsFormComponent>;
+describe('ManageEmployeeComponent', () => {
+  let component: ManageEmployeeComponent;
+  let fixture: ComponentFixture<ManageEmployeeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PartsFormComponent]
+      imports: [ManageEmployeeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PartsFormComponent);
+    fixture = TestBed.createComponent(ManageEmployeeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

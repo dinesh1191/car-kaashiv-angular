@@ -39,29 +39,26 @@ const authReq = req.clone({withCredentials:true}); //include http credentials(co
       }
     }),
 
-    catchError((error:HttpErrorResponse) => {
-      let errorMsg = 'An unknown error occurred';
+catchError((error: HttpErrorResponse) => {
+  // Define a lookup map for common HTTP status codes and their corresponding error messages
+  const statusMessages: Record<number, string> = {
+    0: 'Server not reachable',                  // Network failure or CORS issue
+    401: 'Unauthorized - Please login again',   // Authentication required
+    403: 'Access denied',                       // User lacks permission
+    500: 'Server error'                         // Internal server error
+  };
 
-      if(error.error?.message){
-        errorMsg = error.error.message;
-      } 
-      else if(error.status === 0){
-          errorMsg = 'Server not reachable';
-      }
-      else if (error.status === 401){
-        errorMsg = 'Unauthorized - Please login again';
-      }
-      else if(error.status === 403){
-        errorMsg = 'Access denied';
-      }
-      else if (error.status === 500){
-        errorMsg = 'server error';
-      }
-      console.warn('Hey body it prints');
-      
-    snackBar.show(errorMsg,'error');
-      return throwError(()=>error);
-    }),
+  // Determine the error message:
+  // 1. Use the server-provided error message if available
+  // 2. Otherwise, use the message from the status map
+  // 3. Fallback to a generic message if nothing matches
+  const errorMsg = error.error?.message || statusMessages[error.status] || 'An unknown error occurred';
+ // Show the error message in the UI
+  snackBar.show(errorMsg, 'error');
+  // Re-throw the error so it can be handled downstream if needed
+  return throwError(() => error);
+}),
+
     finalize(()=>{
       if(!skipLoader)loaderService.hide()//hide loader when request ends
       }

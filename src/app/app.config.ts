@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
       if(authService.currentUser){
       return authService.initUserSession();
       }
-      return;    
+      return Promise.resolve();    
     }),
   ]
 };

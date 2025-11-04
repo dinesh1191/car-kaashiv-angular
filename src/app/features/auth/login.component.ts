@@ -1,22 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormGroup,FormBuilder,Validators, ReactiveFormsModule, } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { MATERIAL_IMPORTS } from '../../shared/material';
 import { AuthService } from '../../core/services/auth.service';
-import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from '../../core/services/loader.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
 
 @Component({
-  selector: 'app-auth',
-  standalone:true,
+  selector: 'app-login',
   imports: [CommonModule,ReactiveFormsModule,...MATERIAL_IMPORTS],
-  templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
-export class AuthComponent {
-  loginForm!:FormGroup;
+export class LoginComponent {
+ loginForm!:FormGroup;
    submitted = false;
    loading = false;
 
@@ -30,15 +29,15 @@ export class AuthComponent {
    
   ){ }
 
-   ngOnInit(){
+  ngOnInit(){
         this.loginForm = this.fb.group({
         username:['',Validators.required],
         password:['',Validators.required]
-      });   
-       
-   }
+      });
+    }
 
-   onSubmit(){    
+
+onSubmit(){    
     this.submitted = true;
       if(this.loginForm.invalid){
         return;     
@@ -50,6 +49,9 @@ export class AuthComponent {
        this.authService.getUserProfile().subscribe(()=>{
        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'parts-list';//know from where route  came from
        this.router.navigateByUrl(returnUrl);
+       console.log("returnUrl >>>",returnUrl);
+       this.router.navigate(['/parts-list']);
+
        this.snackbarService.show(res.message);
 
        });
@@ -61,5 +63,9 @@ export class AuthComponent {
       }       
     })     
     }
- 
+
+
+
+
+
 }
