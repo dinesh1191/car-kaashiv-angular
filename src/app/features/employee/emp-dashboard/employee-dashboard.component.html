@@ -1,1 +1,28 @@
-<p>employee-dashboard works!</p>
+<div class="dashboard-container p-4">
+    <mat-toolbar color="primary" class="mb-4">
+        <span class="fw-bold">Employee Dashboard</span>
+        <span class="spacer"></span>
+       <span *ngIf="currentUser">Welcome, {{currentUser.name}} ({{currentUser.role}})</span>
+        <button mat-icon-button (click)="onLogout()" matTooltip="Logout">
+            <mat-icon>logout</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <div class="row g-4">
+        <div class="col-md-4" *ngFor="let card of dashboardCards">
+            <mat-card class="shadow-sm dashboard-card" (click)="navigateTo(card.route)">
+                <mat-card-header>
+                    <mat-icon color="primary">
+                        {{card.icon}}
+                    </mat-icon>
+                    <mat-card-title class="ms-2">
+                        {{card.title}}
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{card.description}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

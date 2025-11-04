@@ -8,11 +8,13 @@ import { MatTableModule } from  '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
 
-export const MATERIAL_IMPORTS =[
+
+export const MATERIAL_IMPORTS = [
  
   MatButtonModule,
   MatToolbarModule,
@@ -22,7 +24,7 @@ export const MATERIAL_IMPORTS =[
   MatTableModule,
   MatSnackBarModule,
   MatDialogModule,
-  MatFormFieldModule,  
-
-
+  MatFormFieldModule, 
+  MatTooltipModule
+ 
  ];

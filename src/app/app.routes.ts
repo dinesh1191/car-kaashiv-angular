@@ -7,6 +7,7 @@ import { LoginComponent } from './features/auth/login.component';
 import { PartsListComponent } from './features/employee/parts/parts-list.component';
 import { PartDetailsComponent } from './features/employee/parts/part-details/part-details.component';
 import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/employee-dashboard.component';
+import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
     // Public
@@ -14,11 +15,13 @@ export const routes: Routes = [
     { path :'login', component: LoginComponent},        
     { path: 'contact', component: ContactComponent },
     { path: 'privacy', component: PrivacyComponent },
+    { path: 'unauthorized', component: UnauthorizedComponent },
 
+    
     // Protected routes
     { path: 'emp-dashboard', 
-      canActivate:[authGuard]
-     // loadChildren:() => import('./features/employee/emp-dashboard/')
+      canActivate:[authGuard],
+      loadChildren:() => import('./features/employee/employee.routes').then(m=> m.EMPLOYEE_ROUTES)
     },
     { path :'parts-list', component: PartsListComponent,canActivate: [authGuard]},
     { path :'part/details', component: PartDetailsComponent,canActivate: [authGuard]},

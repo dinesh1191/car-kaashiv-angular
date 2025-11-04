@@ -1,0 +1,19 @@
+.dashbaord-container {
+    background: linear-gradient(to bottom right, #e3f2fd, #bbdefb);
+    min-height: 100vh;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.dashboard-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
