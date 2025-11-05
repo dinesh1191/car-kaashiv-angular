@@ -1,16 +1,68 @@
+<div class="landing-container">
 <mat-toolbar color="primary" class="px-4">
-<span class="fw-bold">Car Kaashiv 2.0</span>
-<span class="spacer"></span>
-<a mat-button routerLink="/">Home</a>
-<a mat-button routerLink="/privacy">Privacy</a>
-<a mat-button routerLink="/contach">Contact</a>
-<a mat-button routerLink="/login">Login</a>
+    <span class="fw-bold">Car Kaashiv 2.0</span>
+    <span class="spacer"></span>
+    <a mat-button routerLink="/">Home</a>
+    <a mat-button routerLink="/privacy">Privacy</a>
+    <a mat-button routerLink="/contach">Contact</a>
+    <a mat-button routerLink="/login">Login</a>
 </mat-toolbar>
-<section class="text-center py-5 hero-section">
-     <h1 class="display-5 fw-bold">Welcome to carKaashiv 2.0</h1>
-     <p class="lead mt-3">Your enterprise-grade automotive management platform</p>
-<button mat-raised-button color="acent" routerLink="/login">Login </button>
+
+<div class="landing-content">
+<section class="text-center py-5 hero-section ">
+    <div class="hero-content">
+        <h1 class="display-5 fw-bold animate-fade-up">Welcome to carKaashiv 2.0</h1>
+        <p class="lead mt-3 animate-fade-up delay-1">Your enterprise-grade automotive management platform</p>
+        <button mat-raised-button color="accent" routerLink="/login" class="cta-btn animate-fade-up delay-2">Login
+        </button>
+    </div>
+
 </section>
-<footer class="text-center py-3 mt-auto bg-light border-top">
+    <section class="eye-catcher py-5 text-center">
+  <h2 class="fw-bold title">Next-Gen Automotive Intelligence</h2>
+  <p class="subtitle">Seamless performance. Smart control. Powered by CarKaashiv 2.0</p>
+</section>
+
+
+  <section class="features-carousel py-5 text-center">
+    <div class="carousel-container">
+        <div class="carousel-slide"
+        *ngFor="let slide of slides; let i=index"
+        [class.active]="i === currentSlide"
+        >
+        <mat-icon class="carousel-icon">{{slide.icon}}</mat-icon>
+        <h3>{{slide.title}}</h3>
+        <p>{{slide.description}}</p>
+        </div>
+    </div>
+
+    <div class="carousel-controls mt-4">
+        <button
+        mat-mini-fab
+        color="primary"
+        (click)="prevSlide()"
+        aria-label="Previous"
+        >
+        <mat-icon>chevron_left</mat-icon>
+        </button>
+         <button
+        mat-mini-fab
+        color="primary"
+        (click)="nextSlide()"
+        aria-label="Next"
+        >
+        <span ><mat-icon class="zoom: 2"> chevron_right</mat-icon></span>        
+        </button>
+    </div>
+</section>
+
+
+</div>
+
+
+
+<footer class="text-center   footer-section">
     <small>© 2025 CarKaashiv 2.0 | All Rights Reserved</small>
 </footer>
+
+</div>
