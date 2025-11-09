@@ -14,7 +14,7 @@ import { UnauthorizedComponent } from './shared/components/unauthorized/unauthor
 
 export const routes: Routes = [
     // Public
-    {path:'',component:TestComponent},
+  
     { path: 'index', component: LandingComponent },
     { path :'login', component: LoginComponent},        
     { path: 'contact', component: ContactComponent },
