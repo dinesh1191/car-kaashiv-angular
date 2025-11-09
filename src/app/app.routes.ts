@@ -9,8 +9,12 @@ import { PartDetailsComponent } from './features/employee/parts/part-details/par
 import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/employee-dashboard.component';
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
 
+
+
+
 export const routes: Routes = [
     // Public
+    {path:'',component:TestComponent},
     { path: 'index', component: LandingComponent },
     { path :'login', component: LoginComponent},        
     { path: 'contact', component: ContactComponent },

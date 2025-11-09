@@ -1,4 +1,4 @@
-<div class="auth-container">
+<!-- <div class="auth-container">
     <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
         <mat-card class="p-4 w-100" style="max-width:400px;">
             <h2 class="text-center m-3">Login Form</h2>
@@ -24,4 +24,35 @@
             </form>
         </mat-card>
     </div>
+</div> -->
+
+<div class="login-wrapper">
+    <div class="login-container animate-zoom-in">
+        <mat-card class="login-card">
+            <h2 class="text-center mb3 fw-bold text-primary">Welcome Back</h2>
+            <p class="text-center text-muted mb-4">Login to continue to CarKaashiv 2.0</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>Username</mat-label>
+                    <input type="text" matInput formControlName="username">
+                </mat-form-field>
+                <small *ngIf="submitted && loginForm.get('username')?.invalid">User name Required</small>
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input type="password" matInput formControlName="password">
+                </mat-form-field>
+                <small *ngIf="submitted && loginForm.get('password')?.invalid">Password required</small>
+                <div class="text-center mt-4">
+                    <button mat-raised-button color="primary" type="submit" class="w-100">
+                        Login
+                    </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+    <p-button label="PrimeNG Works!" icon="pi pi-check">gulpi</p-button>
 </div>
+
+<app-test></app-test>
+

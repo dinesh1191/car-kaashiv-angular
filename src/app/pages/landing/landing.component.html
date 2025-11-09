@@ -4,7 +4,7 @@
     <span class="spacer"></span>
     <a mat-button routerLink="/">Home</a>
     <a mat-button routerLink="/privacy">Privacy</a>
-    <a mat-button routerLink="/contach">Contact</a>
+    <a mat-button routerLink="/contact">Contact</a>
     <a mat-button routerLink="/login">Login</a>
 </mat-toolbar>
 
@@ -16,13 +16,11 @@
         <button mat-raised-button color="accent" routerLink="/login" class="cta-btn animate-fade-up delay-2">Login
         </button>
     </div>
-
-</section>
     <section class="eye-catcher py-5 text-center">
   <h2 class="fw-bold title">Next-Gen Automotive Intelligence</h2>
   <p class="subtitle">Seamless performance. Smart control. Powered by CarKaashiv 2.0</p>
 </section>
-
+</section>
 
   <section class="features-carousel py-5 text-center">
     <div class="carousel-container">
@@ -43,7 +41,7 @@
         (click)="prevSlide()"
         aria-label="Previous"
         >
-        <mat-icon>chevron_left</mat-icon>
+        <mat-icon class="zoom: 2">chevron_left</mat-icon>
         </button>
          <button
         mat-mini-fab
@@ -51,7 +49,7 @@
         (click)="nextSlide()"
         aria-label="Next"
         >
-        <span ><mat-icon class="zoom: 2"> chevron_right</mat-icon></span>        
+        <mat-icon class="zoom: 2"> chevron_right</mat-icon>    
         </button>
     </div>
 </section>
@@ -64,5 +62,6 @@
 <footer class="text-center   footer-section">
     <small>© 2025 CarKaashiv 2.0 | All Rights Reserved</small>
 </footer>
+
 
 </div>

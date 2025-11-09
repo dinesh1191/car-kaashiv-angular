@@ -1,7 +1,15 @@
+/* ------------------------------- */
+/* Angular Material Theme */
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
-@import 'bootstrap/dist/css/bootstrap.min.css';
 
-/*Snackbar theme styles - modern Angular way */
+/* ------------------------------- */
+/* Bootstrap */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "primeicons/primeicons.css";
+
+
+
+/* Snackbar Theme Styles */
 .mdc-snackbar {
   border-radius: 8px !important;
   font-family: 'Inter', 'Roboto', sans-serif;
@@ -39,4 +47,18 @@
   --mdc-snackbar-container-color: #ffa000;
   --mdc-snackbar-supporting-text-color: #fff;
   font-weight: 500;
+}
+
+/* ------------------------------- */
+/* Optional: fix PrimeNG + Bootstrap conflicts */
+button.p-button {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: 'Inter', 'Roboto', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
 }

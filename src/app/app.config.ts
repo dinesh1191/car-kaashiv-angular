@@ -12,20 +12,28 @@ import { AuthService } from './core/services/auth.service';
 import { provideAppInitializer } from '@angular/core';
 import { unauthorizedInterceptor } from './core/interceptors/unauthorized.interceptor';
 
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([apiResponseInterceptor,unauthorizedInterceptor])),//enables Angular’s HTTP client for your standalone components and services.
     provideAnimations(),
-    importProvidersFrom(BrowserAnimationsModule,MATERIAL_IMPORTS,ReactiveFormsModule),
-    provideAppInitializer(() => 
-    { //Executes below function during app bootstrap.
-      const authService = inject(AuthService);
-      if(authService.currentUser){
-      return authService.initUserSession();
+    importProvidersFrom(BrowserAnimationsModule,...MATERIAL_IMPORTS,ReactiveFormsModule),
+   provideAppInitializer(() => {   
+        const authService = inject(AuthService);
+        if (authService.currentUser) {
+          return authService.initUserSession();
+        }
+        return Promise.resolve();      
+    }),
+    providePrimeNG({
+      theme: {
+        preset: Aura, // Configure the theme
       }
-      return Promise.resolve();    
     }),
   ]
 };

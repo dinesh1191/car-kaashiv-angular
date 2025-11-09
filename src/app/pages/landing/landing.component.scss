@@ -1,12 +1,16 @@
 .spacer {
   flex: 1 1 auto;
 }
+
 /*container takes full viewport*/
 .landing-container{
-   display:flex;
+  display:flex;
   flex-direction: column;
   min-height: 100vh;
+  overflow-x: hidden;
 }
+
+
 /*Fill available space between toolbar & footer*/
 .landing-content{
   flex:1;
@@ -17,15 +21,7 @@
 
 /*Hero section*/
 .hero-section {  
-  // flex: 1;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // background: linear-gradient(to bottom right, #e3f2fd, #bbdefb, #90caf9);
-  // background-size: 400% 400%;
-  // animation: gradientShift 10s ease infinite;
-  // color: #0d47a1
-    position: relative;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,11 +63,11 @@
 
 
 
-/* Hover glow */
-.hero-section:hover {
-  box-shadow: 0 0 25px rgba(33, 150, 243, 0.4);
-  transform: scale(1.01);
-}
+// /* Hover glow */
+// .hero-section:hover {
+//   box-shadow: 0 0 25px rgba(33, 150, 243, 0.4);
+//   transform: scale(1.01);
+// }
 
 /* Smooth background flow */
 @keyframes gradientShift {
@@ -197,7 +193,7 @@
   .footer-section::before{
     content: "";
     display: block;
-    height: 10px;
+    height: 5px;
     width: 60%;
     margin: 0 auto 10px;
     border-radius: 50px;

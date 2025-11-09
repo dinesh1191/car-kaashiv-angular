@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,11 +8,15 @@ import { AuthService } from '../../core/services/auth.service';
 import { LoaderService } from '../../core/services/loader.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
 
+
+
+
 @Component({
   selector: 'app-login',
-  imports: [CommonModule,ReactiveFormsModule,...MATERIAL_IMPORTS],
+  imports: [CommonModule, ReactiveFormsModule,...MATERIAL_IMPORTS,],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LoginComponent {
  loginForm!:FormGroup;
