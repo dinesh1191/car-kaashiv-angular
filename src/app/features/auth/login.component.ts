@@ -7,13 +7,14 @@ import { MATERIAL_IMPORTS } from '../../shared/material';
 import { AuthService } from '../../core/services/auth.service';
 import { LoaderService } from '../../core/services/loader.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
+import { PRIME_IMPORTS } from '../../shared/prime';
 
 
 
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule,...MATERIAL_IMPORTS,],
+  imports: [CommonModule, ReactiveFormsModule,...MATERIAL_IMPORTS,PRIME_IMPORTS],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
    schemas: [CUSTOM_ELEMENTS_SCHEMA]

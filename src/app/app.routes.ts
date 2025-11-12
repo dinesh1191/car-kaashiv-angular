@@ -8,13 +8,15 @@ import { PartsListComponent } from './features/employee/parts/parts-list.compone
 import { PartDetailsComponent } from './features/employee/parts/part-details/part-details.component';
 import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/employee-dashboard.component';
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
+import { DashboardLayoutComponent } from './shared/layout/sidebar/dashboard-layout/dashboard-layout.component';
 
 
 
 
 export const routes: Routes = [
     // Public
-  
+
+  { path: '', component: DashboardLayoutComponent },
     { path: 'index', component: LandingComponent },
     { path :'login', component: LoginComponent},        
     { path: 'contact', component: ContactComponent },

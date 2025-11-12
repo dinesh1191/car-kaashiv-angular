@@ -1,0 +1,18 @@
+<p-sidebar [(visible)]="sidebarVisible" [baseZIndex]="10000">
+  <h3>Menu</h3>
+  <button mat-button>Parts</button>
+  <button mat-button>Cart</button>
+  <button mat-button>Checkout</button>
+</p-sidebar>
+
+<mat-toolbar color="primary">
+  <button pButton icon="pi pi-bars" (click)="sidebarVisible = true"></button>
+  <span class="ml-2">CarKaashiv Dashboard</span>
+  <span class="spacer"></span>
+  <p-avatar icon="pi pi-user" shape="circle"></p-avatar>
+</mat-toolbar>
+
+<div class="content p-4">
+
+</div>
+
