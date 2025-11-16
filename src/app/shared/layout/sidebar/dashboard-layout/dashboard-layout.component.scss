@@ -1,6 +1,62 @@
-.spacer {
-  flex: 1 1 auto;
+
+
+
+
+/* ---- Topbar ---- */
+
+.app-title {
+  font-weight: 500;
+  margin-left: 0.5rem;
+  color: white;
 }
-.content {
-  margin-top: 64px;
+
+.menu-btn {
+  color: white;
+}
+
+/* ---- Sidebar ---- */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+
+  li {
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 6px;
+
+    &:hover {
+      background-color: #f3f4f6;
+    }
+
+    &.active {
+      background-color: #e3f2fd;
+      color: #1976d2;
+      font-weight: 500;
+    }
+  }
+}
+
+/*body*/
+.dashboard-content {
+  flex: 1;
+  padding: 1rem;
+  margin-bottom: 3.5rem; /* Space for the footer toolbar */
+}
+
+/* ---- Footer Toolbar ---- */
+.footer-toolbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--surface-200);
+  color:white !important;
+
+  justify-content: space-between;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
 }

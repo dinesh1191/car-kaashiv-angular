@@ -6,9 +6,15 @@ import { authGuard } from '../../core/guards/auth.guard';
 import { roleGuard } from '../../core/guards/role.guard';
 
 export const EMPLOYEE_ROUTES: Routes = [
-  { path: '', component: EmployeeDashboardComponent, canActivate: [authGuard] },
-  { path: 'parts', component: PartsListComponent, canActivate: [authGuard] },
   
+  { path: '', 
+    component: EmployeeDashboardComponent, 
+    canActivate: [authGuard] 
+  },
+  { path: 'parts', 
+    component: PartsListComponent, 
+    canActivate: [authGuard] 
+  },  
   {
     path: 'manage-employee',
     component: ManageEmployeeComponent,

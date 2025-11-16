@@ -8,69 +8,71 @@ import { AuthService } from '../../core/services/auth.service';
 import { LoaderService } from '../../core/services/loader.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { PRIME_IMPORTS } from '../../shared/prime';
+import { SharedModule } from '../../shared/shared.module';
 
 
 
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule,...MATERIAL_IMPORTS,PRIME_IMPORTS],
+  standalone: true,
+  imports: [SharedModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-   schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LoginComponent {
- loginForm!:FormGroup;
-   submitted = false;
-   loading = false;
+  loginForm!: FormGroup;
+  submitted = false;
+  loading = false;
 
-   constructor(
-    private fb:FormBuilder,
-    private authService :AuthService,
-    private loaderService :LoaderService,
-    private router :Router,
-    private route:ActivatedRoute,
-    private snackbarService:SnackbarService,
-   
-  ){ }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private loaderService: LoaderService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private snackbarService: SnackbarService
+  ) {}
 
-  ngOnInit(){
-        this.loginForm = this.fb.group({
-        username:['',Validators.required],
-        password:['',Validators.required]
-      });
-    }
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+  }
 
-
-onSubmit(){    
+  onSubmit() {   
     this.submitted = true;
-      if(this.loginForm.invalid){
-        return;     
-     }
-    
-    this.authService.login(this.loginForm.value).subscribe({
-      next:(res)=>{             
-       this.authService.isLoggedIn = true; // sets user has valid cookie
-       this.authService.getUserProfile().subscribe(()=>{
-       const returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'parts-list';//know from where route  came from
-       this.router.navigateByUrl(returnUrl);
-       console.log("returnUrl >>>",returnUrl);
-       this.router.navigate(['/parts-list']);
-
-       this.snackbarService.show(res.message);
-
-       });
-        
-      },
-      error:(err)=>{   
-                     
-        this.snackbarService.show('Something went wrong Try again later','error',err)
-      }       
-    })     
+    if (this.loginForm.invalid) {
+      return;
     }
 
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (res) => {
+        this.authService.isLoggedIn = true; // sets user has valid cookie
+        //  Fetch user profile immediately after login
+        this.authService.getUserProfile().subscribe({
+          next: (profile) => {
+            const role = profile.data.role;
 
-
-
-
+            if (role === 'customer') {
+              this.router.navigate(['/user']);
+            } else if (role === 'staff' || 'admin') {
+              this.router.navigate(['/emp-dashboard']);
+            } else {
+              this.router.navigate(['/unauthorized']);
+            }       
+            this.snackbarService.show(res.message);
+          },
+          error: (err) => {
+            this.snackbarService.show('Unable to load user profile', 'error');
+          },
+        });
+      },
+      error: (err) => {
+        this.snackbarService.show('Something went wrong Try again later','error', err);
+      },
+    });
+  }
 }

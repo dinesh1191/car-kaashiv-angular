@@ -15,6 +15,7 @@ import { unauthorizedInterceptor } from './core/interceptors/unauthorized.interc
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { PRIME_IMPORTS } from './shared/prime';
+import { MessageService } from 'primeng/api';
 
 
 export const appConfig: ApplicationConfig = {
@@ -23,6 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([apiResponseInterceptor,unauthorizedInterceptor])),//enables Angular’s HTTP client for your standalone components and services.
     provideAnimations(),
+      MessageService,
     importProvidersFrom(BrowserAnimationsModule,...MATERIAL_IMPORTS,...PRIME_IMPORTS, ReactiveFormsModule),
    provideAppInitializer(() => {   
         const authService = inject(AuthService);

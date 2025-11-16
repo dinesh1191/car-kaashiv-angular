@@ -1,18 +1,48 @@
-<p-sidebar [(visible)]="sidebarVisible" [baseZIndex]="10000">
-  <h3>Menu</h3>
-  <button mat-button>Parts</button>
-  <button mat-button>Cart</button>
-  <button mat-button>Checkout</button>
-</p-sidebar>
 
-<mat-toolbar color="primary">
-  <button pButton icon="pi pi-bars" (click)="sidebarVisible = true"></button>
-  <span class="ml-2">CarKaashiv Dashboard</span>
-  <span class="spacer"></span>
-  <p-avatar icon="pi pi-user" shape="circle"></p-avatar>
-</mat-toolbar>
+<!-- Topbar -->
+<p-toolbar styleClass="p-3 shadow-2">
+   <!-- Left Section -->
+  <div class="p-toolbar-group-left">
+    <button
+      pButton
+      icon="pi pi-bars"
+      class="p-button-text p-button-rounded mr-3 menu-btn"
+      (click)="sidebarVisible = true">
+    </button>   
+       <span class="font-semibold text-lg app-title">CarKaashiv Dashboard</span>
+  </div>
 
-<div class="content p-4">
+  <!-- Right Section -->
+  <div class="p-toolbar-group-right">
+    <p-menu #userMenu [popup]="true" [model]="userItems"> </p-menu>
+    <p-avatar icon="pi pi-user" shape="circle" class="cursor-pointer" (click)="userMenu.toggle($event)">
+    </p-avatar>
+  </div>
+</p-toolbar>
 
+<!-- Sidebar -->
+<p-sidebar [(visible)]="sidebarVisible" [baseZIndex]="10000" position="left">
+  <h3 class="p-mb-3">Navigation</h3>
+  <ul class="sidebar-menu">
+    <li *ngFor="let item of menuItems">
+      <a [routerLink]="item.route" (click)="sidebarVisible = false">
+        <i [class]="item.icon"> {{item.label}}</i>
+      </a>
+    </li>
+  </ul>  
+</p-sidebar>  
+
+  <!-- Main content -->
+<div class="dashboard-content p-5">
+  <router-outlet></router-outlet>
 </div>
 
+<!--Foot section-->
+  <p-toolbar styleClass="footer-toolbar shadow-2">
+  <div class="p-toolbar-group-left menu-btn">
+    <span>© 2025 CarKaashiv 2.0</span>
+  </div>
+  <div class="p-toolbar-group-right">
+    <span class="text-sm menu-btn">Powered by PrimeNg</span>
+  </div>
+</p-toolbar>

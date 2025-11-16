@@ -62,8 +62,9 @@ export class AuthService {
     // Can't read HttpOnly, but you can infer login from app state (like a flag after login)
     return !!this.isLoggedIn; //!! return a "strict" boolean from a function
   }
+  
   get currentUser(): UserProfile | null {
-    // return value
+    // returns value
     return this.userProfiles$.value;
   }
 

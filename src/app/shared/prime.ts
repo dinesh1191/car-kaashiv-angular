@@ -6,6 +6,14 @@ import { BadgeModule } from 'primeng/badge';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
+import { ToolbarModule } from 'primeng/toolbar';
+import { MenuModule } from 'primeng/menu';
+import { MessageModule } from 'primeng/message';
+import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
+
+
+
 
 export const PRIME_IMPORTS = [
   SidebarModule,
@@ -15,5 +23,17 @@ export const PRIME_IMPORTS = [
   BadgeModule,
   CardModule,
   TableModule,
-  InputTextModule
-];
+  InputTextModule,
+  ToolbarModule,
+  MenuModule,
+  MessageModule,
+  DropdownModule,
+  PasswordModule,
+
+
+
+
+
+]
+;
+

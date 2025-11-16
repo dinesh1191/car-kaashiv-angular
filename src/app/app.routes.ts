@@ -14,25 +14,51 @@ import { DashboardLayoutComponent } from './shared/layout/sidebar/dashboard-layo
 
 
 export const routes: Routes = [
-    // Public
+  // Public
 
-  { path: '', component: DashboardLayoutComponent },
-    { path: 'index', component: LandingComponent },
-    { path :'login', component: LoginComponent},        
-    { path: 'contact', component: ContactComponent },
-    { path: 'privacy', component: PrivacyComponent },
-    { path: 'unauthorized', component: UnauthorizedComponent },
+  //{ path: '', component: DashboardLayoutComponent },
+  { path: 'index', component: LandingComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'contact', component: ContactComponent },
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'unauthorized', component: UnauthorizedComponent },
 
-    
-    // Protected routes
-    { path: 'emp-dashboard', 
-      canActivate:[authGuard],
-      loadChildren:() => import('./features/employee/employee.routes').then(m=> m.EMPLOYEE_ROUTES)
-    },
-    { path :'parts-list', component: PartsListComponent,canActivate: [authGuard]},
-    { path :'part/details', component: PartDetailsComponent,canActivate: [authGuard]},
-    { path :'part/details/:partId', component: PartDetailsComponent,canActivate: [authGuard]},
+  // Protected routes
+  {
+    path: 'user',
+    component: DashboardLayoutComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./shared/layout/sidebar/dashboard-layout/dashboard-layout.component'
+          ).then((m) => m.DashboardLayoutComponent),
+      },
+      {
+        path: 'parts-list',
+        component: PartsListComponent,
+      },
+      {
+        path: 'part/details',
+        component: PartDetailsComponent,
+      },
+      {
+        path: 'part/details/:partId',
+        component: PartDetailsComponent,
+      },
+    ],
+  },
 
-      // Wildcard fallback
-    { path: '**', redirectTo:'index', pathMatch:'full'},
+  
+  //Employee dashboard (lazy-loaded routes)
+  {
+    path: 'emp-dashboard',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('./features/employee/employee.routes')
+        .then((m) => m.EMPLOYEE_ROUTES),
+  },
+  // Wildcard fallback
+  { path: '**', redirectTo: 'index', pathMatch: 'full' },
 ];

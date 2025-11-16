@@ -1,0 +1,40 @@
+<div class="card p-4 max-w-xl mx-auto">
+    <h2 calss="text-xl font-semibold mb-3">User Registration</h2>
+    <form action="" [formGroup]="userRegisterForm" (ngSubmit)="onSubmit()">
+
+        <div class="mb-3">
+            <label for="">Name</label>
+            <input pInputText formControlName="name" class="w-full">
+            <p-message *ngIf="userRegisterForm.get('name')?.touched &&
+            userRegisterForm.get('name')?.invalid" severity="error" text="Enter a valid name"></p-message>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone">Phone</label>
+            <input pInputText formControlName="phone" class="w-full">
+            <p-message *ngIf="userRegisterForm.get('phone')?.touched &&
+             userRegisterForm.get('phone')?.invalid" severity="error" text="Enter a valid phone number"></p-message>
+        </div>
+
+        <div class="mb-3">
+            <label for="">Email</label>
+            <input pInputText formControlName="email" class="w-full">
+            <p-message *ngIf="userRegisterForm.get('email')?.touched &&
+            userRegisterForm.get('email')?.invalid" severity="error" text="Enter a valid email"></p-message>
+        </div>
+            <div class="mb-3">
+                <label for="password">Password</label>
+                <p-password formControlName="password" toggleMask></p-password>
+            </div>
+        <div class="mb-3">
+            <label for="confirmPassword">Confirm Password</label> 
+            <p-password formControlName="confirmPassword" toggleMask></p-password>
+            <p-message *ngIf="userRegisterForm.get('confirmPassword')?.errors?.['mismatch']"
+            severity="error" text="Password do not match"></p-message>
+      </div>
+      <button pButton type="submit" label="Register" class="w-full mt-3"></button>
+
+
+    </form>
+
+</div>
