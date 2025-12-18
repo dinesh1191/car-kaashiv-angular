@@ -15,6 +15,6 @@ export class UserService {
 
 
 registerUser(payload:any){
-  return this.http.post(`${this.apiUrl}/auth/register`,payload);
+  return this.http.post(`${this.apiUrl}/auth/register-user`,payload);
   }
 }

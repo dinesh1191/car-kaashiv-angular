@@ -4,21 +4,28 @@ import { PartsListComponent } from './parts/parts-list.component';
 import { ManageEmployeeComponent } from './manage-employee/manage-employee.component';
 import { authGuard } from '../../core/guards/auth.guard';
 import { roleGuard } from '../../core/guards/role.guard';
+import { EmpRegisterFormComponent } from './emp-register-form/emp-register-form.component';
+import { DashboardLayoutComponent } from '../../shared/layout/sidebar/dashboard-layout/dashboard-layout.component';
 
 export const EMPLOYEE_ROUTES: Routes = [
-  
-  { path: '', 
-    component: EmployeeDashboardComponent, 
-    canActivate: [authGuard] 
-  },
-  { path: 'parts', 
-    component: PartsListComponent, 
-    canActivate: [authGuard] 
-  },  
-  {
-    path: 'manage-employee',
-    component: ManageEmployeeComponent,
-    canActivate: [authGuard, roleGuard],
-    data: { roles: ['Admin'] },
-  },
+  { 
+    path: '', 
+    component: DashboardLayoutComponent, // wraper layout
+     //canActivate: [authGuard],
+     children: [
+      // { path: '', component: EmployeeDashboardComponent },
+      { path: 'parts', component: PartsListComponent },
+
+      { 
+        path: 'manage-employee', 
+        component: ManageEmployeeComponent, 
+        canActivate: [roleGuard],
+        data: { roles: ['Admin'] } 
+      },
+      { 
+        path: 'register-employee', 
+        component: EmpRegisterFormComponent
+      }
+    ]
+ },  
 ];

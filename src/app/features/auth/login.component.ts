@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { MATERIAL_IMPORTS } from '../../shared/material';
 import { AuthService } from '../../core/services/auth.service';
@@ -74,5 +74,13 @@ export class LoginComponent {
         this.snackbarService.show('Something went wrong Try again later','error', err);
       },
     });
+  }
+
+  nvagigateToRegister() {
+    this.router.navigate(['/user/register-user']);
+  }
+
+  nvagigateToEmpRegister() {
+    this.router.navigate(['/employee/register-employee']);
   }
 }

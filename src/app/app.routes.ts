@@ -9,6 +9,7 @@ import { PartDetailsComponent } from './features/employee/parts/part-details/par
 import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/employee-dashboard.component';
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
 import { DashboardLayoutComponent } from './shared/layout/sidebar/dashboard-layout/dashboard-layout.component';
+import { UserRegisterComponent } from './features/user/user-register/user-register.component';
 
 
 
@@ -29,36 +30,53 @@ export const routes: Routes = [
     component: DashboardLayoutComponent,
     canActivate: [authGuard],
     children: [
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('./shared/layout/sidebar/dashboard-layout/dashboard-layout.component'
-          ).then((m) => m.DashboardLayoutComponent),
-      },
-      {
-        path: 'parts-list',
-        component: PartsListComponent,
-      },
-      {
-        path: 'part/details',
-        component: PartDetailsComponent,
-      },
-      {
-        path: 'part/details/:partId',
-        component: PartDetailsComponent,
-      },
+      
+      // {
+      //   path: 'dashboard',
+      //   loadComponent: () =>
+      //     import('./shared/layout/sidebar/dashboard-layout/dashboard-layout.component'
+      //     ).then((m) => m.DashboardLayoutComponent),
+      // },
+      // {
+      //   path: 'parts-list',
+      //   component: PartsListComponent,
+      // },
+      // {
+      //   path: 'part/details',
+      //   component: PartDetailsComponent,
+      // },
+      // {
+      //   path: 'part/details/:partId',
+      //   component: PartDetailsComponent,
+      // },
+      //  {
+      //   path: 'register-user',
+      //   component: UserRegisterComponent,
+      // },
     ],
   },
 
   
   //Employee dashboard (lazy-loaded routes)
   {
-    path: 'emp-dashboard',
-    canActivate: [authGuard],
+    path: 'emp-dashboard',   
+    //canActivate: [authGuard],
     loadChildren: () =>
       import('./features/employee/employee.routes')
         .then((m) => m.EMPLOYEE_ROUTES),
   },
+
+  // User dashboard (lazy-loaded routes) 
+  {
+    path: 'user',
+    //canActivate: [authGuard],
+    loadChildren: () =>
+      import('./features/user/user.routes')
+        .then((m) => m.USER_ROUTES),
+  },
+
+
+
   // Wildcard fallback
   { path: '**', redirectTo: 'index', pathMatch: 'full' },
 ];

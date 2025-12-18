@@ -24,6 +24,7 @@ export class UserRegisterComponent {
           phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
           email: ['', [Validators.required, Validators.email]],
           password: ['', Validators.required],
+          Role:['customer',Validators.required],
           confirmPassword: ['', Validators.required],
         },
         {
@@ -41,6 +42,7 @@ export class UserRegisterComponent {
 
 
       onSubmit(){
+        console.log(this.userRegisterForm.value);
         if(this.userRegisterForm.invalid){
           this.userRegisterForm.markAllAsTouched();
           return;
@@ -58,8 +60,8 @@ export class UserRegisterComponent {
         });
         this.userRegisterForm.reset();
           },
-          error :()=>{
-            this.snackbarService.show('User registration failed','error');
+          error :(err)=>{
+            this.snackbarService.show(err+'User registration failed','error');
           }
         })
       }
