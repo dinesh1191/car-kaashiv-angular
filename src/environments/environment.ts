@@ -10,9 +10,9 @@ import { isDevMode } from '@angular/core';
 //production pointing
 
 export const environment = {
-  production: true,
+  production: false,
   apiBaseUrl: 'https://carkaashiv-angular-api.onrender.com', // placeholder for future real API endpoint
-  debug: false, // no debug logs in production
-  appVersion: '1.0.0',
+  debug: isDevMode(),  // enables dev-only logging or features
+  appVersion: '1.0.0-dev',
 };
 
