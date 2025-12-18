@@ -29,11 +29,13 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+               "src/_redirects"
             ],
             "styles": [    
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",              
+              
               "src/global.scss"
             ],
             "scripts": [
@@ -91,8 +93,9 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
-              }
+                "input": "public"                
+              },
+              "src/_redirects"
             ],
             "styles": [  
                  "node_modules/bootstrap/dist/css/bootstrap.min.css", 
