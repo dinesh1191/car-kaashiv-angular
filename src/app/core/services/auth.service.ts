@@ -58,6 +58,12 @@ export class AuthService {
     });
   }
 
+   getweatherForeCast(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/weatherforecast`, {
+      withCredentials: true,
+    });
+  }
+
   hasAuthCookie(): boolean {
     // Can't read HttpOnly, but you can infer login from app state (like a flag after login)
     return !!this.isLoggedIn; //!! return a "strict" boolean from a function

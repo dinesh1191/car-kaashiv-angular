@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MATERIAL_IMPORTS } from '../../shared/material';
 import { RouterLink } from "@angular/router";
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../core/services/auth.service';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
 })
+
 export class LandingComponent {
   slides = [
     {
@@ -29,9 +31,17 @@ export class LandingComponent {
     },
   ];
   currentSlide = 0;
+constructor(private authService:AuthService){}
 
   ngOnInit() {
     setInterval(() => this.nextSlide(), 5000);
+     console.log('Landing Component Initialized');
+    this.authService.getweatherForeCast().subscribe({
+      next: (profile) => {
+        console.log('User Profile on Landing Page:', profile);
+      }
+    })
+    //weatherForeCast
   }
   nextSlide() {
     this.currentSlide =
@@ -41,5 +51,7 @@ export class LandingComponent {
     this.currentSlide =
     (this.currentSlide - 1 + this.slides.length) % this.slides.length;
   }
+
+  
 
 }
