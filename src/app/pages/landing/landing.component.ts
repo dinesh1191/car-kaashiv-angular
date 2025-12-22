@@ -3,11 +3,12 @@ import { MATERIAL_IMPORTS } from '../../shared/material';
 import { RouterLink } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { ServerStatusBannerComponent } from "../../shared/components/server-status-banner/server-status-banner.component";
 
 
 @Component({
   selector: 'app-landing',
-  imports: [...MATERIAL_IMPORTS, RouterLink, CommonModule],
+  imports: [...MATERIAL_IMPORTS, RouterLink, CommonModule, ServerStatusBannerComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
 })
@@ -31,6 +32,7 @@ export class LandingComponent {
     },
   ];
   currentSlide = 0;
+  serverStatus: 'checking' | 'healthy' | 'unhealthy' = 'checking';
 constructor(private authService:AuthService){}
 
   ngOnInit() {
@@ -39,11 +41,11 @@ constructor(private authService:AuthService){}
 
     //get server health/startup
     this.authService.getServerHealth().subscribe({
-      next: (res) => {
-        console.log('health api response:', res);
+      next: () => { this.serverStatus = 'healthy'; }, 
+      error: (err) => { this.serverStatus = 'unhealthy'; 
+        console.error('Server health check failed:', err);
       }
-    })
-
+    });
   }
   nextSlide() {
     this.currentSlide =
