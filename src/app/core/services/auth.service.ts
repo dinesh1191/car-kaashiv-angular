@@ -58,9 +58,11 @@ export class AuthService {
     });
   }
 
-   getweatherForeCast(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/weatherforecast`, {
-      withCredentials: true,
+   getServerHealth(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/health`, {
+      responseType:'text',
+      headers:{'SKIP_LOADER':'true'}, // global spinner loader will not be executed
+      withCredentials: false,
     });
   }
 

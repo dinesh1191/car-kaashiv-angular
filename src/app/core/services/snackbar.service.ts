@@ -6,6 +6,7 @@ import { isDevMode } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
+
 export class SnackbarService {
   constructor(private snackBar: MatSnackBar) {}
 
@@ -13,18 +14,24 @@ export class SnackbarService {
     message: string,
     type: 'success' | 'error' | 'warning' = 'success',
     duration = 10000,err?:any) {    
-    const panelClass =
-      type === 'error'
+    
+      const panelClass =
+        type === 'error'
         ? 'snackbar-error'
         : type === 'warning'
         ? 'snackbar-warning'
         : 'snackbar-success';
-    const icon = type === 'success' ? ' ✔' : type === 'error' ? ' ✖' : ' ⚠️';
+        const icon = type === 'success' ? ' ✔' : type === 'error' ? ' ✖' : ' ⚠️';
+   
     
+
+
     // Developer-only console log (won’t show in production build)
     if(isDevMode() && err){
         console.warn('[DevMode Error Details]',err);        
     }
+
+
     // User-friendly snackbar
     this.snackBar.open(message + `${icon}`, 'Close', {
       duration,

@@ -26,8 +26,8 @@ export const apiResponseInterceptor : HttpInterceptorFn=(req,next)=>{
   const skipLoader = req.headers.has('SKIP_LOADER');
 
   if(!skipLoader)loaderService.show();
-
-const authReq = req.clone({withCredentials:true}); //include http credentials(cookies)
+  
+  const authReq = req.clone({withCredentials:true}); //include http credentials(cookies)
 
   return next(authReq).pipe(
     tap(event => {
@@ -42,10 +42,10 @@ const authReq = req.clone({withCredentials:true}); //include http credentials(co
 catchError((error: HttpErrorResponse) => {
   // Define a lookup map for common HTTP status codes and their corresponding error messages
   const statusMessages: Record<number, string> = {
-    0: 'Server not reachable',                  // Network failure or CORS issue
-    401: 'Unauthorized - Please login again',   // Authentication required
-    403: 'Access denied',                       // User lacks permission
-    500: 'Server error'                         // Internal server error
+      0: 'Server not reachable',               // Network failure or CORS issue
+    401: 'Unauthorized - Please login again',  // Authentication required
+    403: 'Access denied',                      // User lacks permission
+    500: 'Server error'                       // Internal server error
   };
 
   // Determine the error message:

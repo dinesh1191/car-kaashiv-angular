@@ -36,12 +36,14 @@ constructor(private authService:AuthService){}
   ngOnInit() {
     setInterval(() => this.nextSlide(), 5000);
      console.log('Landing Component Initialized');
-    this.authService.getweatherForeCast().subscribe({
-      next: (profile) => {
-        console.log('User Profile on Landing Page:', profile);
+
+    //get server health/startup
+    this.authService.getServerHealth().subscribe({
+      next: (res) => {
+        console.log('health api response:', res);
       }
     })
-    //weatherForeCast
+
   }
   nextSlide() {
     this.currentSlide =
