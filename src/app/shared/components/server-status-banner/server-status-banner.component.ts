@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { ServerStatusService } from '../../../core/services/server-status.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -10,6 +12,11 @@ import { Component, Input } from '@angular/core';
 })
 export class ServerStatusBannerComponent {
   @Input() status: 'checking' | 'healthy' | 'unhealthy' = 'checking';
+  isHealthy$ : Observable<boolean>;
+
+constructor(private serverStatusService:ServerStatusService){
+  this.isHealthy$ = this.serverStatusService.isHealthy$;
+}
 
   get message(): string {
     switch (this.status) {

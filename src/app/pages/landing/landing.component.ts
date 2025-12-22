@@ -4,6 +4,7 @@ import { RouterLink } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { ServerStatusBannerComponent } from "../../shared/components/server-status-banner/server-status-banner.component";
+import { ServerStatusService } from '../../core/services/server-status.service';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class LandingComponent {
   ];
   currentSlide = 0;
   serverStatus: 'checking' | 'healthy' | 'unhealthy' = 'checking';
-constructor(private authService:AuthService){}
+
+constructor(private authService:AuthService,private serverStatusService:ServerStatusService){}
 
   ngOnInit() {
     setInterval(() => this.nextSlide(), 5000);
@@ -41,7 +43,13 @@ constructor(private authService:AuthService){}
 
     //get server health/startup
     this.authService.getServerHealth().subscribe({
-      next: () => { this.serverStatus = 'healthy'; }, 
+      next: (res) => {
+        //this.serverStatus = 'healthy';
+        if (res === 'Healthy') {
+          this.serverStatusService.markHealthy(); // for updating the service status
+         // this.serverStatus = 'healthy';
+        }
+      }, 
       error: (err) => { this.serverStatus = 'unhealthy'; 
         console.error('Server health check failed:', err);
       }
