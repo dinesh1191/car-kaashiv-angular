@@ -11,23 +11,34 @@ import { Observable } from 'rxjs';
   styleUrl: './server-status-banner.component.scss',
 })
 export class ServerStatusBannerComponent {
-  @Input() status: 'checking' | 'healthy' | 'unhealthy' = 'checking';
-  isHealthy$ : Observable<boolean>;
+   status: 'checking' | 'healthy' | 'unhealthy' = 'checking';
+  visible = true;
+
 
 constructor(private serverStatusService:ServerStatusService){
-  this.isHealthy$ = this.serverStatusService.isHealthy$;
+ 
+}
+ngOnInit() {
+  this.serverStatusService.serverStatus$.subscribe(resStatus => {
+    this.status = resStatus;
+    this.visible = true; // show banner on status change
+
+    if(this.status === 'healthy'){
+      setTimeout(()=>{
+        this.visible = false;
+        console.log('banner hidden');       
+      },3500) // hide banner after 1.5 seconds
+    }
+  });
+  
 }
 
   get message(): string {
     switch (this.status) {
-      case 'checking':
-        return 'Waking up server… this may take a few seconds';
-      case 'healthy':
-        return 'Server is ready';
-      case 'unhealthy':
-        return 'Server is unavailable.Please try again later';
-      default:
-        return 'unknown error';
+      case 'checking': return 'Waking up server… this may take a few seconds';
+      case 'healthy': return 'Server is ready';
+      case 'unhealthy':return 'Server is unavailable.Please try again later';
+      default: return 'unknown error';
     }
   }
 }

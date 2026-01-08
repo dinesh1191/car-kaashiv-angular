@@ -1,8 +1,9 @@
 import { isDevMode } from '@angular/core';
 
-// export const environment = {
+// local development pointing
+//export const environment = {
 //   production: false,
-//   apiBaseUrl: 'https://localhost:7170',
+//   apiBaseUrl: 'https://localhost:7170/api',
 //   debug: isDevMode(),  // enables dev-only logging or features
 //   appVersion: '1.0.0-dev',
 // };
@@ -11,7 +12,7 @@ import { isDevMode } from '@angular/core';
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://carkaashiv-angular-api.onrender.com', // placeholder for future real API endpoint
+  apiBaseUrl: 'https://carkaashiv-angular-api.onrender.com/api',
   debug: isDevMode(),  // enables dev-only logging or features
   appVersion: '1.0.0-dev',
 };

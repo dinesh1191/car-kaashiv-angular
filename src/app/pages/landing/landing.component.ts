@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { ServerStatusBannerComponent } from "../../shared/components/server-status-banner/server-status-banner.component";
 import { ServerStatusService } from '../../core/services/server-status.service';
+import { HealthService } from '../../core/services/health.service';
 
 
 @Component({
@@ -32,29 +33,29 @@ export class LandingComponent {
       description: 'Gain real-time insights into your business performance',
     },
   ];
-  currentSlide = 0;
-  serverStatus: 'checking' | 'healthy' | 'unhealthy' = 'checking';
+  currentSlide = 0;  
 
-constructor(private authService:AuthService,private serverStatusService:ServerStatusService){}
+
+constructor(private authService:AuthService,private healthService:HealthService, private serverStatusService:ServerStatusService){}
 
   ngOnInit() {
     setInterval(() => this.nextSlide(), 5000);
      console.log('Landing Component Initialized');
 
     //get server health/startup
-    this.authService.getServerHealth().subscribe({
+    this.healthService.getServerHealth().subscribe({
       next: (res) => {
-        //this.serverStatus = 'healthy';
-        if (res === 'Healthy') {
+          if (res === 'Database connected') {
           this.serverStatusService.markHealthy(); // for updating the service status
-         // this.serverStatus = 'healthy';
-        }
+          }
       }, 
-      error: (err) => { this.serverStatus = 'unhealthy'; 
+      error: (err) => { this.serverStatusService.markUnHealthy(); 
         console.error('Server health check failed:', err);
       }
     });
   }
+
+
   nextSlide() {
     this.currentSlide =
       (this.currentSlide + 1 + this.slides.length) % this.slides.length;

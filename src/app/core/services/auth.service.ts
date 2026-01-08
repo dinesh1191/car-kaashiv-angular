@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   login(payload: LoginRequest): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/login`, payload, {
+    return this.http.post(`${this.apiUrl}/api/auth/login`, payload, {
       withCredentials: true,
     });
   }
@@ -57,15 +57,7 @@ export class AuthService {
       withCredentials: true,
     });
   }
-
-   getServerHealth(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/health`, {
-      responseType:'text',
-      headers:{'SKIP_LOADER':'true'}, // global spinner loader will not be executed
-      withCredentials: false,
-    });
-  }
-
+  
   hasAuthCookie(): boolean {
     // Can't read HttpOnly, but you can infer login from app state (like a flag after login)
     return !!this.isLoggedIn; //!! return a "strict" boolean from a function

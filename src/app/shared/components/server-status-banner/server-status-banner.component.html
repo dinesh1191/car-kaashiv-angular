@@ -1,3 +1,6 @@
-<div class="status-banner" *ngIf="!(isHealthy$ |async)" [ngClass]="status">
+<div class="status-banner" 
+[class.hidden]="!visible"
+[class.healthy]="status === 'healthy'"
+[class.unhealthy]="status === 'unhealthy'">
     <span>{{message}}</span>
 </div>

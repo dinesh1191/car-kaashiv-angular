@@ -7,40 +7,21 @@
     font-size: 13px;
     text-align: center;
     z-index: 1000;
-    transition: all 0.3s ease;
+    transition: opacity 0.6s ease,transform 0.6s ease;
 }
 
-/* server status*/
-.checking {
-    background: #e3f2fd;
-    color: #0d47a1;
-
+.status-banner.hidden{
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events:none;
 }
 
-.healthy {
-    background: #2ec4c9;
+.status-banner.healthy {
+       background: #2ec4c9;
     color: #180b01;
 }
-
-.unhealthy {
-    background: #ffebee;
-    color: #b71c1c
+.status-banner.unhealthy {
+   background: #fdecea;
+    color: #b02a37;
 }
 
-/*spinner*/
-.spinner {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin-right: 6px;
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    border-top-color: currentColor;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
