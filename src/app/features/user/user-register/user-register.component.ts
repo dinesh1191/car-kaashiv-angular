@@ -4,6 +4,7 @@ import { AbstractControl, AbstractControlOptions, FormBuilder, FormGroup, Valida
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { UserService } from '../user.service';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-register',
@@ -16,7 +17,9 @@ export class UserRegisterComponent {
   constructor(private fb: FormBuilder,
     private userService: UserService,
     private snackbarService:SnackbarService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router :Router,
+  
     ) {
       this.userRegisterForm = this.fb.group(
         {
@@ -42,28 +45,27 @@ export class UserRegisterComponent {
 
 
       onSubmit(){
-        console.log(this.userRegisterForm.value);
+        // console.log(this.userRegisterForm.value);
         if(this.userRegisterForm.invalid){
           this.userRegisterForm.markAllAsTouched();
           return;
         }
-        const payload = {
-            ...this.userRegisterForm.value,
-            createdAt: new Date()
-        };
+        const payload = {...this.userRegisterForm.value };     
         this.userService.registerUser(payload).subscribe({
-          next:(res)=>{
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'User Registered Successfully',
-        });
-        this.userRegisterForm.reset();
+          next:(res)=>{        
+          const apiMessage = res?.message || 'User Registered Successfully';
+          this.snackbarService.show(apiMessage,'success'); 
+          this.userRegisterForm.reset();
+          this.router.navigate(['/login']);
           },
           error :(err)=>{
-            this.snackbarService.show(err+'User registration failed','error');
+            const apiMessage = err?.error?.message || 'User registration failed';
+            this.snackbarService.show(apiMessage,'error');
           }
         })
       }
+      goBack() {
+this.router.navigate(['/login']);
+}
 
 }

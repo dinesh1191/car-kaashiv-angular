@@ -66,14 +66,15 @@ export class EmpRegisterFormComponent {
   }
 
   onSubmit() {
+    
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
+      console.log('Form is invalid:', this.registerForm.errors);      
       return;
     }
 
     const payload = {
-      ...this.registerForm.value,
-      createdAt: new Date(),
+      ...this.registerForm.value,      
     };
 
     this.employeeService.registerEmployee(payload).subscribe({

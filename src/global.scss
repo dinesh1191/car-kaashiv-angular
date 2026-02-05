@@ -100,3 +100,14 @@ button.p-button {
 .font-semibold {
   font-weight: 600;
 }
+.p-button.p-button-primary {
+  background-color: #22c55e  !important; /* green */
+  border-color: #22c55e !important;
+}
+
+.p-button.p-button-primary:enabled:hover,
+.p-button.p-button-primary:enabled:active,
+.p-button.p-button-primary:enabled:focus {
+  background-color: #047857 !important; /* darker green */
+  border-color: #047857 !important;
+}

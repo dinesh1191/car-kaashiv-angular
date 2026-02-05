@@ -1,3 +1,7 @@
+<div><button mat-icon-button (click)="goBack()">
+  <mat-icon>arrow_back</mat-icon>
+</button>
+</div>
 <div class="card p-4 max-w-xl mx-auto">
     <h2 calss="text-xl font-semibold mb-3">User Registration</h2>
     <form [formGroup]="userRegisterForm" (ngSubmit)="onSubmit()">
@@ -32,9 +36,7 @@
             <p-message *ngIf="userRegisterForm.get('confirmPassword')?.errors?.['mismatch']"
             severity="error" text="Password do not match"></p-message>
       </div>
-      <button pButton type="submit" label="Register" class="w-full mt-5  p-button-primary"></button>
-
-
+    <button pButton type="submit" label="Register" class="w-full mt-5  p-button-primary">
+    </button>
     </form>
-
-</div>
+    </div>

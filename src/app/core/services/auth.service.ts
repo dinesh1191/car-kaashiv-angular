@@ -73,17 +73,17 @@ export class AuthService {
     return this.http
       .get<any>(`${this.apiUrl}/auth/me`, {
         context: new HttpContext().set(SKIP_LOADER, true),
-        withCredentials: true,
-      })
+        withCredentials: true,     
+      })  
       .pipe(
         tap((response) => {
           const profile = response.data;
           {
-            this.userProfiles$.next(profile);
+            this.userProfiles$.next(profile);            
           }
           sessionStorage.setItem(this.User_PROFILE_KEY, JSON.stringify(profile)); // set profile details on session storage
-        })
-      );
+        })          
+      );   
   }
   //** Initialize session -call once durring app startup**/
   async initUserSession(): Promise<void> {
