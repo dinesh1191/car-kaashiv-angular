@@ -1,48 +1,55 @@
-<div class="card p-4 max-w-xl mx-auto">
-    <button mat-icon-button (click)="goBack()">
-  <mat-icon>arrow_back</mat-icon>
-</button>
-    <h2 class="text-xl font semibold mb-3">Employee Registration</h2>
+<div class="card p-4 container-sm">
+    <!--Header-->
+    <div class="d-flex align-items-center mb-3">
+        <button mat-icon-button (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h2 class="mb-0 ms-2">Employee Registration</h2>
+    </div>
+<!--body-->
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
         <div class="mb-3">
             <label for="name">Name</label>
-            <input pInputText formControlName="name" class="w-full">
+            <input pInputText formControlName="name" class="w-100">
             <p-message *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" severity="error"
                 text="Enter a valid name"></p-message>
         </div>
 
         <div class="mb-3">
             <label>Offical Email</label>
-            <input pInputText formControlName="email" class="w-full">
+            <input pInputText formControlName="email" class="w-100">
             <p-message *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" severity="error"
                 text="only @kaashiv.com email is allowed"></p-message>
         </div>
-           <div class="mb-3">
+
+        <div class="mb-3">
             <label>Phone</label>
-            <input pInputText formControlName="phone" class="w-full">
+            <input pInputText formControlName="phone" class="w-100">
             <p-message *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid" severity="error"
                 text="Invalid phone number"></p-message>
         </div>
+
         <div class="mb-3">
             <label for="role">Role</label>
-            <p-dropdown formControlName="role" [options]="roles" placeholder="Select role" class="w-full"> </p-dropdown>
+            <p-dropdown formControlName="role" [options]="roles" placeholder="Select role" class="w-100"> </p-dropdown>
         </div>
-
 
         <div class="mb-3">
             <label for="password">Password</label>
-            <p-password formControlName="password" toggleMask></p-password>
+            <!--PrimeNG requires styling the inner input,-->
+            <p-password formControlName="password" toggleMask [inputStyle]="{ width: '100%' }" styleClass="w-100">
+            </p-password>
         </div>
 
         <div class="mb-3">
             <label>Confirm Password</label>
-            <p-password formControlName="cpassword" toggleMask></p-password>
+            <p-password formControlName="cpassword" toggleMask [inputStyle]="{ width: '100%' }" styleClass="w-100"></p-password>
             <p-message *ngIf="registerForm.get('cpassword')?.errors?.['mismatch']" severity="error"
                 text="Password do not match"></p-message>
         </div>
-        
-        <button pButton type="submit" label="Register" class="w-full mt-3"></button>
-
+        <div class="d-flex justify-content-center mt-3">
+            <button pButton severity="primary" class="w-100 mt-3" label="Register"></button>          
+        </div>        
     </form>
-
 </div>
