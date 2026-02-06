@@ -76,11 +76,13 @@ export class LoginComponent {
     });
   }
 
-  nvagigateToRegister() {
+  navgigateToUserRegister() {
     this.router.navigate(['/user/register-user']);
   }
 
-  nvagigateToEmpRegister() {
-    this.router.navigate(['/employee/register-employee']);
-  }
+navigateToEmpRegister() {
+  this.router.navigate(['/emp-dashboard/register-employee']);
+  //console.warn(this.router.config);
 }
+}
+ 

@@ -3,6 +3,8 @@ import { SharedModule } from '../../../shared/shared.module';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
+import { SnackbarService } from '../../../core/services/snackbar.service';
 
 
 @Component({
@@ -22,7 +24,9 @@ export class EmpRegisterFormComponent {
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {
     this.registerForm = this.fb.group(
       {
@@ -41,7 +45,7 @@ export class EmpRegisterFormComponent {
           [
             Validators.required,
             Validators.pattern(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\[{\]};:<>|./?,-]).{8,10}$/
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\[{\]};:<>|./?,-]).{8,10}$/,
             ),
           ],
         ],
@@ -49,7 +53,7 @@ export class EmpRegisterFormComponent {
       },
       {
         validators: this.matchPasswords('password', 'cpassword'),
-      }
+      },
     );
   }
 
@@ -66,35 +70,29 @@ export class EmpRegisterFormComponent {
   }
 
   onSubmit() {
-    
     if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched();
-      console.log('Form is invalid:', this.registerForm.errors);      
+      this.registerForm.markAllAsTouched()
       return;
     }
 
     const payload = {
-      ...this.registerForm.value,      
+      ...this.registerForm.value,
     };
 
     this.employeeService.registerEmployee(payload).subscribe({
       next: (res) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Employee Registered Successfully',
-        });
+        const apiMessage = res?.message || 'Employee Registered Successfully';
+        this.snackbarService.show(apiMessage, 'success');      
         this.registerForm.reset();
       },
       error: (err) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Failed to Register Employee',
-        });
+       const errorMessage = err?.error?.message || 'Failed to Register Employee';
+        this.snackbarService.show(errorMessage, 'error');
       },
     });
   }
 
-  
+  goBack() {
+    this.router.navigate(['/login']);
+  }
 } 

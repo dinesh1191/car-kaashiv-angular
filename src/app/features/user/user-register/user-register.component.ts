@@ -14,58 +14,55 @@ import { Router } from '@angular/router';
 })
 export class UserRegisterComponent {
   userRegisterForm!: FormGroup;
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private userService: UserService,
-    private snackbarService:SnackbarService,
+    private snackbarService: SnackbarService,
     private messageService: MessageService,
-    private router :Router,
-  
-    ) {
-      this.userRegisterForm = this.fb.group(
-        {
-          name: ['', [Validators.required, Validators.minLength(3)]],
-          phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
-          email: ['', [Validators.required, Validators.email]],
-          password: ['', Validators.required],
-          Role:['customer',Validators.required],
-          confirmPassword: ['', Validators.required],
-        },
-        {
-          validators: [this.matchPasswords],
-        } as AbstractControlOptions
-      );
+    private router: Router,
+  ) {
+    this.userRegisterForm = this.fb.group(
+      {
+        name: ['', [Validators.required, Validators.minLength(3)]],
+        phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', Validators.required],
+        Role: ['customer', Validators.required],
+        confirmPassword: ['', Validators.required],
+      },
+      {
+        validators: [this.matchPasswords],
+      } as AbstractControlOptions,
+    );
+  }
+
+  matchPasswords(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  onSubmit() {
+    // console.log(this.userRegisterForm.value);
+    if (this.userRegisterForm.invalid) {
+      this.userRegisterForm.markAllAsTouched();
+      return;
     }
-
-    matchPasswords(control :AbstractControl):ValidationErrors | null{
-
-      const password = control.get('password')?.value;
-      const confirmPassword = control.get('confirmPassword')?.value;
-      return password === confirmPassword ? null: {mismatch:true};
-    }
-
-
-      onSubmit(){
-        // console.log(this.userRegisterForm.value);
-        if(this.userRegisterForm.invalid){
-          this.userRegisterForm.markAllAsTouched();
-          return;
-        }
-        const payload = {...this.userRegisterForm.value };     
-        this.userService.registerUser(payload).subscribe({
-          next:(res)=>{        
-          const apiMessage = res?.message || 'User Registered Successfully';
-          this.snackbarService.show(apiMessage,'success'); 
-          this.userRegisterForm.reset();
-          this.router.navigate(['/login']);
-          },
-          error :(err)=>{
-            const apiMessage = err?.error?.message || 'User registration failed';
-            this.snackbarService.show(apiMessage,'error');
-          }
-        })
-      }
-      goBack() {
-this.router.navigate(['/login']);
-}
-
+    const payload = { ...this.userRegisterForm.value };
+    this.userService.registerUser(payload).subscribe({
+      next: (res) => {
+        const apiMessage = res?.message || 'User Registered Successfully';
+        this.snackbarService.show(apiMessage, 'success');
+        this.userRegisterForm.reset();
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        const apiMessage = err?.error?.message || 'User registration failed';
+        this.snackbarService.show(apiMessage, 'error');
+      },
+    });
+  }
+  goBack() {
+    this.router.navigate(['/login']);
+  }
 }

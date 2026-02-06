@@ -6,9 +6,9 @@ import { PartsListComponent } from './user-dashboard/parts-list/parts-list.compo
 
 
     export const USER_ROUTES: Routes = [
+      
   { path: 'register-user', 
     component: UserRegisterComponent, 
-    //canActivate: [authGuard] 
   },
   { path: 'parts', 
     component: PartsListComponent, 

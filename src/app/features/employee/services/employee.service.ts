@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiResponse } from '../../../models/api-response.model';
 
 
 @Injectable({
@@ -11,9 +13,7 @@ export class EmployeeService {
 
   constructor(private http:HttpClient) { }
 
-
-  registerEmployee(employeeData:any){
-    return this.http.post(`${this.apiUrl}/employees/register`, employeeData);
+registerEmployee(employeeData:any):Observable<ApiResponse<any>>{
+    return this.http.post<ApiResponse<any>>(`${this.apiUrl}/auth/register-employee`, employeeData);
 }
-
 }

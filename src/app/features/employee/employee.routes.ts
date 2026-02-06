@@ -12,10 +12,8 @@ export const EMPLOYEE_ROUTES: Routes = [
     path: '', 
     component: DashboardLayoutComponent, // wraper layout
      //canActivate: [authGuard],
-     children: [
-      // { path: '', component: EmployeeDashboardComponent },
-      { path: 'parts', component: PartsListComponent },
-
+     children: [   
+      { path: 'parts', component: PartsListComponent},
       { 
         path: 'manage-employee', 
         component: ManageEmployeeComponent, 
@@ -29,3 +27,4 @@ export const EMPLOYEE_ROUTES: Routes = [
     ]
  },  
 ];
+ 
