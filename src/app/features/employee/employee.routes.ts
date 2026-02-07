@@ -8,23 +8,18 @@ import { EmpRegisterFormComponent } from './emp-register-form/emp-register-form.
 import { DashboardLayoutComponent } from '../../shared/layout/sidebar/dashboard-layout/dashboard-layout.component';
 
 export const EMPLOYEE_ROUTES: Routes = [
-  { 
-    path: '', 
-    component: DashboardLayoutComponent, // wraper layout
-     //canActivate: [authGuard],
-     children: [   
-      { path: 'parts', component: PartsListComponent},
-      { 
-        path: 'manage-employee', 
-        component: ManageEmployeeComponent, 
-        canActivate: [roleGuard],
-        data: { roles: ['Admin'] } 
-      },
-      { 
-        path: 'register-employee', 
-        component: EmpRegisterFormComponent
-      }
-    ]
- },  
+  {
+    path: 'register-employee',
+    component: EmpRegisterFormComponent,
+  },
+  {
+    path: 'manage-employee',
+    component: ManageEmployeeComponent,
+    canActivate: [roleGuard],
+    data: { roles: ['Admin'] },
+  },
+  {
+    path: 'parts',
+    component: PartsListComponent,
+  },
 ];
- 

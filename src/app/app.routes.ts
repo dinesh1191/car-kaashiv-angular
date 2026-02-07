@@ -10,33 +10,50 @@ import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/em
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
 import { DashboardLayoutComponent } from './shared/layout/sidebar/dashboard-layout/dashboard-layout.component';
 import { UserRegisterComponent } from './features/user/user-register/user-register.component';
+import { EmpRegisterFormComponent } from './features/employee/emp-register-form/emp-register-form.component';
 
 
 
 
 export const routes: Routes = [
-  // Public
+  /* ---------- Public Routes ---------- */
 
-  //{ path: '', component: DashboardLayoutComponent },
   { path: 'index', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'privacy', component: PrivacyComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
-
-  // Protected routes
+  
+  
+  /* ----------Protected Dashboard Routes---------------- */
   {
-    path: 'user',
-    component: DashboardLayoutComponent,
-    canActivate: [authGuard],
+    path: 'dashboard',
+    component: DashboardLayoutComponent, //shared wrapper for all dashboard routes
+    //canActivate: [authGuard],
     children: [
+       /*public*/
+      { path: 'register-user', component: UserRegisterComponent },
+      { path: 'register-employee', component: EmpRegisterFormComponent },
       
-      // {
-      //   path: 'dashboard',
-      //   loadComponent: () =>
-      //     import('./shared/layout/sidebar/dashboard-layout/dashboard-layout.component'
-      //     ).then((m) => m.DashboardLayoutComponent),
-      // },
+      /*protected childs routes*/
+
+      /* Employee Module (lazy-loaded routes)-*/
+      {
+        path: 'employee',
+        canActivateChild: [authGuard],
+        loadChildren: () =>
+          import('./features/employee/employee.routes').then(
+            (m) => m.EMPLOYEE_ROUTES,
+          ),
+      },
+      /* User Module*/
+      {
+        path: 'user',
+        canActivateChild: [authGuard],
+        loadChildren: () =>
+          import('./features/user/user.routes').then((m) => m.USER_ROUTES),
+      },
+      /*routes to be used new feature building*/
       // {
       //   path: 'parts-list',
       //   component: PartsListComponent,
@@ -49,34 +66,9 @@ export const routes: Routes = [
       //   path: 'part/details/:partId',
       //   component: PartDetailsComponent,
       // },
-      //  {
-      //   path: 'register-user',
-      //   component: UserRegisterComponent,
-      // },
     ],
   },
 
-  
-  //Employee dashboard (lazy-loaded routes)
-  {
-    path: 'emp-dashboard',   
-    //canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/employee/employee.routes')
-        .then((m) => m.EMPLOYEE_ROUTES),
-  },
-
-  // User dashboard (lazy-loaded routes) 
-  {
-    path: 'user',
-    //canActivate: [authGuard],
-    loadChildren: () =>
-      import('./features/user/user.routes')
-        .then((m) => m.USER_ROUTES),
-  },
-
-
-
-  // Wildcard fallback
+  /* ---------- Wildcard Route (for 404 Not Found) ---------- */
   { path: '**', redirectTo: 'index', pathMatch: 'full' },
 ];
