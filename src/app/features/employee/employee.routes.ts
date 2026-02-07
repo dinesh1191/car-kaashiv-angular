@@ -8,10 +8,7 @@ import { EmpRegisterFormComponent } from './emp-register-form/emp-register-form.
 import { DashboardLayoutComponent } from '../../shared/layout/sidebar/dashboard-layout/dashboard-layout.component';
 
 export const EMPLOYEE_ROUTES: Routes = [
-  {
-    path: 'register-employee',
-    component: EmpRegisterFormComponent,
-  },
+
   {
     path: 'manage-employee',
     component: ManageEmployeeComponent,

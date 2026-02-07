@@ -29,7 +29,6 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardLayoutComponent, //shared wrapper for all dashboard routes
-    //canActivate: [authGuard],
     children: [
        /*public*/
       { path: 'register-user', component: UserRegisterComponent },
@@ -53,7 +52,16 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/user/user.routes').then((m) => m.USER_ROUTES),
       },
-      /*routes to be used new feature building*/
+  
+    ],
+  },
+  /* ---------- Wildcard Route (for 404 Not Found) ---------- */
+  { path: '**', redirectTo: 'index', pathMatch: 'full' },
+];
+
+
+
+    /*routes to be used new feature developement*/
       // {
       //   path: 'parts-list',
       //   component: PartsListComponent,
@@ -66,9 +74,3 @@ export const routes: Routes = [
       //   path: 'part/details/:partId',
       //   component: PartDetailsComponent,
       // },
-    ],
-  },
-
-  /* ---------- Wildcard Route (for 404 Not Found) ---------- */
-  { path: '**', redirectTo: 'index', pathMatch: 'full' },
-];
