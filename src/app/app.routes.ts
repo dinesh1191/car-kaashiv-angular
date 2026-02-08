@@ -10,8 +10,8 @@ import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/em
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
 import { UserRegisterComponent } from './features/user/user-register/user-register.component';
 import { EmpRegisterFormComponent } from './features/employee/emp-register-form/emp-register-form.component';
-import { AppLayoutComponent } from './shared/layout/app-layout/app-layout.component';
-import { AuthLayoutComponent } from './shared/layout/auth-layout/auth-layout.component';
+import { AppLayoutComponent } from './shared/layouts/app-layout/app-layout.component';
+import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 
 
 
