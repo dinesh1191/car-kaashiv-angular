@@ -32,7 +32,7 @@ export class LoginComponent {
     private loaderService: LoaderService,
     private router: Router,
     private route: ActivatedRoute,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
   ) {}
 
   ngOnInit() {
@@ -42,7 +42,7 @@ export class LoginComponent {
     });
   }
 
-  onSubmit() {   
+  onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;
@@ -59,10 +59,10 @@ export class LoginComponent {
             if (role === 'customer') {
               this.router.navigate(['/user']);
             } else if (role === 'staff' || 'admin') {
-              this.router.navigate(['/emp-dashboard']);
+              this.router.navigate(['/employee/emp-dashboard']);
             } else {
               this.router.navigate(['/unauthorized']);
-            }       
+            }
             this.snackbarService.show(res.message);
           },
           error: (err) => {
@@ -71,18 +71,25 @@ export class LoginComponent {
         });
       },
       error: (err) => {
-        this.snackbarService.show('Something went wrong Try again later','error', err);
+        this.snackbarService.show(
+          'Something went wrong Try again later',
+          'error',
+          err,
+        );
       },
     });
   }
 
   navgigateToUserRegister() {
-    this.router.navigate(['/dashboard/register-user']);
+    this.router.navigate(['/register-user']);
   }
 
-navigateToEmpRegister() {
-  this.router.navigate(['/dashboard/register-employee']);
-  //console.warn(this.router.config);
-}
+  navigateToEmpRegister() {
+    this.router.navigate(['/register-employee']);
+    //console.warn(this.router.config);
+  }
+  goBack(){
+    this.router.navigate(['/']);
+  }
 }
  

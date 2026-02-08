@@ -55,7 +55,7 @@ constructor(private authService:AuthService,private healthService:HealthService,
     });
   }
 
-
+  
   nextSlide() {
     this.currentSlide =
       (this.currentSlide + 1 + this.slides.length) % this.slides.length;
@@ -63,8 +63,8 @@ constructor(private authService:AuthService,private healthService:HealthService,
   prevSlide() {
     this.currentSlide =
     (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-  }
+  } 
 
-  
+
 
 }

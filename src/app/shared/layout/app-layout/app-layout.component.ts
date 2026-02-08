@@ -1,19 +1,20 @@
+
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { MATERIAL_IMPORTS } from '../../../material';
-import { PRIME_IMPORTS } from '../../../prime';
+import { MATERIAL_IMPORTS } from '../../material';
+import { PRIME_IMPORTS } from '../../prime';
 
 @Component({
-  selector: 'app-dashboard-layout',
+  selector: 'app-app-layout',
   imports: [CommonModule,
     ...MATERIAL_IMPORTS,
     ...PRIME_IMPORTS, RouterLink, RouterOutlet],
-  templateUrl: './dashboard-layout.component.html',
-  styleUrl: './dashboard-layout.component.scss'
+  templateUrl: './app-layout.component.html',
+  styleUrl: './app-layout.component.scss'
 })
-export class DashboardLayoutComponent implements OnInit {
- sidebarVisible = false;
+export class AppLayoutComponent {
+sidebarVisible = false;
 userItems:any[]=[];
 //for sidebar menu items
  menuItems = [
@@ -21,7 +22,6 @@ userItems:any[]=[];
    { label: 'Settings', icon: 'pi pi-list', route: '/user/parts' },
    { label: 'Profile', icon: 'pi pi-shopping-cart', route: '/user/cart' }
  ];
-
  ngOnInit() {
   
   this.userItems = [
@@ -43,8 +43,6 @@ userItems:any[]=[];
     }
   ];
  }
-
-
   onProfile() {
     console.log('Profile clicked');
   }
@@ -55,10 +53,7 @@ userItems:any[]=[];
     console.log('Settings clicked');
   } 
 
-
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
   }
-
-
 }

@@ -8,58 +8,56 @@ import { PartsListComponent } from './features/employee/parts/parts-list.compone
 import { PartDetailsComponent } from './features/employee/parts/part-details/part-details.component';
 import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/employee-dashboard.component';
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
-import { DashboardLayoutComponent } from './shared/layout/sidebar/dashboard-layout/dashboard-layout.component';
+
 import { UserRegisterComponent } from './features/user/user-register/user-register.component';
 import { EmpRegisterFormComponent } from './features/employee/emp-register-form/emp-register-form.component';
+import { AppLayoutComponent } from './shared/layout/app-layout/app-layout.component';
+import { AuthLayoutComponent } from './shared/layout/auth-layout/auth-layout.component';
 
 
 
 
 export const routes: Routes = [
-  /* ---------- Public Routes ---------- */
-
-  { path: 'index', component: LandingComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'privacy', component: PrivacyComponent },
-  { path: 'unauthorized', component: UnauthorizedComponent },
-  
-  
-  /* ----------Protected Dashboard Routes---------------- */
+  /* ---------- Public Pages ---------- */
+  { path: '', component: LandingComponent },
+     
+  /* ---------- Auth Pages (Header + Footer only) ---------- */
   {
-    path: 'dashboard',
-    component: DashboardLayoutComponent, //shared wrapper for all dashboard routes
+    path: '',
+    component: AuthLayoutComponent, //shared wrapper for all dashboard routes
     children: [
-       /*public*/
+
+      { path: 'login', component: LoginComponent},
+      { path: 'contact', component: ContactComponent },
+      { path: 'privacy', component: PrivacyComponent },
+      { path: 'unauthorized', component: UnauthorizedComponent }, 
       { path: 'register-user', component: UserRegisterComponent },
       { path: 'register-employee', component: EmpRegisterFormComponent },
-      
-      /*protected childs routes*/
-
-      /* Employee Module (lazy-loaded routes)-*/
+      ]
+    },
+    /* ---------- Authenticated App ---------- */
+    {
+    path: '',
+    component: AppLayoutComponent, //shared wrapper for authienticated routes
+    canActivateChild: [authGuard],
+    children: [
       {
         path: 'employee',
-        canActivateChild: [authGuard],
         loadChildren: () =>
           import('./features/employee/employee.routes').then(
             (m) => m.EMPLOYEE_ROUTES,
           ),
       },
-      /* User Module*/
       {
         path: 'user',
-        canActivateChild: [authGuard],
         loadChildren: () =>
           import('./features/user/user.routes').then((m) => m.USER_ROUTES),
       },
-  
     ],
-  },
+    },
   /* ---------- Wildcard Route (for 404 Not Found) ---------- */
-  { path: '**', redirectTo: 'index', pathMatch: 'full' },
+   { path: '**', redirectTo: ''},
 ];
-
-
 
     /*routes to be used new feature developement*/
       // {
