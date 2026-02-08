@@ -8,7 +8,6 @@ import { PartsListComponent } from './features/employee/parts/parts-list.compone
 import { PartDetailsComponent } from './features/employee/parts/part-details/part-details.component';
 import { EmployeeDashboardComponent } from './features/employee/emp-dashboard/employee-dashboard.component';
 import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
-
 import { UserRegisterComponent } from './features/user/user-register/user-register.component';
 import { EmpRegisterFormComponent } from './features/employee/emp-register-form/emp-register-form.component';
 import { AppLayoutComponent } from './shared/layout/app-layout/app-layout.component';
