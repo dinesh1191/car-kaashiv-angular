@@ -1,59 +1,186 @@
-# CarKaashivAngular
+**CarKaashiv 2.0**
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.18.
+CarKaashivAngular is a feature-based Angular application designed with clean routing, layout separation, and scalable architecture in mind.
+The project emphasizes enterprise-style structure, maintainability, and clear separation of concerns.
 
-## Development server
+This project was generated using Angular CLI v19.2.18.
 
-To start a local development server, run:
+ **Architecture Overview**
 
-```bash
+The application follows a feature-first architecture instead of page-based routing.
+
+Key Architectural Decisions
+
+Feature-based folder structure (employee, user, auth)
+
+Dedicated layouts for authenticated and unauthenticated users
+
+Clean URLs based on feature / intent, not layout names
+
+Centralized guards and interceptors
+
+Lazy-loaded feature routes for scalability
+
+ **Layout Strategy**
+ 
+Auth Layout
+
+Used for:
+
+Login
+
+User registration
+
+Employee registration
+
+**Includes:**
+
+Header
+
+Footer
+
+Excludes:
+
+Sidebar
+
+Logout
+
+Operational actions
+
+**UX behavior:**
+
+Fixed viewport (no unnecessary scrolling)
+
+Centered form content
+
+App Layout (Authenticated Users)
+
+Used after successful login.
+
+**Includes:**
+
+Header
+
+Footer
+
+Sidebar
+
+Logout and role-based actions
+
+Supports scrolling as dashboard content grows.
+
+**Routing Philosophy**
+
+Path = Feature / Intent
+Layout = Internal UI concern
+
+Layouts are not exposed in URLs.
+
+Example Routes
+/login
+/register-user
+/register-employee
+/employee/emp-dashboard
+
+
+This ensures:
+
+Clean and readable URLs
+
+Layout changes don’t affect navigation
+
+Long-term scalability
+
+** Authentication & Authorization**
+
+Route-level authentication using authGuard
+
+Role-based access control using roleGuard
+
+Guards applied at routing level, not component level
+
+Unauthorized access redirected to /unauthorized
+
+ **Project Structure (Simplified)**
+src/
+├── app/
+│   ├── core/        # guards, interceptors, global services
+│   ├── features/    # auth, employee, user domains
+│   ├── shared/      # reusable components and layouts
+│   ├── pages/       # public pages (landing, contact, privacy)
+│   ├── models/      # shared domain models
+│   └── app.routes.ts
+├── assets/
+└── environments/
+
+ **Development Server**
+
+To start a local development server:
+
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+Open your browser at:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+http://localhost:4200/
 
-```bash
+
+The application automatically reloads on source file changes.
+
+ **Code Scaffolding**
+
+Generate a new component:
+
 ng generate component component-name
-```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
+List all available schematics:
+
 ng generate --help
-```
 
-## Building
+ **Build**
 
-To build the project run:
+To build the project:
 
-```bash
 ng build
-```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
+Build artifacts will be stored in the dist/ directory.
+Production builds are optimized for performance and speed.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
+ **Testing**
+Unit Tests
 ng test
-```
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+Runs unit tests using Karma.
 
-```bash
+End-to-End Tests
 ng e2e
-```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+Angular CLI does not include an e2e framework by default. You may integrate one as needed.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+ **Design Goals**
+
+Clean separation of concerns
+
+Scalable feature-based routing
+
+Maintainable layout strategy
+
+Resume-ready enterprise architecture
+
+ **Future Enhancements**
+
+Role-based landing pages after login
+
+Token refresh & session handling
+
+Centralized error UX strategy
+
+Extended architecture documentation
+
+**Additional Resources**
+
+Angular CLI Documentation
