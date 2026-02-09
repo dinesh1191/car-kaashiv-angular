@@ -11,6 +11,7 @@ import { MenuModule } from 'primeng/menu';
 import { MessageModule } from 'primeng/message';
 import { DropdownModule } from 'primeng/dropdown';
 import { PasswordModule } from 'primeng/password';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -29,6 +30,7 @@ export const PRIME_IMPORTS = [
   MessageModule,
   DropdownModule,
   PasswordModule,
+   ConfirmDialogModule,
 
 
 

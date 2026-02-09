@@ -59,23 +59,7 @@ export class EmployeeDashboardComponent implements OnInit {
   navigateTo(route:string){
     this.router.navigate([route]);
   }
-  onLogout(){
-    this.authService.logout().subscribe({
-      next:(res)=>{     
-        console.log('Logout API response:', res);  
-        if(res.success){
-          console.log("inside if")
-           this.authService.clearUserProfile();          
-           this.snackBarService.show(res.message,'warning')
-           this.router.navigate(['/auth']);         
-
-        }
-      },
-       error: (err) => {
-       this.snackBarService.show('server error occured',err);     
-    } 
-    })
-   }
+ 
 
 
 }

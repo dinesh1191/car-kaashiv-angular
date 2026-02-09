@@ -212,7 +212,7 @@ button.p-button {
 /* Footer */
 .app-footer {
   padding: 0.75rem 1.25rem;
-  border-top: 1px solid var(--app-border);
+  //border-top: 1px solid var(--app-border);
 }
 
 .app-footer-left,
@@ -241,9 +241,7 @@ button.p-button {
   flex-shrink: 0;        /* 👈 stops toolbar from pushing layout */
   padding: 0.75rem 1rem; /* reduce default spacing */
 }
-.auth-card {
-  //max-height: calc(100vh - 160px); /* header + footer safe zone */
-  //overflow: auto;
+.auth-card { 
   width: 100%;
   max-width: 420px;
 }
