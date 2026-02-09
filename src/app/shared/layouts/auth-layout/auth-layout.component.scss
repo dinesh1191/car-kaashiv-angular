@@ -1,38 +1,38 @@
-/* ---- Topbar ---- */
+// /* ---- Topbar ---- */
 
-.app-title {
-  font-weight: 500;
-  margin-left: 0.5rem;
-  color: white;
-}
+// .app-title {
+//   font-weight: 500;
+//   margin-left: 0.5rem;
+//   color: white;
+// }
 
-.menu-btn {
-  color: white;
-}
+// .menu-btn {
+//   color: white;
+// }
 
-.auth-page{
-    height:100vh;
-    display: flex;
-    flex-direction: column;
-}
-/*body*/
-.auth-content {
-    flex:1;
-    display: flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-}
-/* ---- Footer Toolbar ---- */
-.footer-toolbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: var(--surface-200);
-  color:white !important;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-  z-index: 1000;
-}
+// .auth-page{
+//     height:100vh;
+//     display: flex;
+//     flex-direction: column;
+// }
+// /*body*/
+// .auth-content {
+//     flex:1;
+//     display: flex;
+//     justify-content:center;
+//     align-items:center;
+//     overflow:hidden;
+// }
+// /* ---- Footer Toolbar ---- */
+// .footer-toolbar {
+//   position: fixed;
+//   bottom: 0;
+//   left: 0;
+//   width: 100%;
+//   background-color: var(--surface-200);
+//   color:white !important;
+//   justify-content: space-between;
+//   font-size: 0.9rem;
+//   padding: 0.5rem 1rem;
+//   z-index: 1000;
+// }

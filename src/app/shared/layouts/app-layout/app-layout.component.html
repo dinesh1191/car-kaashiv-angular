@@ -1,28 +1,32 @@
 
 <!-- Topbar -->
-<p-toolbar styleClass="p-3 shadow-2">
+<p-toolbar styleClass="app-topbar">
    <!-- Left Section -->
-  <div class="p-toolbar-group-left">
+  <div class="app-topbar-left">
     <button
       pButton
       icon="pi pi-bars"
-      class="p-button-text p-button-rounded mr-3 menu-btn"
+      class="app-menu-btn"
       (click)="sidebarVisible = true">
-    </button>   
-       <span class="font-semibold text-lg app-title">CarKaashiv Dashboard</span>
-  </div>
+    </button>  
+
+       <span class="app-title">CarKaashiv</span>  
+        <span class="app-section-title">Employee Dashboard</span>
+     
+      </div>
 
   <!-- Right Section -->
-  <div class="p-toolbar-group-right">
-    <p-menu #userMenu [popup]="true" [model]="userItems"> </p-menu>
+  <div class="app-topbar-right">
+      <span *ngIf="currentUser" >Welcome, {{currentUser.name}} ({{currentUser.role}})</span>
+    <p-menu #userMenu [popup]="true" [model]="userItems"></p-menu>
     <p-avatar icon="pi pi-user" shape="circle" class="cursor-pointer" (click)="userMenu.toggle($event)">
     </p-avatar>
   </div>
 </p-toolbar>
 
 <!-- Sidebar -->
-<p-sidebar [(visible)]="sidebarVisible" [baseZIndex]="10000" position="left">
-  <h3 class="p-mb-3">Navigation</h3>
+<p-sidebar [(visible)]="sidebarVisible" position="left" styleClass="app-sidebar">
+  <h3 class="sidebar-title">Navigation</h3>
   <ul class="sidebar-menu">
     <li *ngFor="let item of menuItems">
       <a [routerLink]="item.route" (click)="sidebarVisible = false">
@@ -33,13 +37,13 @@
 </p-sidebar>  
 
   <!-- Main content -->
-<div class="dashboard-content p-5">
+<div class="app-content">
   <router-outlet></router-outlet>
 </div>
 
 <!--Foot section-->
-  <p-toolbar styleClass="footer-toolbar shadow-2">
-  <div class="p-toolbar-group-left menu-btn">
+  <p-toolbar styleClass="app-footer">
+  <div class="app-footer left">
     <span>© 2025 CarKaashiv 2.0</span>
   </div>
   <div class="p-toolbar-group-right">

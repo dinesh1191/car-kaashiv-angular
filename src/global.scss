@@ -3,13 +3,46 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 /* ------------------------------- */
-/* Bootstrap */
+/* Bootstrap + Prime Icons */
 @import 'bootstrap/dist/css/bootstrap.min.css';
-@import "primeicons/primeicons.css";
+@import 'primeicons/primeicons.css';
 
+/* ------------------------------- */
+/* Global Design Tokens */
+:root {
+  /* ===== Brand Colors ===== */
+  --color-primary: #3f51b5;
+  --color-primary-light: #63a4ff;
+  --color-primary-dark: #004ba0;
 
+  --color-accent: #00bcd4;
+  --color-success: #4caf50;
+  --color-warning: #ffb300;
+  --color-danger: #f44336;
+  --color-info: #2196f3;
 
-/* Snackbar Theme Styles */
+  /* ===== Neutral / Surface ===== */
+  --color-text: #1f2937;
+  --color-text-inverse: #ffffff;
+  --color-text-muted: #6b7280;
+
+  --color-bg: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-border: #e0e0e0;
+
+  /* ===== App Layout (Authenticated) ===== */
+  --app-bg: var(--color-primary);
+  --app-text: var(--color-text-inverse);
+  --app-text-muted: rgba(255, 255, 255, 0.8);
+  --app-border: rgba(255, 255, 255, 0.2);
+
+  /* ===== Auth Layout ===== */
+  --auth-bg: var(--color-bg);
+  --auth-text: var(--color-text);
+}
+
+/* ------------------------------- */
+/* Snackbar Styles */
 .mdc-snackbar {
   border-radius: 8px !important;
   font-family: 'Inter', 'Roboto', sans-serif;
@@ -23,34 +56,29 @@
   line-height: 1.4 !important;
 }
 
-.mdc-snackbar__actions {
-  button {
-    color: #fff !important;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
+.mdc-snackbar__actions button {
+  color: #fff !important;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .mat-mdc-snack-bar-container.snackbar-success {
-  --mdc-snackbar-container-color: #4caf50;
+  --mdc-snackbar-container-color: var(--color-success);
   --mdc-snackbar-supporting-text-color: #fff;
-  font-weight: 500;
 }
 
 .mat-mdc-snack-bar-container.snackbar-error {
   --mdc-snackbar-container-color: #ec574d;
   --mdc-snackbar-supporting-text-color: #fff;
-  font-weight: 500;
 }
 
 .mat-mdc-snack-bar-container.snackbar-warning {
   --mdc-snackbar-container-color: #ffa000;
   --mdc-snackbar-supporting-text-color: #fff;
-  font-weight: 500;
 }
 
 /* ------------------------------- */
-/* Optional: fix PrimeNG + Bootstrap conflicts */
+/* PrimeNG + Bootstrap Fix */
 button.p-button {
   all: unset;
   display: inline-flex;
@@ -62,37 +90,27 @@ button.p-button {
   font-weight: 500;
   cursor: pointer;
 }
-:root {
-  /* ====== Brand Colors ====== */
-  --primary-color: #3f51b5;       /* Core brand blue */
-  --primary-light: #63a4ff;       /* Lighter shade for hover */
-  --primary-dark: #004ba0;        /* Darker shade for active states */
 
-  /* ====== Accent / Secondary ====== */
-  --accent-color: #00bcd4;        /* Cyan accent */
-  --success-color: #4caf50;       /* Success green */
-  --warning-color: #ffb300;       /* Amber warning */
-  --danger-color: #f44336;        /* Error red */
-  --info-color: #2196f3;          /* Info blue */
-
-  /* ====== Neutral / Surface ====== */
-  --text-color: #333333;
-  --text-light: #ffffff;
-  --background-color: #f5f7fa;
-  --card-background: #ffffff;
-  --border-color: #e0e0e0;
-
-  /* ====== Shadow / Elevation ====== */
-  --shadow-color: rgba(0, 0, 0, 0.1);
-}
-
-
+/* ------------------------------- */
+/* PrimeNG Overrides */
 .p-toolbar {
-  background-color: var(--primary-color)!important;
-  color: white;
+  background-color: var(--color-primary) !important;
+  color: var(--app-text) !important;
 }
 
+.p-button.p-button-primary {
+  background-color: #22c55e !important;
+  border-color: #22c55e !important;
+}
 
+.p-button.p-button-primary:enabled:hover,
+.p-button.p-button-primary:enabled:focus {
+  background-color: #047857 !important;
+  border-color: #047857 !important;
+}
+
+/* ------------------------------- */
+/* Utility */
 .text-lg {
   font-size: 1.2rem;
 }
@@ -100,14 +118,134 @@ button.p-button {
 .font-semibold {
   font-weight: 600;
 }
-.p-button.p-button-primary {
-  background-color: #22c55e  !important; /* green */
-  border-color: #22c55e !important;
+
+/* ------------------------------- */
+/* App Layout (Shell) */
+.app-layout {
+  background-color: var(--app-bg);
+  color: var(--app-text);
 }
 
-.p-button.p-button-primary:enabled:hover,
-.p-button.p-button-primary:enabled:active,
-.p-button.p-button-primary:enabled:focus {
-  background-color: #047857 !important; /* darker green */
-  border-color: #047857 !important;
+.app-title,
+.menu-btn,
+.app-user-info {
+  color: var(--app-text);
 }
+
+/* Topbar */
+.app-topbar {
+  padding: 0.75rem 1.25rem;
+  background: var(--color-primary);
+  border-bottom: 1px solid var(--app-border);
+}
+
+.app-topbar-left,
+.app-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Menu Button */
+.app-menu-btn {
+  background: transparent;
+  border: none;
+  color: var(--app-text);
+}
+
+/* Titles & User Info */
+.app-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.app-section-title {
+  font-weight: 600;
+}
+
+.app-user-info {
+  font-size: 0.9rem;
+  color: var(--app-text-muted);
+}
+
+/* Avatar */
+.app-user-avatar {
+  cursor: pointer;
+}
+
+/* Sidebar */
+.app-sidebar {
+  width: 250px;
+}
+
+.sidebar-title {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  color: var(--app-text);
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.sidebar-menu li a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Content */
+.app-content {
+  padding: 1.5rem;
+  min-height: calc(100vh - 120px);
+}
+
+/* Footer */
+.app-footer {
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid var(--app-border);
+}
+
+.app-footer-left,
+.app-footer-right {
+  font-size: 0.85rem;
+  color: var(--app-text-muted);
+}
+/*======Auth Layout======*/
+.auth-layout {
+  height: 100vh;          
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;      
+  background-color: var(--auth-bg);
+}
+
+.auth-content {
+   flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.auth-header,
+.auth-footer {
+  flex-shrink: 0;        /* 👈 stops toolbar from pushing layout */
+  padding: 0.75rem 1rem; /* reduce default spacing */
+}
+.auth-card {
+  //max-height: calc(100vh - 160px); /* header + footer safe zone */
+  //overflow: auto;
+  width: 100%;
+  max-width: 420px;
+}
+
+/*======Auth Layout= end=====*/

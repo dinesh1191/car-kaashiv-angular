@@ -1,6 +1,7 @@
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AuthService, UserProfile } from '../../../core/services/auth.service';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { MATERIAL_IMPORTS } from '../../material';
 import { PRIME_IMPORTS } from '../../prime';
@@ -14,6 +15,7 @@ import { PRIME_IMPORTS } from '../../prime';
   styleUrl: './app-layout.component.scss'
 })
 export class AppLayoutComponent {
+ currentUser!: UserProfile | null;
 sidebarVisible = false;
 userItems:any[]=[];
 //for sidebar menu items
@@ -22,7 +24,9 @@ userItems:any[]=[];
    { label: 'Settings', icon: 'pi pi-list', route: '/user/parts' },
    { label: 'Profile', icon: 'pi pi-shopping-cart', route: '/user/cart' }
  ];
+ constructor(private authService:AuthService) { }
  ngOnInit() {
+  this.currentUser = this.authService.currentUser;
   
   this.userItems = [
     {
@@ -42,12 +46,14 @@ userItems:any[]=[];
         command: () => {this.onLogout()}
     }
   ];
+
  }
   onProfile() {
     console.log('Profile clicked');
   }
   onLogout() {
     console.log('Logout clicked');
+    this.authService.logout();
   }
   onSettings() {
     console.log('Settings clicked');
