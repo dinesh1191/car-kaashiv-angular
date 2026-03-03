@@ -3,19 +3,18 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validator, Validators, ɵI
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoaderService } from '../../../../core/services/loader.service';
-import { MATERIAL_IMPORTS } from '../../../../shared/material';
+
 import { CommonModule } from '@angular/common';
-import { getFormattedTimestamp } from '../../../../core/utils/date-utlis';
-import { AuthService } from '../../../../core/services/auth.service';
-import { SharedModule } from '../../../../shared/shared.module';
+import { AuthService } from '../../../core/services/auth.service';
+import { SnackbarService } from '../../../core/services/snackbar.service';
 import { PartService } from '../part.service';
-import { SnackbarService } from '../../../../core/services/snackbar.service';
+import { LoaderService } from '../../../core/services/loader.service';
+import { SharedModule } from '../../../shared/shared.module';
 
 
 @Component({
   selector: 'app-part-details',
-  imports: [SharedModule],
+  imports: [SharedModule,CommonModule],
   templateUrl: './part-details.component.html',
   styleUrl: './part-details.component.scss'
 })
@@ -41,27 +40,30 @@ constructor(
 ngOnInit(){
   //Initialize form
   this.partForm = this.fb.group({    
-    pName:['',Validators.required,],
-    pDetail:['',Validators.required],
-    pPrice:['',Validators.required,Validators.min(0)],
-    pStock:['',Validators.required,Validators.min(0)],
-    imagePath:['',Validators.required]    
+    name:['',Validators.required,],
+    description:['',Validators.required],
+    price:['',[Validators.required,Validators.min(0)]],
+    stock:['',[Validators.required,Validators.min(0)]],
+    imageUrl:['']    
   })  
+
+
 this.loaderService.show;
- console.log("on init triggered")
-  this.route.paramMap.subscribe(p=>{
-      this.partId = +p.get('partId')!
-    });    
-  console.log("paramMap partId",this.partId)
+
+  const id =this.route.snapshot.paramMap.get('id') //get id from url if exists
+  console.log("Recieved id"+id)
+  this.partId = +id!;
+
     
     if(this.partId){
-      this.isEditMode = true;      
+     this.isEditMode = true;      
       this.partService.getPartbyId(this.partId).subscribe({
         next:(res)=>{       
           if(res.data){
              this.snackBarService.show('Part fetched successfully.');
              this.partForm.patchValue(res.data);
-             console.log(res.data.part_image)
+        
+             console.log("Form value after patch:", this.partForm.value);
        
         } else {
           this.snackBarService.show('No data found for this part.');
@@ -93,11 +95,11 @@ onsumbit(){
       return;
   }
   const empId = this.authService.currentUser;
-    const data = { ...this.partForm.value,emp_id:empId,idt:getFormattedTimestamp,}
-    const formData = this.partService.buildFormData(data,)
+    const data = { ...this.partForm.value}
+    //const formData = this.partService.buildFormData(data,)
 
     this.loaderService.show()
-    this.partService.addPart(formData).subscribe({
+    this.partService.updatePart(this.partId,data).subscribe({
       next:(res)=>{
           if(res){
             this.loaderService.hide()

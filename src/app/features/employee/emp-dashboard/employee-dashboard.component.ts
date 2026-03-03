@@ -29,17 +29,15 @@ export class EmployeeDashboardComponent implements OnInit {
     title:'Manage Parts',
     icon:'build',
     description:'Add,edit and manage parts inventory.',
-    route:'/employee/parts'
+    route:'/parts'
   },
   {    
     title:'Customer Orders',
     icon:'shopping_cart',
     description:'View and track customer orders.',
     route:'/employee/orders'
-  },
-  
-  // {
-       
+  },  
+  // {       
   //   title:'Employee Management',
   //   icon:'group',
   //   description:'Add or manage employee accounts (Admin only)',

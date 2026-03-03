@@ -1,26 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+
 import { Observable } from 'rxjs';
-import { Part} from '../../../models/part.model'
-import { ApiResponse } from '../../../models/api-response.model';
+import { environment } from '../../../environments/environment';
+import { ApiResponse } from '../../models/api-response.model';
+import { Part } from '../../models/part.model';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PartService {
-private apiUrl = `${environment.apiBaseUrl}/parts`;
+private apiUrl = `${environment.apiBaseUrl}/api/parts`;
 
   constructor(private http:HttpClient) { }
 
   getAllParts(): Observable<ApiResponse<Part[]>> {
-  return this.http.get<ApiResponse<Part[]>>(`${this.apiUrl}/getParts`,{withCredentials:true});
+  return this.http.get<ApiResponse<Part[]>>(`${this.apiUrl}`,{withCredentials:true});
  }
  getPartbyId(id:number):Observable<ApiResponse<Part>>{
   return this.http.get<ApiResponse<Part>>(`${this.apiUrl}/${id}`,{withCredentials:true})
  }
 
   addPart(formData: FormData):Observable<ApiResponse<Part>> {
-    return this.http.post<ApiResponse<Part>>(`${this.apiUrl}/addPart`,formData);
+    return this.http.post<ApiResponse<Part>>(`${this.apiUrl}`,formData);
   }
 
   updatePart(id:number,part:Part):Observable<ApiResponse<Part>>{

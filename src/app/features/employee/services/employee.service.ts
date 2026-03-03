@@ -14,6 +14,6 @@ export class EmployeeService {
   constructor(private http:HttpClient) { }
 
 registerEmployee(employeeData:any):Observable<ApiResponse<any>>{
-    return this.http.post<ApiResponse<any>>(`${this.apiUrl}/auth/register-employee`, employeeData);
+    return this.http.post<ApiResponse<any>>(`${this.apiUrl}/api/auth/register-employee`, employeeData);
 }
 }
