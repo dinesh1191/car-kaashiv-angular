@@ -35,7 +35,7 @@ export class AuthService {
   private readonly User_PROFILE_KEY = 'userProfile'
 
   constructor(private http: HttpClient) {
-    //  read userinfo saved user profile from browser session storage
+   // read userinfo saved user profile from browser session storage
    // repopulates your BehaviorSubject/Observable, so all subscribed 
    // components (like navbar, dashboard, etc.) instantly know the user 
    // is already logged in.

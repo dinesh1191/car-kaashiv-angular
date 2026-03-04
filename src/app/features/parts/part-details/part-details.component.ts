@@ -89,12 +89,12 @@ this.partForm.patchValue({'imagePath':this.selectedFileName})
 
 onsumbit(){
   // Manually mark the hidden file input as 'touched' so validation errors (like required) show up on submit
-  this.partForm.get('imagePath')?.markAsTouched();
+  // this.partForm.get('imagePath')?.markAsTouched();
+  console.log("Submitting form with value:", this.partForm.value);
    if(this.partForm.invalid){
      this.snackBarService.show("Please fill the required details")
       return;
   }
-  const empId = this.authService.currentUser;
     const data = { ...this.partForm.value}
     //const formData = this.partService.buildFormData(data,)
 

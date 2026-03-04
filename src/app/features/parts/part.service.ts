@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../../models/api-response.model';
 import { Part } from '../../models/part.model';
+import { HTTP_CONTEXT } from '../../core/constants/http-context.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ private apiUrl = `${environment.apiBaseUrl}/api/parts`;
   constructor(private http:HttpClient) { }
 
   getAllParts(): Observable<ApiResponse<Part[]>> {
-  return this.http.get<ApiResponse<Part[]>>(`${this.apiUrl}`,{withCredentials:true});
+  return this.http.get<ApiResponse<Part[]>>(`${this.apiUrl}`,{headers: new HttpHeaders().set(HTTP_CONTEXT.SKIP_SUCCESS, 'true'),withCredentials:true});
  }
  getPartbyId(id:number):Observable<ApiResponse<Part>>{
   return this.http.get<ApiResponse<Part>>(`${this.apiUrl}/${id}`,{withCredentials:true})

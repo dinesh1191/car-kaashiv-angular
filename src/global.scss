@@ -76,6 +76,9 @@
   --mdc-snackbar-container-color: #ffa000;
   --mdc-snackbar-supporting-text-color: #fff;
 }
+::ng-deep .mat-mdc-dialog-container {
+  border-radius: 12px;
+}
 
 /* ------------------------------- */
 /* PrimeNG + Bootstrap Fix */

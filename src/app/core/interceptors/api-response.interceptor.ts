@@ -14,6 +14,8 @@ import { SnackbarService } from '../services/snackbar.service';
 import { ApiResponse } from '../../models/api-response.model';
 import { LoaderService } from '../services/loader.service';
 import { inject } from '@angular/core';
+import { HTTP_CONTEXT } from '../constants/http-context.constants';
+
 export const SKIP_LOADER = new HttpContextToken(()=> false);
 
 export const apiResponseInterceptor : HttpInterceptorFn=(req,next)=>{
@@ -23,7 +25,9 @@ export const apiResponseInterceptor : HttpInterceptorFn=(req,next)=>{
 
   
   //skip Loader if request has special header
-  const skipLoader = req.headers.has('SKIP_LOADER');
+  const skipLoader = req.headers.has(HTTP_CONTEXT.SKIP_LOADER);
+  //skip success message if request has special header
+  const skipSuccess = req.headers.has(HTTP_CONTEXT.SKIP_SUCCESS);
 
   if(!skipLoader)loaderService.show();
   
@@ -33,7 +37,7 @@ export const apiResponseInterceptor : HttpInterceptorFn=(req,next)=>{
     tap(event => {
       if(event instanceof HttpResponse){
         const body = event.body as ApiResponse<any>;
-        if(body && body.message && body.success){          
+        if(!skipSuccess && body?.message && body.success){          
         snackBar.show(body.message,'success');
         }
       }

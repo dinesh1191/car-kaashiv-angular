@@ -13,7 +13,7 @@ export class SnackbarService {
   show(
     message: string,
     type: 'success' | 'error' | 'warning' = 'success',
-    duration = 10000,err?:any) {    
+    duration = 3000,err?:any) {    
     
       const panelClass =
         type === 'error'

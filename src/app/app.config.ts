@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom, inject, provideZoneChangeDetect
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MATERIAL_IMPORTS } from './shared/material';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -17,6 +17,7 @@ import { PRIME_IMPORTS } from './shared/prime';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({eventCoalescing: true }),
@@ -25,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
       MessageService,
       ConfirmationService,
-    importProvidersFrom(BrowserAnimationsModule,...MATERIAL_IMPORTS,...PRIME_IMPORTS, ReactiveFormsModule),
+    importProvidersFrom(MATERIAL_IMPORTS,...PRIME_IMPORTS, ReactiveFormsModule),
    provideAppInitializer(() => {   
         const authService = inject(AuthService);
         if (authService.currentUser) {

@@ -1,5 +1,9 @@
-<form [formGroup]="partForm" (ngSubmit)="onSubmit()">
 
+<div class="container">
+    <mat-card class="form-card">
+
+<form [formGroup]="partForm" (ngSubmit)="onSubmit()">
+  
     <div>
         <label>Part Name</label>
         <input formControlName="name" type="text" class="form-control" placeholder="Enter part name" />
@@ -17,13 +21,15 @@
 
     <div>
         <label>Stock Quantity</label>
-        <input formControlName="stockQuantity" type="number" class="form-control" placeholder="Enter stock quantity" />
+        <input formControlName="stock" type="number" class="form-control" placeholder="Enter stock quantity" />
     </div>
 
     <div>
         <label>Image Path</label>
-        <input formControlName="imagePath" type="file" class="form-control" placeholder="Select an image" />
+        <input formControlName="imageUrl" type="file" class="form-control" placeholder="Select an image" />
     </div>
     <button type="submit" class="btn btn-primary mt-3">Save Part</button>
 
 </form>
+</mat-card>
+</div>
