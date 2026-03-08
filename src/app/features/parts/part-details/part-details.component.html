@@ -1,7 +1,7 @@
 <div class="container">
 <mat-card class="form-card">
-    <mat-card-title>Add New Part</mat-card-title>
-    <form [formGroup]="partForm" (ngSubmit)="onsumbit()" enctype="multipart/form-data">
+    <mat-card-title>{{isEditMode?'Edit Part':'Add Part'}}</mat-card-title>
+    <form [formGroup]="partForm" (ngSubmit)="onSumbit()" enctype="multipart/form-data">
         <mat-form-field appearance="fill" class="w-100 mb-0" >
             <mat-label>Part Name</mat-label>
             <input matInput formControlName="name"/>

@@ -58,7 +58,7 @@ export class PartsListComponent {
 
   editPart(id: any) {
     console.log('posting part id to next page', id);
-    this.router.navigate(['/parts/details', id]);
+    this.router.navigate(['/parts/edit', id]);
   }
 
   deletePart(id: number) {
