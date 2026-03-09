@@ -25,14 +25,17 @@
             <textarea   matInput rows="2" matInput formControlName="description"></textarea>
             <mat-error *ngIf="partForm.get('description')?.hasError('required')">Part detail is Required</mat-error>
         </mat-form-field>    
-           <div class="w-100 mb-3">
-             <mat-label>Part Image</mat-label> <br>
-             <!-- <img [src]="selectedFile ? selectedFile : 'assets/images/default-image.png'"> -->
-            <button mat-raised-button color="primary"  type="button" (click)="fileInput.click()"><mat-icon>upload</mat-icon>Choose Image</button>         
-            <span class="ms-2 file-name">{{selectedFileName}}</span>  
-            <input type="file" #fileInput class="file-upload" style="display: none;" formControlName="imageUrl" (change)="onFileSelected($event)" accept="image/*"/>
-            <mat-error *ngIf="partForm.get('imageUrl')?.invalid && partForm.get('imageUrl')?.touched ">Please select an image</mat-error>        
-        </div>
+            <div class="w-100 mb-3">
+                <mat-label>Part Image</mat-label> <br>
+                <img *ngIf="previewUrl" [src]="previewUrl" width="75"><br>
+                <input type="file" hidden #fileInput class="file-upload" (change)="onFileSelected($event)" accept="image/*" />
+                <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">{{previewUrl? 'Change Image' :
+                    'Choose Image'}}</button>
+                <span class="ms-2 file-name">{{selectedFileName}}</span>
+                <mat-error *ngIf="partForm.get('imageUrl')?.invalid && partForm.get('imageUrl')?.touched ">Please select an
+                    image</mat-error>
+            </div>
+
        <div class="actions w-100 mb-0 text-center">
          <button mat-raised-button color="primary" type="submit" >
             {{isEditMode? 'Update':'Save'}}</button>

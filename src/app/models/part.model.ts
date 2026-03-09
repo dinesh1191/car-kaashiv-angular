@@ -6,5 +6,5 @@ export interface Part {
     description:string;
     price:number;
     stock:number;
-    part_image?:string;
+    imageUrl?:string;
 }
