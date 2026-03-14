@@ -18,7 +18,7 @@ private apiUrl = `${environment.apiBaseUrl}/api/parts`;
   getAllParts(): Observable<ApiResponse<Part[]>> {
   return this.http.get<ApiResponse<Part[]>>(`${this.apiUrl}`,{headers: new HttpHeaders().set(HTTP_CONTEXT.SKIP_SUCCESS, 'true'),withCredentials:true});
  }
- getPartbyId(id:number):Observable<ApiResponse<Part>>{
+ getPartById(id:number):Observable<ApiResponse<Part>>{
   return this.http.get<ApiResponse<Part>>(`${this.apiUrl}/${id}`,{withCredentials:true})
  }
 
@@ -33,6 +33,7 @@ private apiUrl = `${environment.apiBaseUrl}/api/parts`;
   deletePart(id:number) : Observable<ApiResponse<any>> {
     return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/${id}`,{ withCredentials: true });
   }
+  
   // buildFormData(data:any,file?:File):FormData{
   // const formData = new FormData();
   //  Object.entries(data).forEach(([key,value])=> formData.append(key,value as string));

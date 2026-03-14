@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 export interface PresignedUrlResponse {
   uploadUrl: string;
   fileUrl: string;
+  key:string;
 }
 @Injectable({
   providedIn: 'root',
@@ -31,5 +32,8 @@ export class UploadService {
       'Content-Type': fileUrl.type
     }
     });
+  }
+  deleteFile(key:string) {
+    return this.http.delete(`${this.api}/${key}`);
   }
 }

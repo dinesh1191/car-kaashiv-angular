@@ -39,8 +39,7 @@ export class PartsListComponent {
   loadParts() {       
     this.partService.getAllParts().subscribe({
       next: (res) => {       
-        if (res.success && res.data) {  
-             debugger;    
+        if (res.success && res.data) {              
           this.parts = res.data;
         }         
       },
