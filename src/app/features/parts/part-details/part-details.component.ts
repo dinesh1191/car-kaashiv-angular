@@ -110,6 +110,17 @@ export class PartDetailsComponent {
       return;
     }
     const data = { ...this.partForm.value };
+    if (this.currentImageKey?.startsWith('temp/')) {
+      // If the image is still in temp folder, move it to permanent location by calling update with same image key
+      this.uploadService.confirmImage(this.currentImageKey).subscribe((res) => {
+        data.imageUrl = res.imageUrl; // Update imageUrl with the confirmed URL
+        this.savePartToApi(data);
+      });
+    } else {
+      this.savePartToApi(data);
+    }
+  }
+  savePartToApi(data:any){
     const res$ = this.isEditMode
       ? this.partService.updatePart(this.partId, data)
       : this.partService.addPart(data);
@@ -125,8 +136,7 @@ export class PartDetailsComponent {
   }
  
   deleteTempImageFile() {
-    if (this.currentImageKey) {
-      console.log('Cleaning up temp image file', this.currentImageKey);
+    if (this.currentImageKey) {     
       this.uploadService.deleteFile(this.currentImageKey).subscribe((res) => {
         console.log(res, 'File deleted successfully');
       });

@@ -34,12 +34,7 @@ private apiUrl = `${environment.apiBaseUrl}/api/parts`;
     return this.http.delete<ApiResponse<any>>(`${this.apiUrl}/${id}`,{ withCredentials: true });
   }
   
-  // buildFormData(data:any,file?:File):FormData{
-  // const formData = new FormData();
-  //  Object.entries(data).forEach(([key,value])=> formData.append(key,value as string));
-  //  return formData
-  // }
-    /** Helper to convert plain object + file into FormData */
+  /** Helper to convert plain object + file into FormData */
   buildFormData(data: any, file?: string): FormData {
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {

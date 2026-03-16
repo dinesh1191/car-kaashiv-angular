@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ApiResponse } from '../../models/api-response.model';
 export interface PresignedUrlResponse {
   uploadUrl: string;
   fileUrl: string;
   key:string;
+}
+
+export interface DeleteFileResponse {
+  success: boolean;
+  imageUrl: string;
+  message: string;
 }
 @Injectable({
   providedIn: 'root',
@@ -35,5 +42,12 @@ export class UploadService {
   }
   deleteFile(key:string) {
     return this.http.delete(`${this.api}/${key}`);
+  }
+
+  //  addPart(formData: FormData):Observable<ApiResponse<Part>> {
+  //     return this.http.post<ApiResponse<Part>>(`${this.apiUrl}`,formData);
+  //   }
+  confirmImage(key:string){
+    return this.http.post<DeleteFileResponse>(`${this.api}/confirm-image`,{key});
   }
 }
