@@ -109,16 +109,7 @@ export class PartDetailsComponent {
       this.snackBarService.show('Please fill the required details', 'error');
       return;
     }
-    const data = { ...this.partForm.value };
-    if (this.currentImageKey?.startsWith('temp/')) {
-      // If the image is still in temp folder, move it to permanent location by calling update with same image key
-      this.uploadService.confirmImage(this.currentImageKey).subscribe((res) => {
-        data.imageUrl = res.imageUrl; // Update imageUrl with the confirmed URL
-        this.savePartToApi(data);
-      });
-    } else {
-      this.savePartToApi(data);
-    }
+    this.savePartToApi({...this.partForm.value,imageKey:this.currentImageKey?? null});
   }
   savePartToApi(data:any){
     const res$ = this.isEditMode

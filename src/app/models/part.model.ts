@@ -7,4 +7,5 @@ export interface Part {
     price:number;
     stock:number;
     imageUrl?:string;
+    imageKey?:string;
 }
