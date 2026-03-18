@@ -45,7 +45,7 @@ constructor(private authService:AuthService,private healthService:HealthService,
     //get server health/startup
     this.healthService.getServerHealth().subscribe({
       next: (res) => {
-          if (res === 'Database connected') {
+          if (res === 'Healthy') { 
           this.serverStatusService.markHealthy(); // for updating the service status
           }
       }, 

@@ -12,7 +12,7 @@ export const environment = {
 
 // export const environment = {
 //   production: false,
-//   apiBaseUrl: 'https://carkaashiv-angular-api.onrender.com/api',
+//   apiBaseUrl: 'https://carkaashiv-angular-api.onrender.com',
 //   debug: isDevMode(),  // enables dev-only logging or features
 //   appVersion: '1.0.0-dev',
 // };
