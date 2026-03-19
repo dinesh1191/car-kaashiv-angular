@@ -7,22 +7,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-<body>
-    
-</body>
-</html>
 <div>
     <mat-toolbar>
         <span>Part Inventory</span>
         <span class="spacer"></span>
-        <button mat-raised-button color="accent" (click)="openPartDetails()">Add Part</button>       
+        <button mat-raised-button color="accent" (click)="navigationToAddPart()">Add Part</button>
     </mat-toolbar>
 </div>
-
-<!-- <div *ngIf="loading" class="text-center mt-3">
-    <mat-spinner></mat-spinner>
-</div> -->
-
+    <ng-container *ngIf="parts.length>0; else emptyTpl">
+    
 <div class="container-fluid">
 
 <table mat-table [dataSource]="parts" class="mat-elevation">
@@ -57,8 +50,22 @@
 
 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
-
-
-
 </table>
 </div>
+</ng-container>
+
+<ng-template #emptyTpl>
+<app-empty-state
+    [title]="'No Parts Available'"
+    [description]= "'Start by adding a new part'"
+    [icon]="'build'">    
+</app-empty-state>
+</ng-template>
+
+
+
+
+
+
+
+

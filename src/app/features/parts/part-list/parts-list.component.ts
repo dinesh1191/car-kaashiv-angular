@@ -8,13 +8,14 @@ import { AuthService } from '../../../core/services/auth.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { EmptyStateComponent } from "../../../shared/components/empty-state/empty-state.component";
 
 
 
 @Component({
   standalone: true,
   selector: 'app-parts-list',
-  imports: [SharedModule],
+  imports: [SharedModule, EmptyStateComponent],
   templateUrl: './parts-list.component.html',
   styleUrl: './parts-list.component.scss',
 })
@@ -51,7 +52,7 @@ export class PartsListComponent {
 
 
 
-  openPartDetails() {
+  navigationToAddPart() {
     this.router.navigate(['parts/addPart']);
   }
 
