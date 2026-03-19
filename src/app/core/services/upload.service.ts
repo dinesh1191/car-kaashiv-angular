@@ -36,12 +36,9 @@ export class UploadService {
   }
 
   uploadToS3(uploadUrl: string, fileUrl: File) {
-    return this.http.put(uploadUrl, fileUrl, {
-    //   headers: {
-    //   'Content-Type': fileUrl.type
-    // }
-    });
+    return this.http.put(uploadUrl, fileUrl);
   }
+  
   deleteFile(key:string) {
     return this.http.delete(`${this.apiUrl}/${key}`);
   }
