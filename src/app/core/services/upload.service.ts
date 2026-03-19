@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiResponse } from '../../models/api-response.model';
+import { environment } from '../../../environments/environment';
 export interface PresignedUrlResponse {
   uploadUrl: string;
   fileUrl: string;
@@ -17,18 +18,19 @@ export interface DeleteFileResponse {
   providedIn: 'root',
 })
 export class UploadService {
-  private readonly api = 'https://localhost:7170/api/upload';
+  
+  private apiUrl = `${environment.apiBaseUrl}/api/Upload`
   constructor(private http: HttpClient) {}
 
   testS3(){
-    return this.http.get(`${this.api}/test-s3`);
+    return this.http.get(`${this.apiUrl}/test-s3`);
   }
   getPreSignedUrl(
     fileName: string,
     contentType: string,
   ): Observable<PresignedUrlResponse> {
     return this.http.post<PresignedUrlResponse>(
-      `${this.api}/presigned-url`,
+      `${this.apiUrl}/presigned-url`,
       {fileName, contentType},     
     );
   }
@@ -41,13 +43,13 @@ export class UploadService {
     });
   }
   deleteFile(key:string) {
-    return this.http.delete(`${this.api}/${key}`);
+    return this.http.delete(`${this.apiUrl}/${key}`);
   }
 
   //  addPart(formData: FormData):Observable<ApiResponse<Part>> {
   //     return this.http.post<ApiResponse<Part>>(`${this.apiUrl}`,formData);
   //   }
   confirmImage(key:string){
-    return this.http.post<DeleteFileResponse>(`${this.api}/confirm-image`,{key});
+    return this.http.post<DeleteFileResponse>(`${this.apiUrl}/confirm-image`,{key});
   }
 }
