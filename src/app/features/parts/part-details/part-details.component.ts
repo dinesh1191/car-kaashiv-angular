@@ -90,8 +90,11 @@ export class PartDetailsComponent {
         }),
         switchMap((res) =>
            {
+            console.log('Calling PUT upload...'); // 
         return this.uploadService.uploadToS3(res.uploadUrl, this.selectedFile!)
-           }),
+          
+      }),
+
       )
       .subscribe({
         next: () => {
