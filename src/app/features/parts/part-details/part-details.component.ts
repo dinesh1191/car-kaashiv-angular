@@ -84,7 +84,7 @@ export class PartDetailsComponent {
       .pipe(
         tap((res) => {
           // store for later use
-          uploadedFileUrl = `https://carkaashiv.s3.ap-south-1.amazonaws.com/$/{res.key}`;
+          uploadedFileUrl = `https://carkaashiv.s3.ap-south-1.amazonaws.com/${res.key}`;
           this.currentImageKey = res.key;
         }),
         switchMap((res) =>
