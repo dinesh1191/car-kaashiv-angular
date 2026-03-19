@@ -106,6 +106,7 @@ export class PartDetailsComponent {
         },
         error: (err) => {
           this.snackBarService.show('Image upload failed', 'error');
+          console.log('Image upload failed',err)
         },
       });
   }
