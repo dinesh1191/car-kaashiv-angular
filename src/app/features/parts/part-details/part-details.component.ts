@@ -84,16 +84,19 @@ export class PartDetailsComponent {
       .pipe(
         tap((res) => {
           // store for later use
+           console.log('Presigned URL response:', res); // 👈 ADD THIS
           uploadedFileUrl = `https://carkaashiv.s3.ap-south-1.amazonaws.com/${res.key}`;
           this.currentImageKey = res.key;
         }),
         switchMap((res) =>
-          this.uploadService.uploadToS3(res.uploadUrl, this.selectedFile!),
-        ),
+           {
+        return this.uploadService.uploadToS3(res.uploadUrl, this.selectedFile!)
+           }),
       )
       .subscribe({
         next: () => {
           //show the uploaded image
+          
           this.partForm.patchValue({ imageUrl: uploadedFileUrl });
           this.previewUrl = uploadedFileUrl;
         },
