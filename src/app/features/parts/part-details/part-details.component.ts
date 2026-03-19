@@ -85,8 +85,9 @@ export class PartDetailsComponent {
         tap((res) => {
           // store for later use
            console.log('Presigned URL response:', res); // 👈 ADD THIS
-          uploadedFileUrl = `https://carkaashiv.s3.ap-south-1.amazonaws.com/${res.key}`;
+          //uploadedFileUrl = `https://carkaashiv.s3.ap-south-1.amazonaws.com/${res.key}`;
           this.currentImageKey = res.key;
+          uploadedFileUrl=res.fileUrl
         }),
         switchMap((res) =>
            {
