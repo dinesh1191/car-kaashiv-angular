@@ -17,8 +17,8 @@ export class EmpRegisterFormComponent {
   registerForm!: FormGroup;
 
   roles = [
-    { label: 'Admin', value: 'Admin' },
-    { label: 'Staff', value: 'Staff' },
+    { label: 'Admin', value: 'admin' }, 
+    { label: 'Employee', value: 'employee' },
   ];
 
   constructor(
