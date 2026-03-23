@@ -41,7 +41,11 @@ export class LoginComponent {
       password: ['', Validators.required],
     });
   }
+  login(credentials: any) {
+    return this.authService.login(credentials);
+  }
 
+  
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
@@ -49,7 +53,7 @@ export class LoginComponent {
     }
 
     this.authService.login(this.loginForm.value).subscribe({
-      next: (res) => {       
+      next: (res) => {
         this.authService.isLoggedIn = true; // sets user has valid cookie
         //  Fetch user profile immediately after login
         this.authService.getUserProfile().subscribe({
@@ -71,11 +75,11 @@ export class LoginComponent {
         });
       },
       error: (err) => {
-        this.snackbarService.show(err?.error.message ||
-          'Something went wrong Try again later',
-          'error',                    
+        this.snackbarService.show(
+          err?.error.message || 'Something went wrong Try again later',
+          'error',
         );
-       // this.router.navigate(['/login'])
+        // this.router.navigate(['/login'])
       },
     });
   }
@@ -88,7 +92,7 @@ export class LoginComponent {
     this.router.navigate(['/register-employee']);
     //console.warn(this.router.config);
   }
-  goBack(){
+  goBack() {
     this.router.navigate(['/']);
   }
 }
