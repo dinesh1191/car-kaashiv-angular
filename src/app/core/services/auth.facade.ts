@@ -20,4 +20,8 @@ export class AuthFacade{
     };
     return routeMap[role] || '/unauthorized';
     }
+
+    login(credentials: any) {
+    return this.authService.login(credentials);
+  }
 }

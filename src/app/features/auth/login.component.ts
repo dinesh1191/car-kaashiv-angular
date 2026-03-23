@@ -9,6 +9,7 @@ import { LoaderService } from '../../core/services/loader.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { PRIME_IMPORTS } from '../../shared/prime';
 import { SharedModule } from '../../shared/shared.module';
+import { AuthFacade } from '../../core/services/auth.facade';
 
 
 
@@ -33,6 +34,7 @@ export class LoginComponent {
     private router: Router,
     private route: ActivatedRoute,
     private snackbarService: SnackbarService,
+    private authFacade:AuthFacade
   ) {}
 
   ngOnInit() {
@@ -42,17 +44,18 @@ export class LoginComponent {
     });
   }
   login(credentials: any) {
-    return this.authService.login(credentials);
+    //return this.authService.login(credentials);
+    this.authFacade.login(credentials)
   }
 
-  
+
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
       return;
     }
 
-    this.authService.login(this.loginForm.value).subscribe({
+    this.authFacade.login(this.loginForm.value).subscribe({
       next: (res) => {
         this.authService.isLoggedIn = true; // sets user has valid cookie
         //  Fetch user profile immediately after login
