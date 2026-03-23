@@ -51,38 +51,17 @@ export class LoginComponent {
 
   onSubmit() {
     this.submitted = true;
-    if (this.loginForm.invalid) {
-      return;
-    }
+    if (this.loginForm.invalid) return;   
 
     this.authFacade.login(this.loginForm.value).subscribe({
       next: (res) => {
-        this.authService.isLoggedIn = true; // sets user has valid cookie
-        //  Fetch user profile immediately after login
-        this.authService.getUserProfile().subscribe({
-          next: (profile) => {
-            const role = profile.data.role;
-
-            if (role === 'customer') {
-              this.router.navigate(['/user']);
-            } else if (role === 'staff' || 'admin') {
-              this.router.navigate(['/employee/emp-dashboard']);
-            } else {
-              this.router.navigate(['/unauthorized']);
-            }
-            this.snackbarService.show(res.message);
-          },
-          error: (err) => {
-            this.snackbarService.show('Unable to load user profile', 'error');
-          },
-        });
+        this.snackbarService.show(res.messsage,'success');     
       },
       error: (err) => {
         this.snackbarService.show(
           err?.error.message || 'Something went wrong Try again later',
           'error',
-        );
-        // this.router.navigate(['/login'])
+        );        
       },
     });
   }
