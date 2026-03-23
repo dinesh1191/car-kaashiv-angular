@@ -43,18 +43,20 @@ export class UserRegisterComponent {
   }
 
   onSubmit() {
-    // console.log(this.userRegisterForm.value);
+    console.log(this.userRegisterForm.value);
     if (this.userRegisterForm.invalid) {
       this.userRegisterForm.markAllAsTouched();
+      this.snackbarService.show("Please fill required fields",'error');
       return;
     }
     const payload = { ...this.userRegisterForm.value };
     this.userService.registerUser(payload).subscribe({
       next: (res) => {
         const apiMessage = res?.message || 'User Registered Successfully';
-        this.snackbarService.show(apiMessage, 'success');
+        this.snackbarService.show(apiMessage, 'success');         
         this.userRegisterForm.reset();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login']);           
+
       },
       error: (err) => {
         const apiMessage = err?.error?.message || 'User registration failed';

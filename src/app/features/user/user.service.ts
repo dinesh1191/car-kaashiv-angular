@@ -9,7 +9,7 @@ import { ApiResponse } from '../../models/api-response.model';
 })
 export class UserService {
 
-  private apiUrl = environment.apiBaseUrl;
+  private apiUrl = environment.apiBaseUrl+`/api/auth`;
 
   constructor(private http:HttpClient) { }
 
@@ -17,6 +17,6 @@ export class UserService {
 
 
 registerUser(payload:any):Observable<ApiResponse<any>>{
-  return this.http.post<ApiResponse<any>>(`${this.apiUrl}/auth/register-user`,payload);
+  return this.http.post<ApiResponse<any>>(`${this.apiUrl}/register-user`,payload);
   }
 }

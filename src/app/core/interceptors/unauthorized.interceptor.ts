@@ -22,11 +22,15 @@ export const unauthorizedInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error) => {
       if (error.status === 401) {
         console.warn('Interceptor caught 401 Unauthorized');
-
+         // Skip login API
+          if(req.url.includes('/auth/login')){
+              return throwError(()=>error)
+          }
         // Clear user session and cached data
+         // Handle only real unauthorized cases
         authService.clearUserProfile();
         // Redirect to login with last visited route
-        router.navigate(['/auth'], { queryParams: { returnUrl: lastVisitedUrl } 
+        router.navigate(['/login'], { queryParams: { returnUrl: lastVisitedUrl } 
         });        
       }
 

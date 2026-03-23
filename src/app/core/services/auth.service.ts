@@ -120,7 +120,9 @@ export class AuthService {
             }
           },
         });
-      }else{
+      }
+      else
+        {
         this.stopAutoRefresh();
       }
     },REFRESH_INTERVAL_MS);
@@ -142,6 +144,7 @@ export class AuthService {
       clearInterval(this.refreshInterval); //angular default function clears the set interval
     }
   }
+
 
   
 }
