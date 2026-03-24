@@ -11,7 +11,7 @@
     </button>  
 
        <span class="app-title">CarKaashiv</span>  
-        <span class="app-section-title">Employee Dashboard</span>
+        <span class="app-section-title">  {{ currentUser ? dashboards[currentUser.role] : 'Default Dashboard' }}</span>
      
       </div>
 

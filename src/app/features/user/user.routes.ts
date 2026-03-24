@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { PartsListComponent } from './user-dashboard/parts-list/parts-list.component';
+import { UserPartListComponent } from './user-dashboard/user-part-list/user-part-list.component';
 
 
 
 export const USER_ROUTES: Routes = [
   
-  { path: 'parts',component: PartsListComponent },
+  { path: 'parts',component: UserPartListComponent },
 ];

@@ -31,6 +31,12 @@ export class AppLayoutComponent {
     { label: 'Settings', icon: 'pi pi-list', route: '/user/parts' },
     { label: 'Profile', icon: 'pi pi-shopping-cart', route: '/user/cart' },
   ];
+  dashboards ={
+    employee:'Employee Dashboard',
+    customer:'Customer Dashboard',
+    vendor:'Vendor Dashboard',
+    admin:'Admin Dashboard'
+  };
 
   constructor(
     private authService: AuthService,

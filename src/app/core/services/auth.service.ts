@@ -20,7 +20,7 @@ export interface UserProfile {
   name: string;
   email?: string;
   phone?: string;
-  role: 'employee' | 'customer' | 'admin';
+  role: 'employee' | 'customer' | 'admin'|'vendor';
 }
 
 @Injectable({
