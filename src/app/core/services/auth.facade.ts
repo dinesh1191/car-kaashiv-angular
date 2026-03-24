@@ -44,5 +44,21 @@ export class AuthFacade{
         })
     );     
   }
+  logout(){
+    this.authService.logout().subscribe({
+        next:()=>{
+            //clear session
+            this.authService.clearUserProfile();
+            //navigate to login
+            this.router.navigate(['/login']);
+        },
+        error:()=>{
+         console.error('Logout Failed');
+         //fallback safety
+         this.authService.clearUserProfile();
+         this.router.navigate(['/login']);
+        }
+    });
+  }
   
 }

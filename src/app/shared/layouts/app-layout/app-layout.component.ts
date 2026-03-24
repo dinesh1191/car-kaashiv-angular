@@ -8,6 +8,7 @@ import { PRIME_IMPORTS } from '../../prime';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { AuthFacade } from '../../../core/services/auth.facade';
 @Component({
   selector: 'app-app-layout',
   imports: [
@@ -36,6 +37,7 @@ export class AppLayoutComponent {
     private snackBarService: SnackbarService,
     private router: Router,
     private confirmationService: ConfirmationService,
+    private authfacade :AuthFacade
   ) {}
   ngOnInit() {
     this.currentUser = this.authService.currentUser;
@@ -78,27 +80,9 @@ export class AppLayoutComponent {
       acceptLabel:'Logout',
       rejectLabel:'Cancel',
       accept:()=>{
-        this.performLogout();
+        this.authfacade.logout();
       }
      });    
-  }
-
-
-  performLogout(){
-  this.authService.logout().subscribe({
-      next: (res) => {
-        console.log('Logout API response:', res);
-        if (res.success) {
-          console.log('inside if');
-          this.authService.clearUserProfile();
-          this.snackBarService.show(res.message, 'warning');
-          this.router.navigate(['/auth']);
-        }
-      },
-      error: (err) => {
-        this.snackBarService.show('server error occured', err);
-      },
-    });
   }
 
   onSettings() {
