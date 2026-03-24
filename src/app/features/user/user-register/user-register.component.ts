@@ -5,6 +5,8 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
 import { UserService } from '../user.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { AuthFacade } from '../../../core/services/auth.facade';
+import { Password } from 'primeng/password';
 
 @Component({
   selector: 'app-user-register',
@@ -20,6 +22,7 @@ export class UserRegisterComponent {
     private snackbarService: SnackbarService,
     private messageService: MessageService,
     private router: Router,
+    private authfacade:AuthFacade
   ) {
     this.userRegisterForm = this.fb.group(
       {
@@ -55,9 +58,20 @@ export class UserRegisterComponent {
         const apiMessage = res?.message || 'User Registered Successfully';
         this.snackbarService.show(apiMessage, 'success');         
         this.userRegisterForm.reset();
-        this.router.navigate(['/login']);           
-
-      },
+        const loginPayload = {
+          username:payload.phone,
+          password:payload.password
+        }
+       this.authfacade.login(loginPayload).subscribe({
+        next:()=>{
+          //navgiation handled by authfacde
+        },
+        error:(err)=>{
+        this.snackbarService.show('Registered Sucessfully.Please login manually.','error')
+        this.router.navigate(['/login']);
+        }
+       })      
+      },               
       error: (err) => {
         const apiMessage = err?.error?.message || 'User registration failed';
         this.snackbarService.show(apiMessage, 'error');
