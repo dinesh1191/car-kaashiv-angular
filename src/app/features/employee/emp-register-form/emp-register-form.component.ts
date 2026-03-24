@@ -5,6 +5,7 @@ import { EmployeeService } from '../services/employee.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../core/services/snackbar.service';
+import { AuthFacade } from '../../../core/services/auth.facade';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class EmpRegisterFormComponent {
     private employeeService: EmployeeService,
     private messageService: MessageService,
     private router: Router,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private authfacade:AuthFacade,
   ) {
     this.registerForm = this.fb.group(
       {
@@ -75,16 +77,27 @@ export class EmpRegisterFormComponent {
       return;
     }
 
-    const payload = {
-      ...this.registerForm.value,
-    };
+    const payload = {...this.registerForm.value};
 
     this.employeeService.registerEmployee(payload).subscribe({
       next: (res) => {
         const apiMessage = res?.message || 'Employee Registered Successfully';
         this.snackbarService.show(apiMessage, 'success');      
         this.registerForm.reset();
+        //auto login immediately
+        const loginPayload = {username: payload.email,password: payload.password}
+         this.authfacade.login(loginPayload).subscribe({
+          next:()=>{
+            //naviagtion handled by facade
+          },
+          error:()=>{
+            this.snackbarService.show('Registered Sucessfully.Please login manually.','error'
+            ),
+            this.router.navigate(['/login'])
+          }
+         })
       },
+      
       error: (err) => {
        const errorMessage = err?.error?.message || 'Failed to Register Employee';
         this.snackbarService.show(errorMessage, 'error');
