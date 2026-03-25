@@ -56,7 +56,7 @@ export class PartDetailsComponent {
       next: (res) => {
         if (res.data) {
           this.partForm.patchValue(res.data);
-          this.previewUrl = res.data.imageUrl ?? null; // Show existing image in edit mode
+          this.previewUrl = res.data.imageUrl ?? null; // Show existing image in edit mode             
         } else {
           this.snackBarService.show('No data found for this part.');
         }
@@ -83,25 +83,20 @@ export class PartDetailsComponent {
       .getPreSignedUrl(fileName, contentType)
       .pipe(
         tap((res) => {
-          // store for later use
-           console.log('Presigned URL response:', res); // 👈 ADD THIS
-          //uploadedFileUrl = `https://carkaashiv.s3.ap-south-1.amazonaws.com/${res.key}`;
+          // store for later use          
           this.currentImageKey = res.key;
           uploadedFileUrl=res.fileUrl
         }),
         switchMap((res) =>
            {
             console.log('Calling PUT upload...'); // 
-        return this.uploadService.uploadToS3(res.uploadUrl, this.selectedFile!)
-          
+             return this.uploadService.uploadToS3(res.uploadUrl, this.selectedFile!)         
       }),
 
       )
       .subscribe({
-        next: () => {
-          //show the uploaded image
-          
-          this.partForm.patchValue({ imageUrl: uploadedFileUrl });
+        next: () => {             
+          this.partForm.patchValue({ imageUrl: uploadedFileUrl});
           this.previewUrl = uploadedFileUrl;
         },
         error: (err) => {
@@ -117,9 +112,10 @@ export class PartDetailsComponent {
       this.snackBarService.show('Please fill the required details', 'error');
       return;
     }
-    this.savePartToApi({...this.partForm.value,imageKey:this.currentImageKey?? null});
+    this.savePartToApi({...this.partForm.value,imageKey:this.currentImageKey});
   }
-  savePartToApi(data:any){
+
+  savePartToApi(data:any){   
     const res$ = this.isEditMode
       ? this.partService.updatePart(this.partId, data)
       : this.partService.addPart(data);
@@ -135,7 +131,7 @@ export class PartDetailsComponent {
   }
  
   deleteTempImageFile() {
-    if (this.currentImageKey) {     
+    if (this.currentImageKey?.startsWith(("temp/"))) {     
       this.uploadService.deleteFile(this.currentImageKey).subscribe((res) => {
         console.log(res, 'File deleted successfully');
       });

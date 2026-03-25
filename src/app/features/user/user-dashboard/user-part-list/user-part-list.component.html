@@ -1,8 +1,7 @@
-<p>user-part-list works!</p>
 
 <div class="parts-grid">
     <div class="part-card" *ngFor="let part of parts">
-        <img [src]="part.imageUrl" alt="part image"/>
+        <img width="150px" [src]="part.imageUrl" alt="part image"/>
         <h3>{{part.name}}</h3>
         <p>{{part.description}}</p>
         <span class="price">₹ {{part.price}}</span>
