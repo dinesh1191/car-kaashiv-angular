@@ -1,9 +1,24 @@
 
 <div class="parts-grid">
     <div class="part-card" *ngFor="let part of parts">
-        <img width="150px" [src]="part.imageUrl" alt="part image"/>
-        <h3>{{part.name}}</h3>
-        <p>{{part.description}}</p>
-        <span class="price">₹ {{part.price}}</span>
+        <div class="image-wrapper">
+            <img  [src]="part.imageUrl"  (error)="OnImageError($event,part)"/>
+           
+           
+            <span class="stock-badge" [ngClass]="{'lowStock':part.stock<5}">{{part.stock > 0? 'In stock':'out stock'}}</span>
+        </div>
+        <div class="card-body">
+            <h3 class="title">{{part.name}}</h3>
+             <p class="desc">{{part.description}}</p>  
+                <div class="card-footer">
+            <span class="price">₹ {{part.price}}</span>
+            <button class="cart-btn"  [disabled]="part.stock=== 0">Add to cart</button>
+        </div>      
+        </div>      
+     
+          
+        
     </div>
 </div>
+
+

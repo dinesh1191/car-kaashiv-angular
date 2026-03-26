@@ -30,7 +30,9 @@
                 "glob": "**/*",
                 "input": "public"
               },
-               "src/_redirects"
+               "src/_redirects",
+               "src/favicon.ico",
+               "src/assets"
             ],
             "styles": [    
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -97,9 +99,10 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
-                "glob": "**/*",
-                "input": "public"                
+                "glob": "**/*"          
               },
+              "src/favicon.ico",
+              "src/assets",              
               "src/_redirects"
             ],
             "styles": [  
