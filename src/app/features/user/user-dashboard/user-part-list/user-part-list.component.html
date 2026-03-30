@@ -1,24 +1,29 @@
-
 <div class="parts-grid">
     <div class="part-card" *ngFor="let part of parts">
-        <div class="image-wrapper">
-            <img  [src]="part.imageUrl"  (error)="OnImageError($event,part)"/>
-           
-           
-            <span class="stock-badge" [ngClass]="{'lowStock':part.stock<5}">{{part.stock > 0? 'In stock':'out stock'}}</span>
-        </div>
-        <div class="card-body">
-            <h3 class="title">{{part.name}}</h3>
-             <p class="desc">{{part.description}}</p>  
+        <div *ngIf="parts.length > 0">
+            <div class="image-wrapper">
+                <img [src]="part.imageUrl" (error)="OnImageError($event,part)" />
+
+
+                <span class="stock-badge" [ngClass]="{'lowStock':part.stock<5}">{{part.stock > 0? 'In stock':'out
+                    stock'}}</span>
+            </div>
+            <div class="card-body">
+                <h3 class="title">{{part.name}}</h3>
+                <p class="desc">{{part.description}}</p>
                 <div class="card-footer">
-            <span class="price">₹ {{part.price}}</span>
-            <button class="cart-btn"  [disabled]="part.stock=== 0">Add to cart</button>
-        </div>      
-        </div>      
-     
-          
-        
+                    <span class="price">₹ {{part.price}}</span>
+                    <button class="cart-btn" [disabled]="part.stock=== 0">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="parts.length === 0">
+        <app-empty-state title="No parts Available" description="Try again later">
+        </app-empty-state>
     </div>
 </div>
+
 
 

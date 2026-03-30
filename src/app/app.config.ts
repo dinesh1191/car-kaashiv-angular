@@ -39,5 +39,6 @@ export const appConfig: ApplicationConfig = {
         preset: Aura, // Configure the theme
       }
     }),
+  
   ]
 };
