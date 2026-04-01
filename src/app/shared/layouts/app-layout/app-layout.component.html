@@ -11,8 +11,8 @@
     </button>  
 
        <span class="app-title">CarKaashiv</span>  
-        <span class="app-section-title">  {{ currentUser ? dashboards[currentUser.role] : 'Default Dashboard' }}</span>
-     
+       <span class="env-badge" [ngClass]="env.badgeClass">{{env.label}}</span>
+      <span class="app-section-title">  {{ currentUser ? dashboards[currentUser.role] : 'Default Dashboard' }}</span>
       </div>
 
   <!-- Right Section -->

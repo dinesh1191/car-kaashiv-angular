@@ -9,6 +9,8 @@ import { SnackbarService } from '../../../core/services/snackbar.service';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { AuthFacade } from '../../../core/services/auth.facade';
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'app-app-layout',
   imports: [
@@ -22,6 +24,7 @@ import { AuthFacade } from '../../../core/services/auth.facade';
   styleUrl: './app-layout.component.scss',
 })
 export class AppLayoutComponent {
+  env = environment;
   currentUser!: UserProfile | null;
   sidebarVisible = false;
   userItems: any[] = [];

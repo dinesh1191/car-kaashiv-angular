@@ -1,0 +1,20 @@
+.app-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+.env-badge{
+    padding:4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color:white;
+}
+.env-dev{
+      background-color: green;
+}
+.env-prod{
+
+      background-color: #dc2626;
+      animation: pulse 1.5s infinite;
+}

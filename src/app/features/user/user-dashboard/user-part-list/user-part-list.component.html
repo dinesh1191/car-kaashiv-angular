@@ -13,7 +13,7 @@
                 <p class="desc">{{part.description}}</p>
                 <div class="card-footer">
                     <span class="price">₹ {{part.price}}</span>
-                    <button class="cart-btn" [disabled]="part.stock=== 0">Add to cart</button>
+                    <button class="cart-btn" [disabled]="part.stock=== 0" (click)="addCart(part)">Add to cart</button>
                 </div>
             </div>
         </div>
