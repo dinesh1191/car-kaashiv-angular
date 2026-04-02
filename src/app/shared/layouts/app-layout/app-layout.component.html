@@ -18,6 +18,10 @@
   <!-- Right Section -->
   <div class="app-topbar-right">
       <span *ngIf="currentUser" >Welcome, {{currentUser.name}} ({{currentUser.role}})</span>
+     
+      <button pButton icon="pi pi-shopping-cart" badge="3" badgeClass="p-badge-danger" class="p-button-text"
+        (click)="goToCart()">
+      </button>
     <p-menu #userMenu [popup]="true" [model]="userItems"></p-menu>
     <p-avatar icon="pi pi-user" shape="circle" class="cursor-pointer" (click)="userMenu.toggle($event)">
     </p-avatar>
@@ -29,7 +33,7 @@
   <h3 class="sidebar-title">Navigation</h3>
   <ul class="sidebar-menu">
     <li *ngFor="let item of menuItems">
-      <a [routerLink]="item.route" (click)="sidebarVisible = false">
+      <a [routerLink]="item.route" (click)="sidebarVisible = true">
         <i [class]="item.icon"> {{item.label}}</i>
       </a>
     </li>

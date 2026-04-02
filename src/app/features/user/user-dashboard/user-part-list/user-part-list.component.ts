@@ -21,6 +21,7 @@ export class UserPartListComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.loadParts();
+   
   }
   loadParts() {
     this.partService.getAllParts().subscribe({
@@ -52,4 +53,8 @@ export class UserPartListComponent implements OnInit {
       },
     });
   }
+
+
+
+
 }

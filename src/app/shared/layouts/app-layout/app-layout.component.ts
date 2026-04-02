@@ -32,7 +32,8 @@ export class AppLayoutComponent {
   menuItems = [
     { label: 'Dashboard', icon: 'pi pi-home', route: '/user/dashboard' },
     { label: 'Settings', icon: 'pi pi-list', route: '/user/parts' },
-    { label: 'Profile', icon: 'pi pi-shopping-cart', route: '/user/cart' },
+    { label: 'Profile2', icon: 'pi pi-shopping-cart', route: '/user/cart' },
+    
   ];
   dashboards ={
     employee:'Employee Dashboard',
@@ -100,5 +101,9 @@ export class AppLayoutComponent {
 
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
+  }
+  goToCart(){
+    console.log('Navigating to cart');
+    this.router.navigate(['/cart']);
   }
 }

@@ -54,6 +54,11 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/parts/parts.routes').then((m) => m.PARTS_ROUTES),
       },  
+      {
+        path: 'cart',
+        loadChildren: () =>
+          import('./features/cart/cart.routes').then((m) => m.cart_ROUTES),
+      }
     ],
     },
   /* ---------- Wildcard Route (for 404 Not Found) ---------- */
