@@ -20,4 +20,7 @@ export class CartService {
   addToCart(payload:AddToCartRequest):Observable<any>{
     return this.http.post(`${this.apiUrl}/add`,payload) 
 }
+getCartItems():Observable<any>{
+  return this.http.get(this.apiUrl) 
+}
 }
