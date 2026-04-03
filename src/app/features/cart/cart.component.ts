@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { MATERIAL_IMPORTS } from '../../shared/material';
 import { PRIME_IMPORTS } from '../../shared/prime';
+import { FallbackImageDirective } from '../../shared/directives/fallback-image.directive';
+import { CartItem, UpdateCartQuantityRequest } from '../../shared/interfaces/cart-item.interface';
 
 
 
 @Component({
   selector: 'app-cart',
-  imports: [CommonModule,MATERIAL_IMPORTS,PRIME_IMPORTS],
+  imports: [CommonModule,MATERIAL_IMPORTS,PRIME_IMPORTS,FallbackImageDirective],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -20,74 +22,72 @@ export class CartComponent implements OnInit {
     private cartService: CartService,
     private snackbarService: SnackbarService,
   ) {}
-  cartItems: any[] = [];
+  cartItems: CartItem[] = [];
 
   ngOnInit(): void {
     this.getCartItems();
+
   }
 
   getCartItems() {
     this.cartService.getCartItems().subscribe({
-      next: (res) => {
-        console.log('Cart Items:', res.data);
-        this.cartItems = res.data ?? [];
+      next: (res) => {        
+        this.cartItems = res.data ?? [];       
         this.calculateGrandTotal();
       },
       error: (err) => {
         console.error('Failed to load cart items', err);
-        this.snackbarService.show('Failed to load cart items');
+        this.snackbarService.show('Failed to load cart items','error');
       },
     });
-  }
-  calculateGrandTotal() {
-    this.total = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);
-    console.log('GrandoTtal:', this.total);
-  }
+  } 
   
-  increaseQuantity(item: any){ 
-    item.quantity++;
+  updateQuantity(item:CartItem,delta: number){
+    const previousQuantity = item.quantity;
+    item.quantity += delta;
+    if(item.quantity < 1){
+      item.quantity = previousQuantity; // prevents quantity from going below 1
+       return;
+    }
     item.subTotal = item.quantity * item.price;
     this.calculateGrandTotal();
-    this.cartService.increaseQuantity(item.partId,item.quantity).subscribe({
-      next: (res) => {
-        console.log('Quantity increased successfully');
-      this.snackbarService.show(res.message ||'Quantity increased successfully');  },
-        
+    const request: UpdateCartQuantityRequest = {partId:item.partId,quantity:item.quantity};
+    this.cartService.updateQuantity(request).subscribe({
+      next: (res) => {       
+      this.snackbarService.show(res.message ||'Quantity updated successfully','success'); 
+     },  
         error: (err) => {
-          console.error('Failed to increase quantity', err);
-          this.snackbarService.show(err.message ||'Failed to increase quantity');
-        }
-    });
-    
-
-  }
-  decreaseQuantity(item: any){
-    if(item.quantity > 1){
-      item.quantity--;
-      item.subTotal = item.quantity * item.price;
-      this.calculateGrandTotal();+
-      this.cartService.decreaseQuantity(item.partId,item.quantity).subscribe({
-        next: (res) => {
-          console.log('Quantity decreased successfully'); 
-        this.snackbarService.show(res.message ||'Quantity decreased successfully')},
-        error: (err) => {
-          console.error('Failed to decrease quantity', err);
-          this.snackbarService.show(err.message ||'Failed to decrease quantity');
+          item.quantity = previousQuantity; // Revert to previous quantity on error
+          item.subTotal = item.quantity * item.price; // Recalculate subtotal after reverting quantity
+          this.calculateGrandTotal(); // Recalculate grand total after reverting quantity
+          console.error('Failed to update quantity', err);
+          this.snackbarService.show('Failed to update quantity','error');
         },
-      });
-    }
- }
-    removeItem(item: any){
-      this.cartItems = this.cartItems.filter(i=> i.cartId !== item.cartId);
+    });
+  }
+
+
+  
+    removeItem(item: CartItem){
+      const previousCartItems = [...this.cartItems]; // Store previous cart items for potential revert  
+      this.cartItems = this.cartItems.filter(i=> i.cartId !== item.cartId);//removes an item from the cart by filtering
       this.calculateGrandTotal();
       this.cartService.removeItem(item.partId).subscribe({
         next: (res) => {
-          console.log('Item removed successfully'); },
+          this.snackbarService.show(res.message || 'Item removed successfully','warning');
+         },
         error: (err) => {
-          console.error('Failed to remove item', err);
-          this.snackbarService.show('Failed to remove item');
+          this.cartItems = previousCartItems; // Revert the cart items to include the removed item on error
+          this.calculateGrandTotal(); // Recalculate grand total after reverting cart items 
+          console.error('Remove item API failed:', err);
+          this.snackbarService.show('Failed to remove item.Please try again later','error');
+      
         },
       }); 
     }
+
+    calculateGrandTotal() {
+    this.total = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);    
+  }
 
 }

@@ -2,11 +2,10 @@
     <div class="part-card" *ngFor="let part of parts">
         <div *ngIf="parts.length > 0">
             <div class="image-wrapper">
-                <img [src]="part.imageUrl" (error)="OnImageError($event,part)" />
+                <img [src]="part.imageUrl" appFallbackImage  />
 
 
-                <span class="stock-badge" [ngClass]="{'lowStock':part.stock<5}">{{part.stock > 0? 'In stock':'out
-                    stock'}}</span>
+                <span class="stock-badge" [ngClass]="{'lowStock':part.stock<5}">{{part.stock > 0? 'In stock':'out of stock'}}</span>
             </div>
             <div class="card-body">
                 <h3 class="title">{{part.name}}</h3>

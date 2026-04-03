@@ -4,35 +4,18 @@
     Your cart is empty. 
 </div>
 <div *ngFor="let item of cartItems" class="cart-card">
-    <button pButton type="button" icon="pi pi-trash" class="p-button-sm remove-btn" (click)="removeItem(item)"></button>
-    
-    <img [src]="item.imageUrl" alt="Part image" class="part-image"/>
-    
+    <button pButton type="button" icon="pi pi-trash" class="p-button-sm remove-btn" (click)="removeItem(item)"></button>    
+    <img [src]="item.imageUrl"appFallbackImage alt="Part image" class="part-image"/>    
     <div class="cart-details">
-        <h3>{{ item.name }}</h3>
+        <h3>{{ item.partName }}</h3>
         <p>Price: ₹ {{ item.price }}</p>
         <div class="qty-controls">
-        <button
-        pButton
-        type="button"
-        icon="pi pi-minus"
-        class="p-button-sm"
-        (click)="decreaseQuantity(item)">
-      </button>
+        <button pButton type="button" icon="pi pi-minus" class="p-button-sm"(click)="updateQuantity(item,- 1)"></button>
         <span class="qty-value">Quantity: {{ item.quantity }}</span>
-         <button
-        pButton
-        type="button"
-        icon="pi pi-plus"
-        class="p-button-sm"
-        (click)="increaseQuantity(item)">        
-      </button>
-      </div>
-        <p>Subtotal: ₹ {{ item.subTotal  }}</p>
-
-
+        <button pButton type="button"icon="pi pi-plus" class="p-button-sm" (click)="updateQuantity(item,+ 1)"></button>    
     </div>
-
+        <p>Subtotal: ₹ {{ item.subTotal  }}</p>
+    </div>
 </div>
 <div class="cart-total" *ngIf="cartItems.length>0">
     <h3>Grand Total: ₹ {{ total }}</h3>
