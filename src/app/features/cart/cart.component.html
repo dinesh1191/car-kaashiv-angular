@@ -1,5 +1,16 @@
 <div>
+<div class="flex align-items-center mb-3">
+  <p-button
+    icon="pi pi-arrow-left"
+    label="Continue Shopping"
+    [raised]="true"
+    [rounded]="true"
+    styleClass="premium-back-btn"
+    (onClick)="goBack()">
+</p-button>
+</div>
 <h2>My Cart</h2>
+
 <div *ngIf="cartItems.length === 0" class="empty-cart">
     Your cart is empty. 
 </div>

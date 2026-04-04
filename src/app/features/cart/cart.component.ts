@@ -6,6 +6,7 @@ import { MATERIAL_IMPORTS } from '../../shared/material';
 import { PRIME_IMPORTS } from '../../shared/prime';
 import { FallbackImageDirective } from '../../shared/directives/fallback-image.directive';
 import { CartItem, UpdateCartQuantityRequest } from '../../shared/interfaces/cart-item.interface';
+import { Router } from '@angular/router';
 
 
 
@@ -21,6 +22,7 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private snackbarService: SnackbarService,
+    private router: Router
   ) {}
   cartItems: CartItem[] = [];
 
@@ -77,6 +79,7 @@ export class CartComponent implements OnInit {
       this.cartService.removeItem(item.partId).subscribe({
         next: (res) => {
           this.snackbarService.show(res.message || 'Item removed successfully','warning');
+          this.cartService.refreshCartCount(); // Refresh cart count after removing item
          },
         error: (err) => {
           this.cartItems = previousCartItems; // Revert the cart items to include the removed item on error
@@ -91,5 +94,7 @@ export class CartComponent implements OnInit {
     calculateGrandTotal() {
     this.total = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);    
   }
-
+goBack(){
+  this.router.navigate(['user/parts']);
+}
 }
