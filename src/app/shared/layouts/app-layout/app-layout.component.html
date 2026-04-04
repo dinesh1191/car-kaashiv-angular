@@ -21,6 +21,7 @@
      
       <button pButton icon="pi pi-shopping-cart" badge="3" badgeClass="p-badge-danger" class="p-button-text"
         (click)="goToCart()">
+        <span class="cart-badge">{{ cartCount }}</span>
       </button>
     <p-menu #userMenu [popup]="true" [model]="userItems"></p-menu>
     <p-avatar icon="pi pi-user" shape="circle" class="cursor-pointer" (click)="userMenu.toggle($event)">

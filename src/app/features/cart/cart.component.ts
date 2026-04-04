@@ -26,7 +26,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCartItems();
-
+    this.cartService.getCartItemCount().subscribe(); // Subscribe to cart count updates on component initialization  
   }
 
   getCartItems() {
@@ -49,12 +49,14 @@ export class CartComponent implements OnInit {
       item.quantity = previousQuantity; // prevents quantity from going below 1
        return;
     }
+    this.cartService.updateCartCount(item.quantity); // Optimistically update cart count in the UI
     item.subTotal = item.quantity * item.price;
     this.calculateGrandTotal();
     const request: UpdateCartQuantityRequest = {partId:item.partId,quantity:item.quantity};
     this.cartService.updateQuantity(request).subscribe({
       next: (res) => {       
       this.snackbarService.show(res.message ||'Quantity updated successfully','success'); 
+      this.cartService.refreshCartCount(); // Refresh cart count after quantity update
      },  
         error: (err) => {
           item.quantity = previousQuantity; // Revert to previous quantity on error

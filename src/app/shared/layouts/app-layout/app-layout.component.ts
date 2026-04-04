@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { AuthFacade } from '../../../core/services/auth.facade';
 import { environment } from '../../../../environments/environment';
+import { CartService } from '../../../core/services/cart.service';
 
 @Component({
   selector: 'app-app-layout',
@@ -28,6 +29,7 @@ export class AppLayoutComponent {
   currentUser!: UserProfile | null;
   sidebarVisible = false;
   userItems: any[] = [];
+  cartCount: number = 0;
   //for sidebar menu items
   menuItems = [
     { label: 'Dashboard', icon: 'pi pi-home', route: '/user/dashboard' },
@@ -47,11 +49,12 @@ export class AppLayoutComponent {
     private snackBarService: SnackbarService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private authfacade :AuthFacade
+    private authfacade :AuthFacade,
+    private cartService: CartService
   ) {}
+  
   ngOnInit() {
     this.currentUser = this.authService.currentUser;
-
     this.userItems = [
       {
         label: 'Profile',
@@ -76,6 +79,9 @@ export class AppLayoutComponent {
         },
       },
     ];
+    this.cartService.cartCount$.subscribe(count => {
+      this.cartCount = count;
+    });
   }
   onProfile() {
     console.log('Profile clicked');

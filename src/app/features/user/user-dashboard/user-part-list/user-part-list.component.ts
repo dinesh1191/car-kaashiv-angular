@@ -22,7 +22,7 @@ export class UserPartListComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.loadParts();
-   
+    this.cartService.getCartItemCount().subscribe();   
   }
   loadParts() {
     this.partService.getAllParts().subscribe({
@@ -45,9 +45,11 @@ export class UserPartListComponent implements OnInit {
           res.message ? res.message : 'successfully added to cart',
           'success',
         );
+        this.cartService.refreshCartCount();
       },
     });
   }
+
 
 
 
