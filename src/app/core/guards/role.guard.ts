@@ -18,6 +18,7 @@ if(!currentUser){
 if(allowedRoles.includes(currentUser.role)){
   return of(true);
 }
-router.navigate(['/unauthorized']);
+router.navigate(['/unauthorized'],{replaceUrl:true});
 return of(false);
 };
+

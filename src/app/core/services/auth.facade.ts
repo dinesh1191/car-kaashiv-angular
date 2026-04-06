@@ -34,11 +34,11 @@ export class AuthFacade{
                     const role = profile.data.role;
              //navigate based on role
                 const route = this.navigateByRole(role);
-                this.router.navigate([route]);
+                this.router.navigate([route],{replaceUrl:true});
                 },
                 error:() =>{
                     console.warn('Failed to fetch user profile');
-                    this.router.navigate(['/unauthorised'])
+                    this.router.navigate(['/unauthorised'],)
                 }                
             });
         })

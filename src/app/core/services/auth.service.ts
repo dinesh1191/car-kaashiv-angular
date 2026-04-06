@@ -28,7 +28,9 @@ export interface UserProfile {
 })
 export class AuthService {
   private apiUrl = `${environment.apiBaseUrl}`;
-  private userProfiles$ = new BehaviorSubject<UserProfile | null>(null);
+  private userProfiles$ = new BehaviorSubject<UserProfile | null>(
+    JSON.parse(sessionStorage.getItem('currentUser') || 'null')
+  );
   readonly user$ = this.userProfiles$.asObservable();
   private refreshInterval: any;
   isLoggedIn = false;
@@ -65,7 +67,7 @@ export class AuthService {
   
   get currentUser(): UserProfile | null {
     // returns value
-    return this.userProfiles$.value;
+       return this.userProfiles$.value;
   }
 
   /** Fetch current user profile from backend */

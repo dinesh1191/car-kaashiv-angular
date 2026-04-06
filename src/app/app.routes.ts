@@ -10,21 +10,21 @@ import { EmpRegisterFormComponent } from './features/employee/emp-register-form/
 import { AppLayoutComponent } from './shared/layouts/app-layout/app-layout.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { roleGuard } from './core/guards/role.guard';
+import { loginGuard } from './core/guards/login.guard';
+import { landingRedirectGuard } from './core/guards/landing-redirect.guard';
 
 
 
 
 export const routes: Routes = [
   /* ---------- Public Pages ---------- */
-  { path: '', component: LandingComponent },
+  { path: '', component: LandingComponent,canActivate:[landingRedirectGuard] }, //redirect logged in users away from landing page
      
   /* ---------- Auth Pages (Header + Footer only) ---------- */
   {
     path: '',
     component: AuthLayoutComponent, //shared wrapper for all dashboard routes
     children: [
-
-      { path: 'login', component: LoginComponent},
       { path: 'contact', component: ContactComponent },
       { path: 'privacy', component: PrivacyComponent },
       { path: 'unauthorized', component: UnauthorizedComponent }, 
@@ -33,6 +33,8 @@ export const routes: Routes = [
       ]
     },
     /* ---------- Authenticated App ---------- */
+     { path: 'login', component: LoginComponent, canActivate:[loginGuard] }, //only non-authenticated users can access login page
+
     {
     path: '',
     component: AppLayoutComponent, //shared wrapper for authienticated routes
