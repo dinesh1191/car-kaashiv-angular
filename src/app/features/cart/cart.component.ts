@@ -95,6 +95,6 @@ export class CartComponent implements OnInit {
     this.total = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);    
   }
 goBack(){
-  this.router.navigate(['user/parts']);
+  this.router.navigate(['user/parts-dashboard']);
 }
 }

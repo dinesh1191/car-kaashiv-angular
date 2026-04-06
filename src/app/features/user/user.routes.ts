@@ -5,5 +5,5 @@ import { UserPartListComponent } from './user-dashboard/user-part-list/user-part
 
 export const USER_ROUTES: Routes = [
   
-  { path: 'parts',component: UserPartListComponent },
+  { path: 'parts-dashboard',component: UserPartListComponent },
 ];

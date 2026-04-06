@@ -14,7 +14,7 @@ export class AuthFacade{
     //Role based navigation 
     navigateByRole(role:string){
     const routeMap:Record<string,string>={
-        customer:'user/parts',
+        customer:'user/parts-dashboard',
         //staff:'/employee/emp-dashboard',
         employee:'/employee/emp-dashboard',
         admin:'/employee/emp-dashboard',

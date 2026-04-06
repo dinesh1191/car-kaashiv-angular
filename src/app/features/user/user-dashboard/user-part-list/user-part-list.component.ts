@@ -37,9 +37,7 @@ export class UserPartListComponent implements OnInit {
   }
 
   addCart(part: any) {
-    //this.cartService.addToCart()
-    console.log('Adding to cart', part);
-    this.cartService.addToCart({ partId: part.id, quantity: 1 }).subscribe({
+      this.cartService.addToCart({ partId: part.id, quantity: 1 }).subscribe({
       next: (res) => {
         this.snackbarService.show(
           res.message ? res.message : 'successfully added to cart',
