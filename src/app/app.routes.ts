@@ -25,6 +25,7 @@ export const routes: Routes = [
     path: '',
     component: AuthLayoutComponent, //shared wrapper for all dashboard routes
     children: [
+      { path: 'login', component: LoginComponent, canActivate:[loginGuard] }, //only non-authenticated users can access login page
       { path: 'contact', component: ContactComponent },
       { path: 'privacy', component: PrivacyComponent },
       { path: 'unauthorized', component: UnauthorizedComponent }, 
@@ -32,9 +33,7 @@ export const routes: Routes = [
       { path: 'register-employee', component: EmpRegisterFormComponent },
       ]
     },
-    /* ---------- Authenticated App ---------- */
-     { path: 'login', component: LoginComponent, canActivate:[loginGuard] }, //only non-authenticated users can access login page
-
+    /* ---------- Authenticated App ---------- */     
     {
     path: '',
     component: AppLayoutComponent, //shared wrapper for authienticated routes
