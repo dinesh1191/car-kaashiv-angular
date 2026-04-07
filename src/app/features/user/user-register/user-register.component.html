@@ -39,7 +39,7 @@
             <label for="confirmPassword">Confirm Password</label> <br>
             <p-password formControlName="confirmPassword" toggleMask [inputStyle]="{width:'100%'}"
                 styleClass="w-100"></p-password>
-            <p-message *ngIf="userRegisterForm.get('confirmPassword')?.errors?.['mismatch']" severity="error"
+            <p-message *ngIf="userRegisterForm.get('confirmPassword')?.hasError('mismatch')" severity="error"
                 text="Password do not match"></p-message>
         </div>
         <div class="d-flex justify-content-center mt-3">

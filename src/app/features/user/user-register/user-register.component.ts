@@ -42,7 +42,12 @@ export class UserRegisterComponent {
   matchPasswords(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
+    if (password && confirmPassword && password !== confirmPassword) {
+    control.get('confirmPassword')?.setErrors({ mismatch: true });
+    return { mismatch: true };
+  } else {
+    return null;
+  }
   }
 
   onSubmit() {

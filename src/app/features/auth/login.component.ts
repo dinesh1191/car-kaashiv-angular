@@ -29,10 +29,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
-    private loaderService: LoaderService,
     private router: Router,
-    private route: ActivatedRoute,
     private snackbarService: SnackbarService,
     private authFacade:AuthFacade
   ) {}
@@ -44,8 +41,7 @@ export class LoginComponent {
     });
   }
   login(credentials: any) {
-    //return this.authService.login(credentials);
-    this.authFacade.login(credentials)
+     this.authFacade.login(credentials)
   }
 
 
@@ -72,7 +68,6 @@ export class LoginComponent {
 
   navigateToEmpRegister() {
     this.router.navigate(['/register-employee']);
-    //console.warn(this.router.config);
   }
   goBack() {
     this.router.navigate(['/']);
