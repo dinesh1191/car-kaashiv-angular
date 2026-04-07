@@ -7,6 +7,7 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'primeicons/primeicons.css';
 
+
 /* ------------------------------- */
 /* Global Design Tokens */
 :root {
@@ -82,17 +83,6 @@
 
 /* ------------------------------- */
 /* PrimeNG + Bootstrap Fix */
-button.p-button {
-  all: unset;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  font-family: 'Inter', 'Roboto', sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-}
 
 /* ------------------------------- */
 /* PrimeNG Overrides */
@@ -101,16 +91,16 @@ button.p-button {
   color: var(--app-text) !important;
 }
 
-.p-button.p-button-primary {
-  background-color: #22c55e !important;
-  border-color: #22c55e !important;
-}
+// .p-button.p-button-primary {
+//   background-color: #22c55e !important;
+//   border-color: #22c55e !important;
+// }
 
-.p-button.p-button-primary:enabled:hover,
-.p-button.p-button-primary:enabled:focus {
-  background-color: #047857 !important;
-  border-color: #047857 !important;
-}
+// .p-button.p-button-primary:enabled:hover,
+// .p-button.p-button-primary:enabled:focus {
+//   background-color: #047857 !important;
+//   border-color: #047857 !important;
+// }
 
 /* ------------------------------- */
 /* Utility */
@@ -141,6 +131,11 @@ button.p-button {
   background: var(--color-primary);
   border-bottom: 1px solid var(--app-border);
 }
+.app-topbar-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--app-text) !important;
+}
 
 .app-topbar-left,
 .app-topbar-right {
@@ -150,9 +145,7 @@ button.p-button {
 }
 
 /* Menu Button */
-.app-menu-btn {
-  background: transparent;
-  border: none;
+.app-menu-btn { 
   color: var(--app-text);
 }
 
@@ -179,7 +172,14 @@ button.p-button {
 /* Sidebar */
 .app-sidebar {
   width: 250px;
+ background:var(--color-primary) !important;
+  color: var(--color-accent) !important;
+  border: none !important;
+  box-shadow: none !important;  
 }
+
+/* Sidebar close button - override Lara theme */
+// 
 
 .sidebar-title {
   margin-bottom: 1rem;

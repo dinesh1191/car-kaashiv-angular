@@ -12,7 +12,7 @@ import { AuthService } from './core/services/auth.service';
 import { provideAppInitializer } from '@angular/core';
 import { unauthorizedInterceptor } from './core/interceptors/unauthorized.interceptor';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+import Lara from '@primeng/themes/lara';
 import { PRIME_IMPORTS } from './shared/prime';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -36,7 +36,7 @@ export const appConfig: ApplicationConfig = {
     }),
     providePrimeNG({
       theme: {
-        preset: Aura, // Configure the theme
+        preset: Lara, // Configure the theme
       }
     }),
   

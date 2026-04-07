@@ -6,7 +6,7 @@
     <button
       pButton
       icon="pi pi-bars"
-      class="app-menu-btn"
+      class="app-menu-btn app-topbar-btn"
       (click)="sidebarVisible = true">
     </button>  
 
@@ -19,7 +19,7 @@
   <div class="app-topbar-right">
       <span *ngIf="currentUser" >Welcome, {{currentUser.name}} ({{currentUser.role}})</span>
      
-      <button pButton icon="pi pi-shopping-cart" badge="3" badgeClass="p-badge-danger" class="p-button-text"
+      <button pButton icon="pi pi-shopping-cart" badge="3" badgeClass="p-badge-danger" class="p-button-text app-topbar-btn"
         (click)="goToCart()">
         <span class="cart-badge">{{ cartCount }}</span>
       </button>
