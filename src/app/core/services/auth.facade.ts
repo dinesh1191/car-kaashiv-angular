@@ -49,8 +49,8 @@ export class AuthFacade{
         next:()=>{
             //clear session
             this.authService.clearUserProfile();
-            //navigate to login
-            this.router.navigate(['/login']);
+            // navigate to landing page after logout
+            this.router.navigate(['/']);
         },
         error:()=>{
          console.error('Logout Failed');

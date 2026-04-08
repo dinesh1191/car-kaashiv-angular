@@ -5,18 +5,9 @@ import { roleGuard } from '../../core/guards/role.guard';
 import { EmpManageComponent } from './emp-manage/emp-manage.component';
 
 export const EMPLOYEE_ROUTES: Routes = [
-  {
-    path: 'emp-dashboard',
-    component: EmployeeDashboardComponent,
-  },
-  {
-    path: 'emp-manage',
-    component: EmpManageComponent,
-    canActivate: [roleGuard],
-    data: { roles: ['Admin'] },
-  },
-  // {
-  //   path: 'parts',
-  //   component: PartsListComponent,
-  // },
+  { path: 'emp-dashboard', component: EmployeeDashboardComponent},
+ 
+  { path: 'emp-manage', component: EmpManageComponent,
+    canActivate: [roleGuard], data: { roles: ['Admin'] }, //only admin can access employee management page
+  },  
 ];

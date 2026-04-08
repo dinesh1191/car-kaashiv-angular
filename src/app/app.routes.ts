@@ -25,7 +25,7 @@ export const routes: Routes = [
     path: '',
     component: AuthLayoutComponent, //shared wrapper for all dashboard routes
     children: [
-      { path: 'login', component: LoginComponent, canActivate:[loginGuard] }, //only non-authenticated users can access login page
+      { path: 'login', component: LoginComponent, canActivate:[loginGuard] }, //redirect logged in users away from login page
       { path: 'contact', component: ContactComponent },
       { path: 'privacy', component: PrivacyComponent },
       { path: 'unauthorized', component: UnauthorizedComponent }, 
@@ -42,23 +42,21 @@ export const routes: Routes = [
       {
         path: 'employee',
         canActivate:[roleGuard], 
-        data:{roles:['employee','admin']}, //only employee users can access employee dashboard
+        data:{roles:['employee','admin']}, //only employee admin role can access employee dashboard
         loadChildren: () =>
-          import('./features/employee/employee.routes').then(
-            (m) => m.EMPLOYEE_ROUTES,
-          ),
+          import('./features/employee/employee.routes').then((m) => m.EMPLOYEE_ROUTES),
       },
       {
         path: 'user',
         canActivate:[roleGuard], 
-        data:{roles:['customer']}, //only customer users can access user dashboard
+        data:{roles:['customer']}, //only customer role can access user dashboard
         loadChildren: () =>
           import('./features/user/user.routes').then((m) => m.USER_ROUTES),
       },
       {
         path: 'parts',
         canActivate:[roleGuard], 
-        data:{roles:['employee','admin']}, //only employee users can access parts
+        data:{roles:['employee','admin']}, //only employee admin role can access parts list and details
         loadChildren: () =>          
           import('./features/parts/parts.routes').then((m) => m.PARTS_ROUTES),
       
@@ -77,16 +75,4 @@ export const routes: Routes = [
    { path: '**', redirectTo: 'unauthorized' },
 ];
 
-    /*routes to be used new feature developement*/
-      // {
-      //   path: 'parts-list',
-      //   component: PartsListComponent,
-      // },
-      // {
-      //   path: 'part/details',
-      //   component: PartDetailsComponent,
-      // },
-      // {
-      //   path: 'part/details/:partId',
-      //   component: PartDetailsComponent,
-      // },
+ 
