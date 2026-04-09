@@ -1,7 +1,9 @@
-dialog-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+
+.dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+ color: var(--btn-danger-text);
 }
 
 mat-dialog-content {

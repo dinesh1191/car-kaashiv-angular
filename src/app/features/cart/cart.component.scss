@@ -15,7 +15,13 @@
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  color: rgb(226, 73, 73);
+
+  color: var(--btn-danger-text) !important;
+  background-color: var(--btn-danger-bg) !important;
+  border: 1px solid var(--btn-danger-hover-bg) !important;
+}
+.remove-btn:hover {
+  background-color: var(--btn-danger-hover-bg) !important;
 }
 .part-image{
     width:120px;

@@ -73,7 +73,8 @@ export class EmpRegisterFormComponent {
 
   onSubmit() {
     if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched()
+      this.registerForm.markAllAsTouched();
+       this.snackbarService.show("Please fill required fields",'error');
       return;
     }
 

@@ -43,6 +43,25 @@
 }
 
 /* ------------------------------- */
+
+/* ========Sematic Action Tokens==========*/
+/*raw palette → semantic tokens → component usage*/
+:root{
+  /*Danger /destructive actions*/
+  --btn-danger-text:var(var(--color-danger)12%, transparent);
+  --btn-danger-bg:color-mix(in srgb,var(--color-danger) 25%,transparent);
+  --btn-danger-border:color-mix(in srgb,var(--color-danger) 25%,transparent);
+  --btn-danger-hover-bg:color-mix(in srgb,var(--color-danger)20%,transparent);
+/*Sucess/confirm actions*/
+--btn-success-text:var(--color-success);
+--btn-success-bg:color-mix(in srgb,var(--color-success)12%,transparent);
+--btn-success-border:color-mix(int srgb,var(--color-success),25%,transparent);
+
+}
+
+
+
+
 /* Snackbar Styles */
 .mdc-snackbar {
   border-radius: 8px !important;
