@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SharedModule } from '../../../shared/shared.module';
 import { Part } from '../../../models/part.model';
 import { PartService } from '../part.service';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService, UserProfile } from '../../../core/services/auth.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,6 +23,7 @@ export class PartsListComponent {
   parts: Part[] = [];
   displayedColumns = ['id', 'name', 'price', 'stock', 'actions'];
   userInfo: any;
+  currentUser!: UserProfile | null;
 
 
   constructor(
@@ -30,11 +31,14 @@ export class PartsListComponent {
     private router: Router,
     private snackBarService: SnackbarService,
     private dialog: MatDialog,
+    private authService: AuthService,
 
   ) {}
 
   ngOnInit() {
     this.loadParts();
+      this.currentUser = this.authService.currentUser;
+      
   }
 
   loadParts() {       

@@ -43,8 +43,7 @@
     <th mat-header-cell *matHeaderCellDef>Actions</th>
     <td mat-cell *matCellDef="let p">
         <button mat-icon-button color="primary" (click)="editPart(p.id)"><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button color="danger" (click)="deletePart(p.id)"><mat-icon>delete</mat-icon></button>
-              
+        <button mat-icon-button color="danger" *ngIf="currentUser?.role=='admin'" (click)="deletePart(p.id)"><mat-icon>delete</mat-icon></button>  
     </td>
 </ng-container>
 
