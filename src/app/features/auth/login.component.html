@@ -10,15 +10,21 @@
     </div>              
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="outline" class="w-100 mb-3">
-                    <mat-label>Username</mat-label>
+                    <mat-label>Phone number or corporate email</mat-label>                    
                     <input type="text" matInput formControlName="username">
                 </mat-form-field>
-                <small *ngIf="submitted && loginForm.get('username')?.invalid">User name Required</small>
+                <small *ngIf="submitted && loginForm.get('username')?.hasError('required')">User name Required</small>
+                <small *ngIf="submitted && loginForm.get('username')?.hasError('invalidCorporateEmail')">Enter a valid corporate email</small>
+                <small *ngIf="submitted && loginForm.get('username')?.hasError('invalidPhoneNumber')">Enter a valid 10-digit phone number</small>
+                <small *ngIf="submitted && loginForm.get('username')?.hasError('invalidPhoneLength')">Phone number must be exactly 10 digits</small>
+                <small *ngIf="submitted && loginForm.get('username')?.hasError('invalidPhoneStart')">Phone number must start with 0, 6, 7, 8, or 9</small>
+            
+                
                 <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
-                    <input type="password" matInput formControlName="password">
+                    <input type="password" matInput formControlName="password" >
                 </mat-form-field>
-                <small *ngIf="submitted && loginForm.get('password')?.invalid">Password required</small>
+                <small *ngIf="submitted && loginForm.get('password')?.hasError('required')">Password required</small>
                 <div class="text-center mt-4">
                     <button  mat-raised-button color="primary" type="submit" class="w-100">
                         Login
