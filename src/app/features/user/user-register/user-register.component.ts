@@ -30,7 +30,6 @@ export class UserRegisterComponent {
         phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
         email: ['', [Validators.required, Validators.email]],
         password: ['', Validators.required],
-        Role: ['customer', Validators.required],
         confirmPassword: ['', Validators.required],
       },
       {
