@@ -35,13 +35,12 @@ export class AppLayoutComponent {
     { label: 'Dashboard', icon: 'pi pi-home', route: '/user/dashboard' },
     { label: 'Settings', icon: 'pi pi-list', route: '/user/parts' },
     { label: 'Profile2', icon: 'pi pi-shopping-cart', route: '/user/cart' },
-    
   ];
-  dashboards ={
-    employee:'Employee Dashboard',
-    customer:'Customer Dashboard',
-    vendor:'Vendor Dashboard',
-    admin:'Admin Dashboard'
+  dashboards = {
+    employee: 'Employee Dashboard',
+    customer: 'Customer Dashboard',
+    vendor: 'Vendor Dashboard',
+    admin: 'Admin Dashboard',
   };
 
   constructor(
@@ -49,10 +48,10 @@ export class AppLayoutComponent {
     private snackBarService: SnackbarService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private authfacade :AuthFacade,
-    private cartService: CartService
+    private authfacade: AuthFacade,
+    private cartService: CartService,
   ) {}
-  
+
   ngOnInit() {
     this.currentUser = this.authService.currentUser;
     this.userItems = [
@@ -79,26 +78,32 @@ export class AppLayoutComponent {
         },
       },
     ];
-    this.cartService.cartCount$.subscribe(count => {
+    if (this.currentUser?.role === 'customer') {
+      this.loadCartCount();
+    }
+  }
+  loadCartCount() {
+    this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count;
     });
   }
+
   onProfile() {
     console.log('Profile clicked');
   }
 
   onLogout() {
     console.log('Logout clicked');
-     this.confirmationService.confirm({
-      header:'Confirm Logout',
-      message:'Are you sure you want to logout?',
-      icon:'pi pi-sign-out',
-      acceptLabel:'Logout',
-      rejectLabel:'Cancel',
-      accept:()=>{
+    this.confirmationService.confirm({
+      header: 'Confirm Logout',
+      message: 'Are you sure you want to logout?',
+      icon: 'pi pi-sign-out',
+      acceptLabel: 'Logout',
+      rejectLabel: 'Cancel',
+      accept: () => {
         this.authfacade.logout();
-      }
-     });    
+      },
+    });
   }
 
   onSettings() {
@@ -108,8 +113,11 @@ export class AppLayoutComponent {
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
   }
-  goToCart(){
+  goToCart() {
     console.log('Navigating to cart');
     this.router.navigate(['/cart']);
+  }
+  goToHome(){
+    this.router.navigate(['/']);
   }
 }

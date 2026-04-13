@@ -18,7 +18,7 @@ import { landingRedirectGuard } from './core/guards/landing-redirect.guard';
 
 export const routes: Routes = [
   /* ---------- Public Pages ---------- */
-  { path: '', component: LandingComponent,canActivate:[landingRedirectGuard] }, //redirect logged in users away from landing page
+  { path: '', component: LandingComponent }, 
      
   /* ---------- Auth Pages (Header + Footer only) ---------- */
   {
