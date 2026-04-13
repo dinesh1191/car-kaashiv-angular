@@ -10,8 +10,6 @@
       (click)="sidebarVisible = true">
     </button>  
     <span><mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home" (click)="goToHome()"></mat-icon></span>
-
-
        <span class="app-title">CarKaashiv</span>  
        <span class="env-badge" [ngClass]="env.badgeClass">{{env.label}}</span>
       <span class="app-section-title">  {{ currentUser ? dashboards[currentUser.role] : 'Default Dashboard' }}</span>

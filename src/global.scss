@@ -16,11 +16,11 @@
   --color-primary-light: #63a4ff;
   --color-primary-dark: #004ba0;
 
-  --color-accent: #00bcd4;
-  --color-success: #4caf50;
-  --color-warning: #ffb300;
-  --color-danger: #f44336;
-  --color-info: #2196f3;
+    --color-accent: #00bcd4;
+    --color-success: #4caf50;
+    --color-warning: #ffb300;
+    --color-danger: #f44336;
+    --color-info: #2196f3;
 
   /* ===== Neutral / Surface ===== */
   --color-text: #1f2937;
@@ -100,28 +100,12 @@
   border-radius: 12px;
 }
 
-/* ------------------------------- */
-/* PrimeNG + Bootstrap Fix */
-
-/* ------------------------------- */
 /* PrimeNG Overrides */
 .p-toolbar {
   background-color: var(--color-primary) !important;
   color: var(--app-text) !important;
 }
 
-// .p-button.p-button-primary {
-//   background-color: #22c55e !important;
-//   border-color: #22c55e !important;
-// }
-
-// .p-button.p-button-primary:enabled:hover,
-// .p-button.p-button-primary:enabled:focus {
-//   background-color: #047857 !important;
-//   border-color: #047857 !important;
-// }
-
-/* ------------------------------- */
 /* Utility */
 .text-lg {
   font-size: 1.2rem;
@@ -191,14 +175,22 @@
 /* Sidebar */
 .app-sidebar {
   width: 250px;
- background:var(--color-primary) !important;
+  background:var(--color-primary) !important;
   color: var(--color-accent) !important;
   border: none !important;
   box-shadow: none !important;  
 }
+/* Sidebar close button override */
+.app-sidebar .p-button {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var( --color-text-inverse) !important;
+}
 
-/* Sidebar close button - override Lara theme */
-// 
+.app-sidebar .p-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
 
 .sidebar-title {
   margin-bottom: 1rem;
@@ -224,6 +216,7 @@
 .sidebar-menu li a:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
 
 /* Content */
 .app-content {
