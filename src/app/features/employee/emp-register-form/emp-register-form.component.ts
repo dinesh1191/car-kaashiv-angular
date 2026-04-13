@@ -17,15 +17,9 @@ import { AuthFacade } from '../../../core/services/auth.facade';
 export class EmpRegisterFormComponent {
   registerForm!: FormGroup;
 
-  roles = [
-    { label: 'Admin', value: 'admin' }, 
-    { label: 'Employee', value: 'employee' },
-  ];
-
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
-    private messageService: MessageService,
     private router: Router,
     private snackbarService: SnackbarService,
     private authfacade:AuthFacade,
@@ -40,8 +34,7 @@ export class EmpRegisterFormComponent {
             Validators.required,
             Validators.pattern(/^[a-zA-Z0-9._%+-]+@kaashiv\.com$/),
           ],
-        ],
-        role: ['', [Validators.required]],
+        ],      
         password: [
           '',
           [

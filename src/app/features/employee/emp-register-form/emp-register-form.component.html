@@ -29,12 +29,6 @@
             <p-message *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid" severity="error"
                 text="Invalid phone number"></p-message>
         </div>
-
-        <div class="mb-3">
-            <label for="role">Role</label>
-            <p-dropdown formControlName="role" [options]="roles" placeholder="Select role" class="w-100"> </p-dropdown>
-        </div>
-
         <div class="mb-3">
             <label for="password">Password</label>
             <!--PrimeNG requires styling the inner input,-->
