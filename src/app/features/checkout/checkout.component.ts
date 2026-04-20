@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { OrderService } from '../../core/services/order.service';
+import { OrderResponse } from '../../core/services/order.service';
 
 @Component({
   selector: 'app-checkout',
@@ -14,23 +15,21 @@ import { OrderService } from '../../core/services/order.service';
 })
 export class CheckoutComponent {
   isPlacingOrder: boolean = false;
-
+  OrderResponse: OrderResponse[] = [];
 
   constructor(
     private snackbarService: SnackbarService,
     private router: Router,
     private orderService: OrderService
-  ) {
-   
-  }
-
+  ) {} 
+  
 placeOrder() {
     const idempotencyKey = this.generateIdempotencyKey();     
     this.orderService.placeOrder(idempotencyKey).subscribe({
       next: (res) => {
         this.isPlacingOrder = true;
         this.snackbarService.show('Order placed successfully!', 'success');
-        // this.router.navigate(['/orders']);
+        this.router.navigate(['checkout/order-success/:id'], { queryParams: { id: res.orderId } });
       },
       error: (err) => {
         this.isPlacingOrder = false;
@@ -40,10 +39,7 @@ placeOrder() {
   }
 
   private generateIdempotencyKey(): string {
-    const idempotencyKey = crypto.randomUUID();
-    console.log('Generated Idempotency Key:', idempotencyKey);
-    return idempotencyKey;
-  }
-
-
+    const idempotencyKey = crypto.randomUUID();   
+    return idempotencyKey; 
+   }
 }
