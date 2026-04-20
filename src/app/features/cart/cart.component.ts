@@ -78,8 +78,10 @@ export class CartComponent implements OnInit {
         item.quantity = previousQuantity; // Revert to previous quantity on error
         item.subTotal = item.quantity * item.price; // Recalculate subtotal after reverting quantity
         this.calculateGrandTotal(); // Recalculate grand total after reverting quantity
+            // this.cartService.refreshCartCount();
         console.error('Failed to update quantity', err);
-        this.snackbarService.show('Failed to update quantity', 'error');
+        this.snackbarService.show(err.message || 'Failed to update quantity', 'error',10000);
+   
       },
     });
   }
@@ -117,6 +119,11 @@ export class CartComponent implements OnInit {
 
   calculateGrandTotal() {
     this.total = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);
+  }
+
+  proceedToCheckout(){
+    this.router.navigate(['checkout/checkout-dashboard']);
+
   }
   goBack() {
     this.router.navigate(['user/parts-dashboard']);

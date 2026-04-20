@@ -2,7 +2,8 @@
 <mat-toolbar color="primary" class="px-4">
     <span class="fw-bold">Car Kaashiv 2.0</span>
     <span class="spacer"></span>
-    <div class="mobile-nav-links">
+    <div class="mobile-nav-links"> 
+        <a mat-button (click)="goToDashboard()" *ngIf="currentUser">Dashboard</a>
         <a mat-button routerLink="/">Home</a>
         <a mat-button routerLink="/login">Login</a>
         <a mat-button routerLink="/privacy">Privacy</a>

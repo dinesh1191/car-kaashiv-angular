@@ -8,8 +8,7 @@ const authService = inject(AuthService);
 const router = inject(Router);
 
 const currentUser = authService.currentUser;
-const allowedRoles = route.data?.['roles'] as string[];
-
+const allowedRoles = route.data?.['roles'] || route.parent?.data?.['roles'];
 if(!currentUser){
   router.navigate(['/login'],{queryParams:{returnUrl:state.url}});
   return of(false);

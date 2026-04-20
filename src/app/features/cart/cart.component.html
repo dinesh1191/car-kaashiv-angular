@@ -32,7 +32,7 @@
     <h3>Grand Total: ₹ {{ total }}</h3>
 </div>
 <div>
-    <button class="btn-checkout" *ngIf="cartItems.length>0">Proceed to Checkout</button>
+    <button class="btn-checkout" *ngIf="cartItems.length>0" (click)="proceedToCheckout()">Proceed to Checkout</button>
 </div>
 </div>
 
