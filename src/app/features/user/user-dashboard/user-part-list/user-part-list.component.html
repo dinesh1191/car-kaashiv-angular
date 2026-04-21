@@ -5,7 +5,10 @@
                 <img [src]="part.imageUrl" appFallbackImage  />
 
 
-                <span class="stock-badge" [ngClass]="{'lowStock':part.stock<5}">{{part.stock > 0? 'In stock':'out of stock'}}</span>
+                <span class="stock-badge" [ngClass]="{'low-stock': part.stock > 0 && part.stock < 5, 'no-stock': part.stock === 0 }">
+                       {{ part.stock === 0 ? 'Out of stock' : part.stock < 5 ? part.stock + ' left' : 'In stock' }}
+                </span>
+          
             </div>
             <div class="card-body">
                 <h3 class="title">{{part.name}}</h3>

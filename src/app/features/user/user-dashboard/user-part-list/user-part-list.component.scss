@@ -42,7 +42,11 @@
  border-radius:6px;
 }
 .low-stock{
-  background: #d32f2f;
+ background: #ff9800; /* softer amber tone */
+  color: #000; 
+}
+.no-stock {
+  background: red;    /* danger color */
 }
 /*BODY*/
 .card-body{
