@@ -29,7 +29,7 @@ placeOrder() {
       next: (res) => {
         this.isPlacingOrder = true;
         this.snackbarService.show('Order placed successfully!', 'success');
-        this.router.navigate(['checkout/order-success/:id'], { queryParams: { id: res.orderId } });
+        this.router.navigate(['checkout/invoice/:id'], { queryParams: { id: res.orderId } });
       },
       error: (err) => {
         this.isPlacingOrder = false;

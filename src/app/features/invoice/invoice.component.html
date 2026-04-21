@@ -1,0 +1,45 @@
+<div *ngIf="OrderDetails">
+    <div class="invoice-card">
+        <div>
+            <h2>Invoice</h2>
+            <p>Invoice Number # {{OrderDetails.invoiceNumber}}</p>
+            <p>Date: {{OrderDetails.createdAt | date:'dd MMM yyyy'}}</p>
+        </div>
+
+        <div class="header">
+            <h4>Customer Details</h4>
+            <p>Name: {{CustomerName}}</p>
+            <p>Email: {{CustomerEmail}}</p>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of OrderDetails.items">
+                    <td>{{item.partName}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.unitPrice | currency:'INR'}}</td>
+                    <td>{{item.totalPrice | currency:'INR'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <div class="totalCal">
+            <p>Subtotal: {{OrderDetails.subtotalAmount | currency:'INR'}}</p>
+            <p>Tax (18%): {{OrderDetails.taxAmount | currency:'INR'}}</p>
+            <h3>Total: {{OrderDetails.totalAmount | currency:'INR'}}</h3>
+        </div>
+    </div>
+    <div class="mt-5 viewport-center no-print">
+        <p-button icon="pi pi-file-pdf" label="Print Invoice" [raised]="true" [rounded]="true"
+            styleClass="premium-back-btn" (onClick)="print()">
+        </p-button>
+    </div>
+</div>
