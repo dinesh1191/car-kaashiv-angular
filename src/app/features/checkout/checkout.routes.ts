@@ -7,5 +7,5 @@ import { InvoiceComponent } from '../invoice/invoice.component';
 
 export const Checkout_ROUTES: Routes = [
   { path: 'checkout-dashboard', component: CheckoutComponent },
-  { path: 'invoice/:id', component: InvoiceComponent }
+  { path: 'invoice', component: InvoiceComponent }
 ];

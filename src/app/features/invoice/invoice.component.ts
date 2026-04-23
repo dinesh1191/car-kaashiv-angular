@@ -33,6 +33,7 @@ ngOnInit(): void {
    this.activatedRoute.queryParamMap.subscribe(params => { 'id'
     this.orderId= params.get('id');  
   });
+ 
 this.CustomerName  = this.authService.currentUser?.name;
 this.CustomerEmail = this.authService.currentUser?.email; 
 
