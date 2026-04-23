@@ -15,7 +15,7 @@ import { PrintService } from '../../core/services/print.service';
   styleUrl: './invoice.component.scss'
 })
 export class InvoiceComponent {
-  orderId: any;
+  orderId: number | undefined;
   OrderDetails: any;
   CustomerName:string| undefined;
   CustomerEmail: string | undefined;
@@ -31,11 +31,13 @@ export class InvoiceComponent {
 
 ngOnInit(): void {  
    this.activatedRoute.queryParamMap.subscribe(params => { 'id'
-    this.orderId= params.get('id');  
+    this.orderId= Number(params.get('id')); 
   });
+      console.log('Resolved OrderId:', this.orderId); // debug
+      console.log('URL:', window.location.href);
+       console.log('OrderId:', this.orderId);
  
-this.CustomerName  = this.authService.currentUser?.name;
-this.CustomerEmail = this.authService.currentUser?.email; 
+
 
   if (this.orderId) {
     this.orderService.getOrderDetails(this.orderId).subscribe({
@@ -48,6 +50,8 @@ this.CustomerEmail = this.authService.currentUser?.email;
       },
     });
   }
+  this.CustomerName  = this.authService.currentUser?.name;
+  this.CustomerEmail = this.authService.currentUser?.email; 
 }
 
 print(){ 

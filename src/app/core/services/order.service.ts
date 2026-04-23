@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface OrderResponse {
-  orderId: string; 
+  orderId: number;
   invoiceNumber: string;
   totalAmount: number;
 }
@@ -25,7 +25,7 @@ export class OrderService {
     });
   }
 
-  getOrderDetails(orderId: string): Observable<any> {
+  getOrderDetails(orderId: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${orderId}`);
   }
 
