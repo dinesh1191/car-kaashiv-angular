@@ -33,6 +33,10 @@ export class CartComponent implements OnInit {
     private dialog: MatDialog,
   ) {}
   cartItems: CartItem[] = [];
+  gstRate = 0.18;
+  subtotal: number = 0;
+  gstAmount: number = 0;
+  grandTotal: number = 0;
 
   ngOnInit(): void {
     this.getCartItems();
@@ -118,7 +122,11 @@ export class CartComponent implements OnInit {
   }
 
   calculateGrandTotal() {
-    this.total = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);
+     this.subtotal = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);
+
+  this.gstAmount = this.subtotal * this.gstRate;
+
+  this.grandTotal = this.subtotal + this.gstAmount;
   }
 
   proceedToCheckout(){

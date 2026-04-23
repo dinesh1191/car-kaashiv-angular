@@ -29,7 +29,9 @@
     </div>
 </div>
 <div class="cart-total" *ngIf="cartItems.length>0">
-    <h3>Grand Total: ₹ {{ total }}</h3>
+    <p>Subtotal: ₹{{ subtotal.toFixed(2) }}</p>
+    <p>Inclusive of GST(18%): ₹{{ gstAmount.toFixed(2) }}</p>
+    <h3>Total: ₹{{ grandTotal.toFixed(2) }}</h3>
 </div>
 <div>
     <button class="btn-checkout" *ngIf="cartItems.length>0" (click)="proceedToCheckout()">Proceed to Checkout</button>

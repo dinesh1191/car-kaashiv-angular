@@ -28,8 +28,7 @@ export class UserPartListComponent implements OnInit {
     this.partService.getAllParts().subscribe({
       next: (res) => {
         this.parts = res.data ?? []; //if data exists → use it.undefined fallback to empty array
-        this.parts[0].imageUrl = 'abc'; //to test fallback image functionality remove this line after testing
-      },
+       },
       error(err) {
         console.error('Failed to load parts', err);
       },
@@ -39,10 +38,7 @@ export class UserPartListComponent implements OnInit {
   addCart(part: any) {
       this.cartService.addToCart({ partId: part.id, quantity: 1 }).subscribe({
       next: (res) => {
-        this.snackbarService.show(
-          res.message ? res.message : 'successfully added to cart',
-          'success',
-        );
+        this.snackbarService.show( res.message ? res.message : 'successfully added to cart','success');
         this.cartService.refreshCartCount();
       },
     });
