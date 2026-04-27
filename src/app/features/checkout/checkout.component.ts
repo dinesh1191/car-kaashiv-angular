@@ -31,9 +31,9 @@ placeOrder() {
         this.snackbarService.show('Order placed successfully!', 'success');
         this.router.navigate(['checkout/invoice'], { queryParams: { id: res.orderId  } });
       },
-      error: (err) => {
+      error: (err) => {       
         this.isPlacingOrder = false;
-        this.snackbarService.show('Failed to place order. Please try again.', 'error', 3000, err);
+        this.snackbarService.show( err.error.Message ||'Failed to place order. Please try again.', 'error', 3000, err);
       },
     });
   }
