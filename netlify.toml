@@ -1,0 +1,9 @@
+[build]
+command = "npm run build:prod"
+publish = "dist/car-kaashiv-angular/browser"
+
+[context.branch-deploy]
+command = "npm run build:staging"
+
+[context.deploy-preview]
+command = "npm run build:staging"
