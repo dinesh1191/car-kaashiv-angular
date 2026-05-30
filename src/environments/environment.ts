@@ -10,6 +10,8 @@ import { isDevMode } from '@angular/core';
 //   appVersion: '1.0.0-dev',
 
 // };
+
+
 /**use below staging pointing**/
 export const environment = {
   production: true,
@@ -18,7 +20,6 @@ export const environment = {
   badgeClass :'env-dev',
   debug: isDevMode(),  // enables dev-only logging or features
   appVersion: '1.0.0-dev',
-
 };
 
 /**use below production pointing**/
