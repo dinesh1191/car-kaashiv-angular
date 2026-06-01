@@ -83,6 +83,9 @@
           "configurations": {
             "production": {
               "buildTarget": "car-kaashiv-angular:build:production"
+            },            
+            "staging": {
+              "buildTarget": "car-kaashiv-angular:build:staging"
             },
             "development": {
               "buildTarget": "car-kaashiv-angular:build:development"

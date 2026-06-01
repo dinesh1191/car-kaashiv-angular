@@ -1,7 +1,6 @@
 export const environment = {
-  production: true,
+  production: false,
   apiBaseUrl: 'https://carkaashiv-api-staging.onrender.com', 
-  label: 'DEV',
-  badgeClass :'env-dev',
-  appVersion: '1.0.0-dev',
+  label: 'STAGING',
+  badgeClass :'env-staging', 
 };
