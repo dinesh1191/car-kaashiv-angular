@@ -42,6 +42,7 @@ export class PartDetailsComponent {
       price: ['', [Validators.required, Validators.min(0)]],
       stock: ['', [Validators.required, Validators.min(0)]],
       imageUrl: ['', Validators.required],
+      imageKey:['', Validators.required]
     });
 
     const id = this.route.snapshot.paramMap.get('id'); //get id from url if exists
@@ -57,7 +58,8 @@ export class PartDetailsComponent {
         if (res.data) {
           this.partForm.patchValue(res.data);
           this.previewUrl = res.data.imageUrl ?? null; // Show existing image in edit mode             
-        } else {
+          this.currentImageKey = res.data.imageKey ?? null; // Store existing image key for potential deletion
+       } else {
           this.snackBarService.show('No data found for this part.');
         }
       },
