@@ -37,12 +37,11 @@ export class PartDetailsComponent {
   ngOnInit() {
     //Initialize form
     this.partForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(0)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]],
+      description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1000)]],
+      price: ['', [Validators.required, Validators.min(1)]],
       stock: ['', [Validators.required, Validators.min(0)]],
-      imageUrl: ['', Validators.required],
-      imageKey:['', Validators.required]
+      imageUrl: ['', Validators.required]      
     });
 
     const id = this.route.snapshot.paramMap.get('id'); //get id from url if exists
@@ -77,6 +76,7 @@ export class PartDetailsComponent {
   }
 
   upload() {
+    debugger
     if (!this.selectedFile) return;
     const fileName = this.selectedFile.name;
     const contentType = this.selectedFile.type;
@@ -108,19 +108,27 @@ export class PartDetailsComponent {
       });
   }
 
-  onSubmit() {
+  onSubmit() {   
+
     if (this.partForm.invalid) {
       this.partForm.markAllAsTouched();
       this.snackBarService.show('Please fill the required details', 'error');
+      console.log('Form data ready to submit:', this.partForm.value);
       return;
-    }
-    this.savePartToApi({...this.partForm.value,imageKey:this.currentImageKey});
-  }
+    }    
+    console.log('Form data ready to submit:', this.partForm.value);
+    this.savePartToApi({
+      ...this.partForm.value,
+      price: Number(this.partForm.value.price),
+      stock: Number(this.partForm.value.stock),
+      imageKey:this.currentImageKey});
+      }
 
   savePartToApi(data:any){   
     const res$ = this.isEditMode
       ? this.partService.updatePart(this.partId, data)
       : this.partService.addPart(data);
+      console.log('API call initiated:', this.isEditMode ? 'Updating part' : 'Adding part', data);
     res$.subscribe({
       next: () => {
         this.snackBarService.show(

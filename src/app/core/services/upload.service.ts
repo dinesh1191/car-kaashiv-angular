@@ -25,14 +25,8 @@ export class UploadService {
   testS3(){
     return this.http.get(`${this.apiUrl}/test-s3`);
   }
-  getPreSignedUrl(
-    fileName: string,
-    contentType: string,
-  ): Observable<PresignedUrlResponse> {
-    return this.http.post<PresignedUrlResponse>(
-      `${this.apiUrl}/presigned-url`,
-      {fileName, contentType},     
-    );
+  getPreSignedUrl(fileName: string,contentType: string,): Observable<PresignedUrlResponse> {
+    return this.http.post<PresignedUrlResponse>(`${this.apiUrl}/presigned-url`,{fileName, contentType});
   }
 
   uploadToS3(uploadUrl: string, fileUrl: File) {
