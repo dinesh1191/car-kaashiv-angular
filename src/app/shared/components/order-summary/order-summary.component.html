@@ -1,0 +1,80 @@
+<p>order-summary works!</p>
+
+
+
+<div fxLayout="row wrap" fxLayoutGap="16px grid" style="width:100%">
+  <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25" *ngFor="let payment of payments">
+    <mat-card class="payment-card">
+      <div class="card-header">
+
+        <div class="user-info">
+          <div class="avatar">
+            {{ getInitials(payment.name) }}
+          </div>
+
+          <div>
+            <div class="name">{{ payment.name }}</div>
+            <div class="phone">{{ payment.phone }}</div>
+
+            <a class="call-link" href="tel:{{payment.phone}}">
+              <mat-icon>call</mat-icon>
+              Call
+            </a>
+          </div>
+        </div>
+
+        <div class="order-info">
+          <div class="order-id">#{{ payment.orderId }}</div>
+          <div class="date">{{ payment.date }}</div>
+        </div>
+
+      </div>
+
+      <div class="payment-body">
+        <div class="payment-proof">
+          <img [src]="payment.logo" alt="payment" class="payment-logo" />
+
+          <div class="proof-amount">
+            ₹{{ payment.amount }}
+          </div>
+        </div>
+
+        <div class="payment-details">
+
+          <div class="label">UTR / Ref No.</div>
+          <div class="value">{{ payment.utr }}</div>
+
+          <div class="label">Payment Method</div>
+          <div class="value">{{ payment.method }}</div>
+
+          <div class="label">Amount</div>
+          <div class="amount">
+            ₹{{ payment.amount }}
+          </div>
+
+          <div class="status-badge">
+            {{ payment.status }}
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="action-buttons">
+
+        <button mat-stroked-button color="primary" class="verify-btn">
+          <mat-icon>check</mat-icon>
+          Verify
+        </button>
+
+        <button mat-stroked-button color="warn" class="reject-btn">
+          <mat-icon>close</mat-icon>
+          Reject
+        </button>
+
+      </div>
+
+    </mat-card>
+  </div>
+</div>
