@@ -1,85 +1,136 @@
-<form [formGroup]="paymentForm" (ngSubmit)="submitPaymentProof()">
+<div class="container py-3">
 
-    <!-- Order Summary -->
-    <section class="order-summary">
-        <h3>Payment Verification</h3>
+    <form [formGroup]="paymentForm" (ngSubmit)="submitPaymentProof()">
 
-        <p>
-            <strong>Order Number:</strong>
-            {{ OrderDetails?.invoiceNumber }}
-        </p>
+        <!-- Payment Header -->
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body text-center">
 
-        <p>
-            <strong>Total Amount:</strong>
-            ₹{{ OrderDetails?.totalAmount }}
-        </p>
-    </section>
+                <h4 class="fw-bold mb-3">
+                    Payment Verification
+                </h4>
 
-    <hr>
+                <div class="row text-start">
 
-    <!-- QR -->
-    <section>
-        <h4>Scan & Pay</h4>
+                    <div class="col-12 mb-2">
+                        <small class="text-muted">
+                            Order Number
+                        </small>
+                        <div class="fw-semibold">
+                            {{ OrderDetails?.invoiceNumber }}
+                        </div>
+                    </div>
 
-        <img [src]="qrCodeUrl" alt="Payment QR Code" width="250">
+                    <div class="col-12">
+                        <small class="text-muted">
+                            Total Amount
+                        </small>
+                        <div class="fs-4 fw-bold text-success">
+                            ₹{{ OrderDetails?.totalAmount }}
+                        </div>
+                    </div>
 
-        <p>
-            Complete payment and upload proof below.
-        </p>
-    </section>
+                </div>
 
-    <hr>
+            </div>
+        </div>
 
-    <!-- UTR -->
-    <div class="form-group">
+        <!-- QR Payment Card -->
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body text-center">
 
-        <label for="utrNumber">
-            UTR / Transaction Reference Number
-            <small>(Optional)</small>
-        </label>
+                <h5 class="fw-semibold mb-3">
+                    Scan & Pay
+                </h5>
 
-        <input type="text" id="utrNumber" formControlName="utrNumber" placeholder="Enter UTR Number">
+                <img [src]="qrCodeUrl" alt="Payment QR" class="img-fluid rounded border" style="max-width: 250px;">
 
-    </div>
+                <p class="text-muted mt-3 mb-0">
+                    Scan the QR code using GPay, PhonePe, Paytm or any UPI app.
+                </p>
 
-    <br>
+            </div>
+        </div>
 
-    <!-- Screenshot Upload -->
-    <div class="form-group">
+        <!-- UTR -->
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body">
 
-        <label>
-            Payment Screenshot <span>*</span>
-        </label>
+                <label for="utrNumber" class="form-label fw-semibold">
 
-        <input type="file" accept="image/*" (change)="onFileSelected($event)">
+                    UTR / Transaction Reference Number
 
-        <div *ngIf="paymentForm.get('proofImage')?.invalid
-          && paymentForm.get('proofImage')?.touched">
+                    <span class="text-muted fw-normal">
+                        (Optional)
+                    </span>
 
-            Payment screenshot is required.
+                </label>
+
+                <input type="text" id="utrNumber" formControlName="utrNumber" class="form-control"
+                    placeholder="Enter UTR Number">
+
+            </div>
+        </div>
+
+        <!-- Upload Proof -->
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body">
+
+                <label class="form-label fw-semibold">
+
+                    Payment Screenshot
+                    <span class="text-danger">*</span>
+
+                </label>
+
+                <input type="file" class="form-control" accept="image/*" (change)="onFileSelected($event)">
+
+                <div class="text-danger small mt-2" *ngIf="paymentForm.get('proofImage')?.invalid &&
+                           paymentForm.get('proofImage')?.touched">
+
+                    Payment screenshot is required.
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="card shadow-sm border-0 mb-3" *ngIf="previewUrl">
+
+            <div class="card-body text-center">
+
+                <h6 class="fw-semibold mb-3">
+                    Screenshot Preview
+                </h6>
+
+                <img [src]="previewUrl" alt="Proof Preview" class="img-fluid rounded border">
+
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid || isSubmitting">
+
+                <span *ngIf="!isSubmitting">
+                    Submit Payment Proof
+                </span>
+
+                <span *ngIf="isSubmitting" class="d-flex align-items-center justify-content-center gap-2">
+
+                    <mat-spinner diameter="20">
+                    </mat-spinner>
+
+                    Uploading...
+
+                </span>
+
+            </button>
 
         </div>
 
-    </div>
+    </form>
 
-    <br>
-
-    <!-- Preview -->
-    <div *ngIf="previewUrl">
-
-        <h4>Preview</h4>
-
-        <img [src]="previewUrl" alt="Proof Preview" width="300">
-
-    </div>
-
-    <br>
-
-    <!-- Submit -->
-    <button type="submit" [disabled]="paymentForm.invalid || isSubmitting">
-
-        Submit Payment Proof
-
-    </button>
-
-</form>
+</div>

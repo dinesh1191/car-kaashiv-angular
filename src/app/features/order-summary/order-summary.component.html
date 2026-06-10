@@ -3,20 +3,20 @@
 
 
 <div fxLayout="row wrap" fxLayoutGap="16px grid" style="width:100%">
-  <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25" *ngFor="let payment of payments">
+  <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25" *ngFor="let order of orderList">
     <mat-card class="payment-card">
       <div class="card-header">
 
         <div class="user-info">
           <div class="avatar">
-            {{ getInitials(payment.name) }}
+            {{ getInitials(order.customerName) }}
           </div>
 
           <div>
-            <div class="name">{{ payment.name }}</div>
-            <div class="phone">{{ payment.phone }}</div>
+            <div class="name">{{ order.customerName }}</div>
+            <div class="phone">{{ order.phone }}</div>
 
-            <a class="call-link" href="tel:{{payment.phone}}">
+            <a class="call-link" href="tel:{{order.phone}}">
               <mat-icon>call</mat-icon>
               Call
             </a>
@@ -24,36 +24,36 @@
         </div>
 
         <div class="order-info">
-          <div class="order-id">#{{ payment.orderId }}</div>
-          <div class="date">{{ payment.date }}</div>
+          <div class="order-id">#{{ order.orderId }}</div>
+          <div class="date">{{ order.date }}</div>
         </div>
 
       </div>
 
       <div class="payment-body">
         <div class="payment-proof">
-          <img [src]="payment.logo" alt="payment" class="payment-logo" />
+          <img [src]="order.paymentProofUrl" alt="paymentProofUrl" class="payment-logo" />
 
           <div class="proof-amount">
-            ₹{{ payment.amount }}
+            ₹{{ order.amount }}
           </div>
         </div>
 
         <div class="payment-details">
 
           <div class="label">UTR / Ref No.</div>
-          <div class="value">{{ payment.utr }}</div>
+          <div class="value">{{ order.utr }}</div>
 
           <div class="label">Payment Method</div>
-          <div class="value">{{ payment.method }}</div>
+          <div class="value">{{ order.method }}</div>
 
           <div class="label">Amount</div>
           <div class="amount">
-            ₹{{ payment.amount }}
+            ₹{{ order.totalAmount }}
           </div>
 
           <div class="status-badge">
-            {{ payment.status }}
+            {{ order.status }}
           </div>
 
         </div>
@@ -63,12 +63,12 @@
       <!-- Actions -->
       <div class="action-buttons">
 
-        <button mat-stroked-button color="primary" class="verify-btn">
+        <button mat-stroked-button color="primary" class="verify-btn" (click)="verifyPayment(order.orderId)">
           <mat-icon>check</mat-icon>
           Verify
         </button>
 
-        <button mat-stroked-button color="warn" class="reject-btn">
+        <button mat-stroked-button color="warn" class="reject-btn" (click)="rejectPayment(order.orderId)">
           <mat-icon>close</mat-icon>
           Reject
         </button>

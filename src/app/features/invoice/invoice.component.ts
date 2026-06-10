@@ -23,7 +23,7 @@ export class InvoiceComponent {
 
  
   constructor( private snackbarService: SnackbarService,
-    
+    private router: Router,
     private activatedRoute: ActivatedRoute, 
     private orderService: OrderService,
     private authService:AuthService,
@@ -58,5 +58,12 @@ print(){
    const content = document.querySelector('.invoice-card')?.innerHTML;
    this.printService.printInvoice(content);
   
+}
+goToPayment(){   
+   if(this.orderId){
+    console.log('Navigating to payment with orderId:', this.orderId); // debug
+   this.router.navigate(['/user/payment'], { queryParams: { id: this.orderId } });
+  
+  }
 }
 }

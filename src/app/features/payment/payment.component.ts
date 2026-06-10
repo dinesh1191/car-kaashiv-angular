@@ -8,10 +8,11 @@ import { UploadService } from '../../core/services/upload.service';
 import { switchMap, tap } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import { MATERIAL_IMPORTS } from '../../shared/material';
 
 @Component({
   selector: 'app-payment',
-  imports: [SharedModule,CommonModule],
+  imports: [SharedModule,MATERIAL_IMPORTS,CommonModule],
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
@@ -44,14 +45,9 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParamMap.subscribe(params => {
-      // this.orderId = Number(params.get('id'));
-       this.orderId = 105;
-      // Initialize form
-       this.paymentForm = this.fb.group({
-        utrNumber: [''],
-        proofImage: [null, Validators.required]
-  });
-
+      this.orderId = Number(params.get('id'));
+       
+       this.initform();      
       if (this.orderId) {
         this.orderService.getOrderById(this.orderId).subscribe({
           next: (res) => {
@@ -67,6 +63,13 @@ export class PaymentComponent implements OnInit {
 
     this.CustomerName = this.authService.currentUser?.name;
     this.CustomerEmail = this.authService.currentUser?.email;
+  }
+
+  initform(){ 
+         this.paymentForm = this.fb.group({
+        utrNumber: [''],
+        proofImage: [null, Validators.required]
+  });
   }
  
   onFileSelected(event: Event): void {
@@ -134,7 +137,7 @@ export class PaymentComponent implements OnInit {
       next: (res) => {  
         this.snackbarService.show('Payment proof submitted successfully!', 'success');
         console.log('Payment proof submission response:', res);
-        this.router.navigate(['/user/dashboard']);
+        this.router.navigate(['/user/parts-dashboard']);
       },
       error: (err) => {
         this.snackbarService.show('Failed to submit payment proof', 'error', 3000, err);

@@ -48,11 +48,13 @@ export class PartsListComponent {
           this.parts = res.data;
         }         
       },
-      error: () => {
-        this.snackBarService.show('Error loading Parts', 'error');
+      error: (err) => {
+        this.snackBarService.show('Error loading Parts', 'error', err);
       },
     });
   }
+
+
 
 
 
