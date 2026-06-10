@@ -48,7 +48,7 @@ git clone <repo-url>
 Example:
 
 ```bash
-git clone https://github.com/yourname/carkaashiv-frontend.git
+git clone https://github.com/dinesh1191/carkaashiv-frontend.git
 ```
 
 ---
@@ -89,7 +89,8 @@ Verify environment files exist:
 
 ```txt
 src/environments/environment.ts
-src/environments/environment.development.ts
+src/environments/environment.staging.ts
+src/environments/environment.prod.ts
 ```
 
 Example API configuration:

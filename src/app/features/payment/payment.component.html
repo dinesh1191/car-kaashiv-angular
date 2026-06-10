@@ -1,0 +1,85 @@
+<form [formGroup]="paymentForm" (ngSubmit)="submitPaymentProof()">
+
+    <!-- Order Summary -->
+    <section class="order-summary">
+        <h3>Payment Verification</h3>
+
+        <p>
+            <strong>Order Number:</strong>
+            {{ OrderDetails?.invoiceNumber }}
+        </p>
+
+        <p>
+            <strong>Total Amount:</strong>
+            ₹{{ OrderDetails?.totalAmount }}
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- QR -->
+    <section>
+        <h4>Scan & Pay</h4>
+
+        <img [src]="qrCodeUrl" alt="Payment QR Code" width="250">
+
+        <p>
+            Complete payment and upload proof below.
+        </p>
+    </section>
+
+    <hr>
+
+    <!-- UTR -->
+    <div class="form-group">
+
+        <label for="utrNumber">
+            UTR / Transaction Reference Number
+            <small>(Optional)</small>
+        </label>
+
+        <input type="text" id="utrNumber" formControlName="utrNumber" placeholder="Enter UTR Number">
+
+    </div>
+
+    <br>
+
+    <!-- Screenshot Upload -->
+    <div class="form-group">
+
+        <label>
+            Payment Screenshot <span>*</span>
+        </label>
+
+        <input type="file" accept="image/*" (change)="onFileSelected($event)">
+
+        <div *ngIf="paymentForm.get('proofImage')?.invalid
+          && paymentForm.get('proofImage')?.touched">
+
+            Payment screenshot is required.
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Preview -->
+    <div *ngIf="previewUrl">
+
+        <h4>Preview</h4>
+
+        <img [src]="previewUrl" alt="Proof Preview" width="300">
+
+    </div>
+
+    <br>
+
+    <!-- Submit -->
+    <button type="submit" [disabled]="paymentForm.invalid || isSubmitting">
+
+        Submit Payment Proof
+
+    </button>
+
+</form>

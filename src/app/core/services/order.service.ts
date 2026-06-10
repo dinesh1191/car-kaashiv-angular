@@ -8,6 +8,7 @@ export interface OrderResponse {
   invoiceNumber: string;
   totalAmount: number;
 }
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,8 +26,22 @@ export class OrderService {
     });
   }
 
-  getOrderDetails(orderId: number): Observable<any> {
+  getOrderById(orderId: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${orderId}`);
   }
+
+  submitPaymentById(orderId: number, paymentData: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/${orderId}/submit-payment`, paymentData);
+  }
+
+ getOrderList(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/payment-review-queue`);
+  }
+
+ verifyPayment(orderId: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/${orderId}/verify-payment`, { status });
+  }
+
+
 
 }

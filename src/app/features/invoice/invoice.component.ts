@@ -40,7 +40,7 @@ ngOnInit(): void {
 
 
   if (this.orderId) {
-    this.orderService.getOrderDetails(this.orderId).subscribe({
+    this.orderService.getOrderById(this.orderId).subscribe({
       next: (res) => {
       this.OrderDetails = res;     
       this.snackbarService.show('Order details loaded successfully!', 'success');
