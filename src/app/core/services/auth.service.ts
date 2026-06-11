@@ -47,12 +47,7 @@ export class AuthService {
       this.userProfiles$.next(JSON.parse(savedProfile));
     }
   }
-
-  // login(payload: LoginRequest): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/api/auth/login`, payload, {
-  //     withCredentials: true,
-  //   });
-  // }
+  
    login(payload: LoginRequest): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/login`, payload, {
       withCredentials: true,
@@ -60,7 +55,7 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/auth/logout`, {},{
+    return this.http.post(`${this.apiUrl}/auth/logout`, {},{
       withCredentials: true,
     });
   }

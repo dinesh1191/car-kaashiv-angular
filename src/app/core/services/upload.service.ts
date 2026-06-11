@@ -19,7 +19,7 @@ export interface DeleteFileResponse {
 })
 export class UploadService {
   
-  private apiUrl = `${environment.apiBaseUrl}/api/Upload`
+  private apiUrl = `${environment.apiBaseUrl}/Upload`
   constructor(private http: HttpClient) {}
 
   testS3(){

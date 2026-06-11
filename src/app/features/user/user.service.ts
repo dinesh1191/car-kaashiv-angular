@@ -9,7 +9,7 @@ import { ApiResponse } from '../../models/api-response.model';
 })
 export class UserService {
 
-  private apiUrl = environment.apiBaseUrl+`/api/auth`;
+  private apiUrl = environment.apiBaseUrl+`/auth`;
 
   constructor(private http:HttpClient) { }
 

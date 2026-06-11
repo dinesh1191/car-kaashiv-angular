@@ -14,7 +14,7 @@ export interface OrderResponse {
 })
 export class OrderService {
 
-  private baseUrl = environment.apiBaseUrl +'/api/order';
+  private baseUrl = environment.apiBaseUrl +'/order';
   constructor(private http: HttpClient) { }
 
 

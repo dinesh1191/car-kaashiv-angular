@@ -9,7 +9,7 @@ import { AddToCartRequest, CartItem, UpdateCartQuantityRequest } from '../../sha
   providedIn: 'root',
 })
 export class CartService {
-  private apiUrl = `${environment.apiBaseUrl}/api/Cart`;
+  private apiUrl = `${environment.apiBaseUrl}/Cart`;
   private CartCountSubject = new BehaviorSubject<number>(0); //BehaviorSubject keeps the latest state.
   cartCount$ = this.CartCountSubject.asObservable();
 
