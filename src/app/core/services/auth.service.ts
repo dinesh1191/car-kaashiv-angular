@@ -48,8 +48,13 @@ export class AuthService {
     }
   }
 
-  login(payload: LoginRequest): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/auth/login`, payload, {
+  // login(payload: LoginRequest): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/api/auth/login`, payload, {
+  //     withCredentials: true,
+  //   });
+  // }
+   login(payload: LoginRequest): Observable<any> {
+    return this.http.post(`/auth/login`, payload, {
       withCredentials: true,
     });
   }
@@ -73,7 +78,8 @@ export class AuthService {
   /** Fetch current user profile from backend */
   getUserProfile(): Observable<any> {
     return this.http
-      .get<any>(`${this.apiUrl}/api/auth/me`, {
+      // .get<any>(`${this.apiUrl}/api/auth/me`, {
+      .get<any>(`/auth/me`, {
         context: new HttpContext().set(SKIP_LOADER, true),
         withCredentials: true,     
       })  
