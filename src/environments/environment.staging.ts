@@ -1,6 +1,6 @@
 export const environment = {
 production: false,
-  apiBaseUrl: '',
+  apiBaseUrl: '/api',
   label: 'STAGING',
   badgeClass: 'env-staging'
 };
