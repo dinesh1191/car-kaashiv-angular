@@ -78,7 +78,7 @@ export class AuthService {
   /** Fetch current user profile from backend */
   getUserProfile(): Observable<any> {
     return this.http
-       .get<any>(`${this.apiUrl}/api/auth/me`, {     
+       .get<any>(`${this.apiUrl}/auth/me`, {     
         context: new HttpContext().set(SKIP_LOADER, true),
         withCredentials: true,     
       })  
