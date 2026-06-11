@@ -54,7 +54,7 @@ export class AuthService {
   //   });
   // }
    login(payload: LoginRequest): Observable<any> {
-    return this.http.post(`/auth/login`, payload, {
+    return this.http.post(`${this.apiUrl}/auth/login`, payload, {
       withCredentials: true,
     });
   }
