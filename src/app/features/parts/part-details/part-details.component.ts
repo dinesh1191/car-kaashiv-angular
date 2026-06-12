@@ -109,15 +109,12 @@ export class PartDetailsComponent {
   }
 
   onSubmit() {   
-
     if (this.partForm.invalid) {
       this.partForm.markAllAsTouched();
       this.snackBarService.show('Please fill the required details', 'error');
-      console.log('Form data ready to submit:', this.partForm.value);
       return;
-    }    
-    console.log('Form data ready to submit:', this.partForm.value);
-    this.savePartToApi({
+    }   
+     this.savePartToApi({
       ...this.partForm.value,
       price: Number(this.partForm.value.price),
       stock: Number(this.partForm.value.stock),
@@ -128,8 +125,7 @@ export class PartDetailsComponent {
     const res$ = this.isEditMode
       ? this.partService.updatePart(this.partId, data)
       : this.partService.addPart(data);
-      console.log('API call initiated:', this.isEditMode ? 'Updating part' : 'Adding part', data);
-    res$.subscribe({
+      res$.subscribe({
       next: () => {
         this.snackBarService.show(
           `Part ${this.isEditMode ? 'Part updated successfully' : 'Part created successfully'}`,

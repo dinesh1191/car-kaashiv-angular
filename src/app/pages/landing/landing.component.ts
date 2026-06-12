@@ -49,9 +49,7 @@ export class LandingComponent {
   currentSlide = 0;
 
   ngOnInit() {
-    setInterval(() => this.nextSlide(), 5000);
-    console.log('Landing Component Initialized');
-
+    setInterval(() => this.nextSlide(), 5000);   
     //get server health/startup
     this.healthService.getServerHealth().subscribe({
       next: (res) => {

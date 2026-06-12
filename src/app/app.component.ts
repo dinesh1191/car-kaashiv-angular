@@ -18,7 +18,6 @@ export class AppComponent {
 constructor(public loaderService:LoaderService){}
   title = 'car-kaashiv-angular';
   ngAfterViewInit(){
-console.log("Appcomponent checked at:",performance.now());
 console.log('ENV', environment);
   }
 }

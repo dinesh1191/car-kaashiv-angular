@@ -32,13 +32,7 @@ export class InvoiceComponent {
 ngOnInit(): void {  
    this.activatedRoute.queryParamMap.subscribe(params => { 'id'
     this.orderId= Number(params.get('id')); 
-  });
-      console.log('Resolved OrderId:', this.orderId); // debug
-      console.log('URL:', window.location.href);
-       console.log('OrderId:', this.orderId);
- 
-
-
+  });  
   if (this.orderId) {
     this.orderService.getOrderById(this.orderId).subscribe({
       next: (res) => {
@@ -60,10 +54,8 @@ print(){
   
 }
 goToPayment(){   
-   if(this.orderId){
-    console.log('Navigating to payment with orderId:', this.orderId); // debug
+   if(this.orderId){  
    this.router.navigate(['/user/payment'], { queryParams: { id: this.orderId } });
-  
   }
 }
 }
