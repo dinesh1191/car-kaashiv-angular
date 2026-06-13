@@ -17,7 +17,8 @@ export class AppComponent {
   
 constructor(public loaderService:LoaderService){}
   title = 'car-kaashiv-angular';
-  ngAfterViewInit(){
-console.log('ENV', environment);
-  }
+  ngAfterViewInit(){console.log('ENV', environment);}
+  ngOnInit(){
+    sessionStorage.removeItem('chunkLoadErrorReloaded'); 
+   }
 }
