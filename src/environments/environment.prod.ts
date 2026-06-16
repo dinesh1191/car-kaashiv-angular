@@ -1,6 +1,6 @@
 export const environment = {
  production: true,
-  apiBaseUrl: '',
+  apiBaseUrl: '/api',
   debug: false,
   appVersion: '1.0.0',
   label: 'PROD',

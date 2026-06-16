@@ -1,91 +1,80 @@
-<div fxLayout="row wrap" fxLayoutGap="16px grid" style="width:100%">
-      
-     <ng-container *ngIf="orderList.length>0; else emptyTpl">
 
-  <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25" *ngFor="let order of orderList">
-  
-     
-    <mat-card class="payment-card">
-      <div class="card-header">
+<mat-tab-group
+  animationDuration="0ms"
+  (selectedTabChange)="onTabChanged($event)">
+  <mat-tab label="Orders"></mat-tab>
+  <mat-tab label="Dispatch"></mat-tab>
+  <mat-tab label="Shipped"></mat-tab>
+</mat-tab-group>
 
-        <div class="user-info">
-          <div class="avatar">
-            {{ getInitials(order.customerName) }}
+<div class="content-container">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid" style="width:100%">
+    <ng-container *ngIf="orderList.length>0; else emptyTpl">
+
+      <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25" *ngFor="let order of orderList">
+        <mat-card class="payment-card">
+          <div class="card-header">
+            <div class="user-info">
+              <div class="avatar">
+                {{ getInitials(order.customerName) }}
+              </div>
+              <div>
+                <div class="name">{{ order.customerName }}</div>
+                <div class="phone">{{ order.phone }}</div>
+                <a class="call-link" href="tel:{{order.phone}}"><mat-icon>call</mat-icon>Call</a>
+              </div>
+            </div>
+            <div class="order-info">
+              <div class="order-id">#{{ order.orderId }}</div>
+              <div class="date">{{ order.date }}</div>
+            </div>
           </div>
 
-          <div>
-            <div class="name">{{ order.customerName }}</div>
-            <div class="phone">{{ order.phone }}</div>
+          <div class="payment-body">
+            <div class="payment-proof">
+              <img [src]="order.paymentProofUrl" alt="paymentProofUrl" class="payment-logo" />
+              <div class="proof-amount">
+                ₹{{ order.amount }}
+              </div>
+            </div>
 
-            <a class="call-link" href="tel:{{order.phone}}">
-              <mat-icon>call</mat-icon>
-              Call
-            </a>
+            <div class="payment-details">
+              <div class="label">UTR / Ref No.</div>
+              <div class="value">{{ order.utr }}</div>
+              <div class="label">Payment Method</div>
+              <div class="value">{{ order.method }}</div>
+              <div class="label">Amount</div>
+              <div class="amount">₹{{ order.totalAmount }} </div>
+              <div class="status-badge">{{ order.status }}</div>
+            </div>
           </div>
-        </div>
 
-        <div class="order-info">
-          <div class="order-id">#{{ order.orderId }}</div>
-          <div class="date">{{ order.date }}</div>
-        </div>
+          <!-- Actions Buttons -->
 
+          <div class="action-buttons">
+            <ng-container [ngSwitch]="selectedTab">
+              <ng-container *ngSwitchCase="0">
+                <button mat-stroked-button color="primary" (click)="verifyPayment(order.orderId)">Verify</button>
+                <button mat-stroked-button color="warn" (click)="rejectPayment(order.orderId)">Reject</button>
+              </ng-container>
+              <ng-container *ngSwitchCase="1">
+                <button mat-stroked-button color="primary">Mark Shipped</button>
+              </ng-container>
+            </ng-container>
+          </div>
+        </mat-card>
       </div>
+    </ng-container>
 
-      <div class="payment-body">
-        <div class="payment-proof">
-          <img [src]="order.paymentProofUrl" alt="paymentProofUrl" class="payment-logo" />
-
-          <div class="proof-amount">
-            ₹{{ order.amount }}
-          </div>
-        </div>
-
-        <div class="payment-details">
-
-          <div class="label">UTR / Ref No.</div>
-          <div class="value">{{ order.utr }}</div>
-
-          <div class="label">Payment Method</div>
-          <div class="value">{{ order.method }}</div>
-
-          <div class="label">Amount</div>
-          <div class="amount">
-            ₹{{ order.totalAmount }}
-          </div>
-
-          <div class="status-badge">
-            {{ order.status }}
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Actions -->
-      <div class="action-buttons">
-
-        <button mat-stroked-button color="primary" class="verify-btn" (click)="verifyPayment(order.orderId)">
-          <mat-icon>check</mat-icon>
-          Verify
-        </button>
-
-        <button mat-stroked-button color="warn" class="reject-btn" (click)="rejectPayment(order.orderId)">
-          <mat-icon>close</mat-icon>
-          Reject
-        </button>
-
-      </div>
-
-    </mat-card>
-
+    <!-- Empty State Template -->
+    <ng-template #emptyTpl>
+      <app-empty-state [title]="'Review Queue Clear'" [description]="'All submitted payments have been reviewed.'"
+        [icon]="'task_alt'">
+      </app-empty-state>
+    </ng-template>
   </div>
-      </ng-container>
-  <ng-template #emptyTpl>  
-    <app-empty-state 
-     [title]="'Review Queue Clear'"
-     [description]="'All submitted payments have been reviewed.'" 
-     [icon]="'task_alt'">
-    </app-empty-state>
-  </ng-template>
-
 </div>
+
+
+
+

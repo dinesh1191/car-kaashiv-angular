@@ -9,6 +9,19 @@ export interface OrderResponse {
   totalAmount: number;
 }
 
+export interface OrdersListResponse {
+  orderId: number;
+  customerName: string;
+  totalAmount: number;
+  paymentProofUrl: string;
+  paymentReference: string;
+  submittedAt: string;
+  paymentMethod: string;
+  utr: string;
+  phone: string;
+  status: string;  
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,12 +47,12 @@ export class OrderService {
     return this.http.post<any>(`${this.baseUrl}/${orderId}/submit-payment`, paymentData);
   }
 
- getOrderList(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/payment-review-queue`);
+ getOrderList(status: number): Observable<OrdersListResponse[]> {
+    return this.http.get<OrdersListResponse[]>(`${this.baseUrl}/?status=${status}`);
   }
 
  verifyPayment(orderId: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/${orderId}/verify-payment`, { status });
+    return this.http.post<any>(`${this.baseUrl}/${orderId}/verify-payment`, {});
   }
 
 

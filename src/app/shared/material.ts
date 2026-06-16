@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 
@@ -27,5 +29,7 @@ export const MATERIAL_IMPORTS = [
   MatTooltipModule,
   MatCardContent,
   MatProgressSpinnerModule,
+  MatTabsModule
+
  
  ];
