@@ -1,9 +1,10 @@
-<p>order-summary works!</p>
-
-
-
 <div fxLayout="row wrap" fxLayoutGap="16px grid" style="width:100%">
+      
+     <ng-container *ngIf="orderList.length>0; else emptyTpl">
+
   <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25" *ngFor="let order of orderList">
+  
+     
     <mat-card class="payment-card">
       <div class="card-header">
 
@@ -76,5 +77,15 @@
       </div>
 
     </mat-card>
+
   </div>
+      </ng-container>
+  <ng-template #emptyTpl>  
+    <app-empty-state 
+     [title]="'Review Queue Clear'"
+     [description]="'All submitted payments have been reviewed.'" 
+     [icon]="'task_alt'">
+    </app-empty-state>
+  </ng-template>
+
 </div>

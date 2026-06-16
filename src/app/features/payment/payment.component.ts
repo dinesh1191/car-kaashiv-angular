@@ -23,7 +23,7 @@ export class PaymentComponent implements OnInit {
   CustomerName?: string | null;
   CustomerEmail?: string | null;
   order: any;
-  qrCodeUrl = '';
+  qrCodeUrl = 'assets/dummyQrCode.png';
   previewUrl: string | null = null;
   selectedFile: File | null = null;
   isSubmitting = false;

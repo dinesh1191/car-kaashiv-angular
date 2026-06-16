@@ -3,10 +3,11 @@ import { MATERIAL_IMPORTS } from '../../shared/material'
 import { CommonModule } from '@angular/common';
 import { OrderService } from '../../core/services/order.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
+import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-order-summary',
-  imports: [MATERIAL_IMPORTS, CommonModule],
+  imports: [MATERIAL_IMPORTS, CommonModule, EmptyStateComponent],
   templateUrl: './order-summary.component.html',
   styleUrl: './order-summary.component.scss',
 })
