@@ -90,37 +90,52 @@ export class CartComponent implements OnInit {
     });
   }
 
-  removeItem(item: CartItem) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { message: 'Are you sure you want to delete this cart item?' },
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        const previousCartItems = [...this.cartItems]; // Store previous cart items for potential revert
-        this.cartItems = this.cartItems.filter((i) => i.cartId !== item.cartId); //removes an item from the cart by filtering
-        this.calculateGrandTotal();
-        this.cartService.removeItem(item.partId).subscribe({
-          next: (res) => {
-            this.snackbarService.show(
-              res.message || 'Item removed successfully',
-              'warning',
-            );
-            this.cartService.refreshCartCount(); // Refresh cart count after removing item
-          },
-          error: (err) => {
-            this.cartItems = previousCartItems; // Revert the cart items to include the removed item on error
-            this.calculateGrandTotal(); // Recalculate grand total after reverting cart items
-            console.error('Remove item API failed:', err);
-            this.snackbarService.show(
-              'Failed to remove item.Please try again later',
-              'error',
-            );
-          },
-        });
-      }
-    });
-  }
+removeItem(item: CartItem) {
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    data: {
+      title: 'Remove Cart Item',
+      message: 'Are you sure you want to remove this item from your cart?',
+      confirmText: 'Remove',
+      cancelText: 'Cancel',
+      icon: 'remove_shopping_cart',
+    },
+  });
 
+  dialogRef.afterClosed().subscribe((result: boolean) => {
+    if (result) {
+      const previousCartItems = [...this.cartItems];
+
+      this.cartItems = this.cartItems.filter(
+        (i) => i.cartId !== item.cartId,
+      );
+
+      this.calculateGrandTotal();
+
+      this.cartService.removeItem(item.partId).subscribe({
+        next: (res) => {
+          this.snackbarService.show(
+            res.message || 'Item removed successfully',
+            'warning',
+          );
+
+          this.cartService.refreshCartCount();
+        },
+        error: (err) => {
+          this.cartItems = previousCartItems;
+
+          this.calculateGrandTotal();
+
+          console.error('Remove item API failed:', err);
+
+          this.snackbarService.show(
+            'Failed to remove item. Please try again later',
+            'error',
+          );
+        },
+      });
+    }
+  });
+}
   calculateGrandTotal() {
      this.subtotal = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);
 

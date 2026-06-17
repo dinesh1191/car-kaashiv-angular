@@ -12,57 +12,80 @@
     <ng-container *ngIf="orderList.length>0; else emptyTpl">
 
       <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25" *ngFor="let order of orderList">
-        <mat-card class="payment-card">
-          <div class="card-header">
-            <div class="user-info">
-              <div class="avatar">
-                {{ getInitials(order.customerName) }}
-              </div>
-              <div>
-                <div class="name">{{ order.customerName }}</div>
-                <div class="phone">{{ order.phone }}</div>
-                <a class="call-link" href="tel:{{order.phone}}"><mat-icon>call</mat-icon>Call</a>
-              </div>
-            </div>
-            <div class="order-info">
-              <div class="order-id">#{{ order.orderId }}</div>
-              <div class="date">{{ order.date }}</div>
-            </div>
-          </div>
+     <mat-card class="payment-card">
+  <div class="card-header">
+    <div class="user-info">
+      <div class="avatar">
+        {{ getInitials(order.customerName) }}
+      </div>
 
-          <div class="payment-body">
-            <div class="payment-proof">
-              <img [src]="order.paymentProofUrl" alt="paymentProofUrl" class="payment-logo" />
-              <div class="proof-amount">
-                ₹{{ order.amount }}
-              </div>
-            </div>
+      <div>
+        <div class="name">{{ order.customerName }}</div>
+        <div class="phone">{{ order.phone }}</div>
 
-            <div class="payment-details">
-              <div class="label">UTR / Ref No.</div>
-              <div class="value">{{ order.utr }}</div>
-              <div class="label">Payment Method</div>
-              <div class="value">{{ order.method }}</div>
-              <div class="label">Amount</div>
-              <div class="amount">₹{{ order.totalAmount }} </div>
-              <div class="status-badge">{{ order.status }}</div>
-            </div>
-          </div>
+        <a class="call-link" href="tel:{{order.phone}}">
+          <mat-icon>call</mat-icon>
+          Call
+        </a>
+      </div>
+    </div>
 
-          <!-- Actions Buttons -->
+    <div class="order-info">
+      <div class="date">
+        {{ order.submittedAt | date:'dd/MMM/yyyy' }}
+      </div>
+    </div>
+  </div>
 
-          <div class="action-buttons">
-            <ng-container [ngSwitch]="selectedTab">
-              <ng-container *ngSwitchCase="0">
-                <button mat-stroked-button color="primary" (click)="verifyPayment(order.orderId)">Verify</button>
-                <button mat-stroked-button color="warn" (click)="rejectPayment(order.orderId)">Reject</button>
-              </ng-container>
-              <ng-container *ngSwitchCase="1">
-                <button mat-stroked-button color="primary">Mark Shipped</button>
-              </ng-container>
-            </ng-container>
-          </div>
-        </mat-card>
+  <!-- Amount Highlight -->
+  <div class="amount-section text-center">
+    <div class="label">Bill Amount</div>
+    <div class="amount">
+      ₹{{ order.totalAmount }}
+    </div>
+  </div>
+
+  <!-- Screenshot -->
+<div
+  class="payment-proof d-flex flex-column align-items-center mb-3"
+  (click)="openPaymentPreview(order.paymentProofUrl)">
+
+  <img
+    [src]="order.paymentProofUrl"
+    appFallbackImage
+    alt="Payment Screenshot"
+    class="payment-logo" />
+
+  <div class="preview-text">
+    Tap to Preview
+  </div>
+</div>
+
+
+  <div class="action-buttons justify-content-center">
+    <ng-container [ngSwitch]="selectedTab">
+
+      <ng-container *ngSwitchCase="0">
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="verifyPayment(order.orderId)">
+          Verify
+        </button>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="1">
+        <button
+          mat-stroked-button
+          color="primary">
+          Mark Shipped
+        </button>
+      </ng-container>
+
+    </ng-container>
+  </div>
+</mat-card>
+        
       </div>
     </ng-container>
 

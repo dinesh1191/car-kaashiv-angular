@@ -29,7 +29,7 @@ export const MATERIAL_IMPORTS = [
   MatTooltipModule,
   MatCardContent,
   MatProgressSpinnerModule,
-  MatTabsModule
+  MatTabsModule,
 
  
  ];

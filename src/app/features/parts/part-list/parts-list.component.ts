@@ -25,28 +25,25 @@ export class PartsListComponent {
   userInfo: any;
   currentUser!: UserProfile | null;
 
-
   constructor(
     private partService: PartService,
     private router: Router,
     private snackBarService: SnackbarService,
     private dialog: MatDialog,
     private authService: AuthService,
-
   ) {}
 
   ngOnInit() {
     this.loadParts();
-      this.currentUser = this.authService.currentUser;
-      
+    this.currentUser = this.authService.currentUser;
   }
 
-  loadParts() {       
+  loadParts() {
     this.partService.getAllParts().subscribe({
-      next: (res) => {       
-        if (res.success && res.data) {              
+      next: (res) => {
+        if (res.success && res.data) {
           this.parts = res.data;
-        }         
+        }
       },
       error: (err) => {
         this.snackBarService.show('Error loading Parts', 'error', err);
@@ -63,18 +60,27 @@ export class PartsListComponent {
 
   deletePart(id: number) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { message: 'Are you sure you want to delete this part?' },
+      data: {
+        title: 'Delete Part',
+        message: 'Are you sure you want to delete this part?',
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+        icon: 'delete',
+      },
     });
 
-    dialogRef.afterClosed().subscribe((result: any) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.partService.deletePart(id).subscribe({
           next: (res) => {
             this.snackBarService.show(res.message);
-            if (res.success) this.loadParts(); //reloads parts
+
+            if (res.success) {
+              this.loadParts();
+            }
           },
           error: (err) => {
-            this.snackBarService.show('server error occured', err);
+            this.snackBarService.show('Server error occurred', err);
           },
         });
       }

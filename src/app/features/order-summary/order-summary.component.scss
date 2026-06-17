@@ -70,25 +70,41 @@
   color: #666;
 }
 
-.payment-body {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 16px;
-}
+// .payment-body {
+//   display: flex;
+//   gap: 16px;
+//   margin-bottom: 16px;
+// }
 
 .payment-proof {
-  width: 120px;
+  width: 100%;
+  max-width: 180px;
+  height: 180px;
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 10px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-align: center;
+
+}
+.preview-text {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #666;
   text-align: center;
 }
 
 .payment-logo {
-  width: 70px;
-  height: auto;
+  width: 100%;
+  height: 120px;
   object-fit: contain;
-  margin-bottom: 8px;
+  display: block;
 }
 
 .proof-amount {
@@ -101,6 +117,12 @@
   display: grid;
   grid-template-columns: 1fr;
   row-gap: 4px;
+}
+.payment-details .amount {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #198754; /* Bootstrap "success" green */
+  text-align: center;
 }
 
 .label {
@@ -133,6 +155,53 @@
 .action-buttons {
   display: flex;
   gap: 12px;
+
+}
+
+.verify-btn,
+.reject-btn {
+  flex: 1;
+  height: 42px;
+  border-radius: 8px;
+}
+
+.verify-btn {
+  border-color: #16a34a;
+  color: #16a34a;
+}
+
+.reject-btn {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+
+.order-id {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.payment-details {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 4px;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.status-badge {
+  width: fit-content;
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .verify-btn,

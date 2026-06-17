@@ -5,11 +5,15 @@ import { OrderService } from '../../core/services/order.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-
+import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogData } from '../../shared/components/confirm-dialog/confirm-dialog-data.interface';
+import { ImagePreviewDialogComponent } from '../../shared/components/image-preview-dialog/image-preview-dialog.component';
+import { FallbackImageDirective } from '../../shared/directives/fallback-image.directive';
 
 @Component({
   selector: 'app-order-summary',
-  imports: [MATERIAL_IMPORTS, CommonModule, EmptyStateComponent],
+  imports: [MATERIAL_IMPORTS, CommonModule, EmptyStateComponent, FallbackImageDirective],
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.scss'],
 })
@@ -18,7 +22,7 @@ export class OrderSummaryComponent {
   orderList: any[] = [];
   pendingOrder: number = 1;
   dipatchedOrder: number = 2;
-  shippedOrder: number = 3
+  shippedOrder: number = 3;
   selectedTab = 0;
 
   getInitials(name: string): string {
@@ -28,33 +32,33 @@ export class OrderSummaryComponent {
   constructor(
     private orderService: OrderService,
     private snackBarService: SnackbarService,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit() {
     this.loadOrderList(this.pendingOrder);
   }
-  
+
   onTabChanged(event: MatTabChangeEvent) {
-    this.selectedTab = event.index;    
+    this.selectedTab = event.index;
     switch (this.selectedTab) {
       case 0:
         this.loadOrderList(this.pendingOrder);
         break;
       case 1:
-        this.loadOrderList(this.dipatchedOrder); 
+        this.loadOrderList(this.dipatchedOrder);
         break;
       case 2:
-        this.loadOrderList(this.shippedOrder); 
+        this.loadOrderList(this.shippedOrder);
         break;
     }
   }
 
   loadOrderList(status: number) {
-    this.orderList = [];   
+    this.orderList = [];
     this.orderService.getOrderList(status).subscribe({
       next: (res: any) => {
-        if (res.data.length > 0) { 
-             
+        if (res.data.length > 0) {
           this.orderList = res.data;
           console.log('Order List:', this.orderList);
         }
@@ -62,19 +66,43 @@ export class OrderSummaryComponent {
     });
   }
 
-  verifyPayment(orderId: number) {
-    this.orderService.verifyPayment(orderId).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this.loadOrderList(this.pendingOrder); // Refresh the order list to reflect changes
-          this.snackBarService.show('Payment verified successfully', 'success');
-        }
+  verifyPayment(orderId: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Verify Payment',
+        message:
+          'Are you sure you want to verify this payment? This order will move to Ready for Dispatch.',
+        confirmText: 'Verify',
+        cancelText: 'Cancel',
+        icon: 'check_circle',
       },
     });
-  }
 
-  rejectPayment(orderId: number) {
-    throw new Error('Reject payment functionality not implemented yet');
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.orderService.verifyPayment(orderId).subscribe({
+          next: (res) => {
+            if (res.success) {
+              this.loadOrderList(this.pendingOrder); // Refresh the order list to reflect changes
+              this.snackBarService.show(
+                'Payment verified successfully',
+                'success',
+              );
+            }
+          },
+        });
+      }
+    });
+  }
+  openPaymentPreview(imageUrl: string): void {
+    this.dialog.open(ImagePreviewDialogComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      data: {
+        imageUrl,
+        title: 'Payment Screenshot',
+      },
+    });
   }
 }
  
