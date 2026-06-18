@@ -30,6 +30,7 @@ export const MATERIAL_IMPORTS = [
   MatCardContent,
   MatProgressSpinnerModule,
   MatTabsModule,
+  MatFormFieldModule
 
  
  ];

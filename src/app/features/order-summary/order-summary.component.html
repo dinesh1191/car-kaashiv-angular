@@ -64,30 +64,24 @@
 
   <div class="action-buttons justify-content-center">
     <ng-container [ngSwitch]="selectedTab">
-
+  
       <ng-container *ngSwitchCase="0">
-        <button
-          mat-stroked-button
-          color="primary"
-          (click)="verifyPayment(order.orderId)">
+        <button mat-stroked-button color="primary" (click)="verifyPayment(order.orderId)">
           Verify
         </button>
       </ng-container>
-
+  
       <ng-container *ngSwitchCase="1">
-        <button
-          mat-stroked-button
-          color="primary">
+        <button mat-stroked-button color="primary" (click)="markShipped(order.orderId)">
           Mark Shipped
         </button>
       </ng-container>
-
+  
     </ng-container>
   </div>
-</mat-card>
-        
-      </div>
-    </ng-container>
+  </mat-card>
+  </div>
+  </ng-container>
 
     <!-- Empty State Template -->
     <ng-template #emptyTpl>

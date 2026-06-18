@@ -21,22 +21,27 @@ export interface OrdersListResponse {
   phone: string;
   status: string;  
 }
+export interface PlaceOrderRequest {
+  deliveryName: string;
+  deliveryPhone: string;
+  deliveryAddress: string;
+  landmark: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+
 export class OrderService {
+  private baseUrl = environment.apiBaseUrl + '/order';
+  constructor(private http: HttpClient) {}
 
-  private baseUrl = environment.apiBaseUrl +'/order';
-  constructor(private http: HttpClient) { }
-
-
-  placeOrder(idempotencyKey: string): Observable<OrderResponse> {
-    return this.http.post<OrderResponse>(`${this.baseUrl}/place-order`, {}, {
-      headers: {
-        'Idempotency-Key': idempotencyKey
-      }
-    });
+  placeOrder(idempotencyKey: string,order: PlaceOrderRequest): Observable<OrderResponse> {
+    return this.http.post<OrderResponse>(`${this.baseUrl}/place-order`,
+      order,
+      {headers: 
+        {'Idempotency-Key': idempotencyKey},
+      });
   }
 
   getOrderById(orderId: number): Observable<any> {
@@ -47,14 +52,15 @@ export class OrderService {
     return this.http.post<any>(`${this.baseUrl}/${orderId}/submit-payment`, paymentData);
   }
 
- getOrderList(status: number): Observable<OrdersListResponse[]> {
-    return this.http.get<OrdersListResponse[]>(`${this.baseUrl}/?status=${status}`);
+  getOrderList(status: number): Observable<OrdersListResponse[]> {
+    return this.http.get<OrdersListResponse[]>( `${this.baseUrl}/?status=${status}`);
   }
 
- verifyPayment(orderId: number): Observable<any> {
+  verifyPayment(orderId: number): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/${orderId}/verify-payment`, {});
   }
 
-
-
+  markOrderShipped(orderId: number): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/${orderId}/mark-shipped`, {});
+  }
 }

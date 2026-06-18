@@ -104,7 +104,36 @@ export class OrderSummaryComponent {
       },
     });
   }
+
+
+  markShipped(orderId: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Mark as Shipped',
+        message:
+          'Are you sure you want to mark this order as shipped? This order will move to Shipped status.',
+        confirmText: 'Mark Shipped',
+        cancelText: 'Cancel',
+        icon: 'local_shipping',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.orderService.markOrderShipped(orderId).subscribe({
+          next: (res) => {
+            if (res.success) {
+              this.loadOrderList(this.dipatchedOrder); // Refresh the order list to reflect changes
+              this.snackBarService.show(
+                'Order marked as shipped successfully',
+                'success',
+              );
+            }
+          },
+        });
+      }
+    });
+  }
 }
- 
 
 

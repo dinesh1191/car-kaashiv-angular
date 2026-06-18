@@ -9,10 +9,11 @@ import { switchMap, tap } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { MATERIAL_IMPORTS } from '../../shared/material';
+import { FallbackImageDirective } from "../../shared/directives/fallback-image.directive";
 
 @Component({
   selector: 'app-payment',
-  imports: [SharedModule,MATERIAL_IMPORTS,CommonModule],
+  imports: [SharedModule, MATERIAL_IMPORTS, CommonModule, FallbackImageDirective],
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
@@ -22,14 +23,10 @@ export class PaymentComponent implements OnInit {
   OrderDetails: any;
   CustomerName?: string | null;
   CustomerEmail?: string | null;
-  order: any;
-  qrCodeUrl = 'assets/dummyQrCode.png';
+  order: any;  
   previewUrl: string | null = null;
   selectedFile: File | null = null;
   isSubmitting = false;
-  payment = {
-  utrNumber: ''
-};
   currentImageKey: any;
 
   constructor(
@@ -66,8 +63,7 @@ export class PaymentComponent implements OnInit {
   }
 
   initform(){ 
-         this.paymentForm = this.fb.group({
-        utrNumber: [''],
+         this.paymentForm = this.fb.group({  
         proofImage: [null, Validators.required]
   });
   }
@@ -82,8 +78,7 @@ export class PaymentComponent implements OnInit {
       this.upload();
     }
   
-    upload() {
-      debugger
+    upload() {    
       if (!this.selectedFile) return;
       const fileName = this.selectedFile.name;
       const contentType = this.selectedFile.type;
@@ -129,10 +124,8 @@ export class PaymentComponent implements OnInit {
     }
   
     const tempKey = this.previewUrl?.substring(this.previewUrl?.indexOf('temp/'));
-    var data = {
-      PaymentReference: this.paymentForm.value.utrNumber,
-      tempKey: tempKey,
-    };    
+    var data = {tempKey: tempKey};     
+    
     this.orderService.submitPaymentById(this.orderId, data).subscribe({
       next: (res) => {  
         this.snackbarService.show('Payment proof submitted successfully!', 'success');

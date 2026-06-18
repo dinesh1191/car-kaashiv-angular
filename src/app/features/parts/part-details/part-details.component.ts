@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { PartService } from '../part.service';
-import { LoaderService } from '../../../core/services/loader.service';
 import { SharedModule } from '../../../shared/shared.module';
 import { UploadService } from '../../../core/services/upload.service';
 import { switchMap,tap } from 'rxjs';
