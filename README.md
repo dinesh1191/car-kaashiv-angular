@@ -1,186 +1,416 @@
-**CarKaashiv 2.0**
+# CarKaashiv 2.0 – Frontend
 
-CarKaashivAngular is a feature-based Angular application designed with clean routing, layout separation, and scalable architecture in mind.
-The project emphasizes enterprise-style structure, maintainability, and clear separation of concerns.
+CarKaashiv 2.0 is a modern Angular 19 application built using the Standalone Architecture approach. The application provides a complete spare parts ordering and order fulfillment experience for customers and administrators through a scalable, feature-driven architecture.
 
-This project was generated using Angular CLI v19.2.18.
+The project emphasizes maintainability, responsive design, reusable UI components, and production-oriented frontend development practices.
 
- **Architecture Overview**
+Generated using Angular CLI v19.x.
 
-The application follows a feature-first architecture instead of page-based routing.
+---
 
-Key Architectural Decisions
+## Architecture Overview
 
-Feature-based folder structure (employee, user, auth)
+The application follows a feature-first architecture with clear separation between business domains, shared UI components, layouts, and core infrastructure.
 
-Dedicated layouts for authenticated and unauthenticated users
+### Key Architectural Decisions
 
-Clean URLs based on feature / intent, not layout names
+* Angular 19 Standalone Architecture
+* Feature-based folder organization
+* Lazy-loaded feature routes
+* Route Guards for authentication and authorization
+* HTTP Interceptors for API communication
+* Shared reusable UI component library
+* Responsive mobile-first design
+* Separation of layouts from business features
 
-Centralized guards and interceptors
+### Core Principles
 
-Lazy-loaded feature routes for scalability
+* Scalability
+* Maintainability
+* Reusability
+* Clear separation of concerns
+* Enterprise-style project organization
 
- **Layout Strategy**
- 
-Auth Layout
+---
+
+## Application Modules
+
+### Authentication
+
+Features include:
+
+* User Registration
+* Login
+* Session Validation
+* Protected Routes
+* Unauthorized Access Handling
+
+### Parts Management
+
+Administrative capabilities:
+
+* View Parts
+* Create Parts
+* Edit Parts
+* Delete Parts
+* Part Image Management
+* Fallback Image Handling
+
+### Customer Ordering
+
+Customer workflow:
+
+```text
+Browse Parts
+      ↓
+Add To Cart
+      ↓
+Checkout
+      ↓
+Enter Delivery Details
+      ↓
+Place Order
+      ↓
+Invoice Generation
+      ↓
+Payment Proof Submission
+```
+
+Features:
+
+* Shopping Cart
+* Quantity Management
+* Delivery Address Validation
+* Invoice Display
+* QR Payment Workflow
+* Payment Screenshot Upload
+* Order Confirmation Journey
+
+### Order Management
+
+Administrative workflows:
+
+```text
+Submitted
+      ↓
+Verified
+      ↓
+Ready For Dispatch
+      ↓
+Shipped
+```
+
+Features include:
+
+* Payment Verification Queue
+* Dispatch Management
+* Shipment Status Updates
+* Order Lifecycle Tracking
+
+---
+
+## Layout Strategy
+
+### Auth Layout
 
 Used for:
 
-Login
+* Login
+* Registration
+* Public Authentication Screens
 
-User registration
+Includes:
 
-Employee registration
-
-**Includes:**
-
-Header
-
-Footer
+* Header
+* Footer
 
 Excludes:
 
-Sidebar
+* Sidebar
+* Administrative Actions
+* Authenticated Navigation
 
-Logout
+UX Characteristics:
 
-Operational actions
+* Centered forms
+* Clean authentication experience
+* Mobile-friendly layout
 
-**UX behavior:**
+---
 
-Fixed viewport (no unnecessary scrolling)
+### App Layout
 
-Centered form content
+Used for authenticated users.
 
-App Layout (Authenticated Users)
+Includes:
 
-Used after successful login.
+* Header
+* Sidebar Navigation
+* Footer
+* User Session Controls
 
-**Includes:**
+Supports:
 
-Header
+* Administrative dashboards
+* Order management screens
+* Parts management workflows
+* Responsive content areas
 
-Footer
+---
 
-Sidebar
+## Routing Philosophy
 
-Logout and role-based actions
+```text
+Path = Business Intent
+Layout = Internal UI Concern
+```
 
-Supports scrolling as dashboard content grows.
+Layouts are never exposed through URLs.
 
-**Routing Philosophy**
+### Example Routes
 
-Path = Feature / Intent
-Layout = Internal UI concern
-
-Layouts are not exposed in URLs.
-
-Example Routes
+```text
 /login
-/register-user
-/register-employee
-/employee/emp-dashboard
+/register
+/parts
+/cart
+/checkout
+/orders
+/admin/orders/submitted
+/admin/orders/dispatch
+/admin/orders/shipped
+```
 
+Benefits:
 
-This ensures:
+* Clean URLs
+* Layout independence
+* Easier maintenance
+* Scalable route organization
 
-Clean and readable URLs
+---
 
-Layout changes don’t affect navigation
+## Authentication & Authorization
 
-Long-term scalability
+### Route Protection
 
-** Authentication & Authorization**
+* authGuard protects authenticated routes
+* role-based authorization support
+* Unauthorized users redirected appropriately
+* Session-aware navigation
 
-Route-level authentication using authGuard
+### API Security Integration
 
-Role-based access control using roleGuard
+* JWT-based authentication
+* Secure API communication
+* Automatic authorization handling via interceptors
 
-Guards applied at routing level, not component level
+---
 
-Unauthorized access redirected to /unauthorized
+## Shared UI Components
 
- **Project Structure (Simplified)**
+Reusable component library includes:
+
+* Confirm Dialog
+* Empty State Component
+* Loading Indicators
+* Snackbar Notifications
+* Shared Form Components
+* Responsive Layout Components
+
+Benefits:
+
+* Consistent UX
+* Reduced duplication
+* Faster feature development
+
+---
+
+## Error Handling & UX
+
+### Global Error Handling
+
+Centralized handling for:
+
+* API failures
+* Network issues
+* Unauthorized access
+* Validation errors
+
+### User Experience Improvements
+
+* Friendly validation messages
+* Empty-state experiences
+* Loading feedback
+* Graceful image fallbacks
+* Confirmation dialogs for destructive actions
+
+---
+
+## Project Structure
+
+```text
 src/
 ├── app/
-│   ├── core/        # guards, interceptors, global services
-│   ├── features/    # auth, employee, user domains
-│   ├── shared/      # reusable components and layouts
-│   ├── pages/       # public pages (landing, contact, privacy)
-│   ├── models/      # shared domain models
+│   ├── core/
+│   │   ├── guards/
+│   │   ├── interceptors/
+│   │   └── services/
+│   │
+│   ├── features/
+│   │   ├── auth/
+│   │   ├── parts/
+│   │   ├── cart/
+│   │   ├── orders/
+│   │   └── admin/
+│   │
+│   ├── shared/
+│   │   ├── components/
+│   │   ├── directives/
+│   │   └── layouts/
+│   │
+│   ├── models/
 │   └── app.routes.ts
+│
 ├── assets/
 └── environments/
+```
 
- **Development Server**
+---
 
-To start a local development server:
+## Responsive Design
 
+The application is built using a mobile-first approach.
+
+Supports:
+
+* Mobile Phones
+* Tablets
+* Desktop Devices
+
+Responsive techniques include:
+
+* Bootstrap Grid System
+* Angular Material Components
+* Flexible Layout Containers
+* Adaptive Navigation
+
+---
+
+## Development Server
+
+Start a local development server:
+
+```bash
 ng serve
+```
 
+Application URL:
 
-Open your browser at:
+```text
+http://localhost:4200
+```
 
-http://localhost:4200/
+Hot reload is enabled during development.
 
+---
 
-The application automatically reloads on source file changes.
+## Build
 
- **Code Scaffolding**
+Generate a production build:
 
-Generate a new component:
-
-ng generate component component-name
-
-
-List all available schematics:
-
-ng generate --help
-
- **Build**
-
-To build the project:
-
+```bash
 ng build
+```
 
+Artifacts are generated inside:
 
-Build artifacts will be stored in the dist/ directory.
-Production builds are optimized for performance and speed.
+```text
+dist/
+```
 
- **Testing**
-Unit Tests
+Production builds include:
+
+* Optimization
+* Tree Shaking
+* Minification
+* Lazy Loading Support
+
+---
+
+## Testing
+
+### Manual Regression Testing
+
+Key business flows tested:
+
+* Authentication
+* Parts Management
+* Cart Workflow
+* Order Placement
+* Payment Submission
+* Payment Verification
+* Dispatch Processing
+* Shipment Tracking
+
+### Unit Testing
+
+```bash
 ng test
+```
 
+---
 
-Runs unit tests using Karma.
+## Deployment
 
-End-to-End Tests
-ng e2e
+Frontend deployment pipeline:
 
+* GitHub Repository
+* GitHub Actions CI/CD
+* Netlify Hosting
 
-Angular CLI does not include an e2e framework by default. You may integrate one as needed.
+Features:
 
- **Design Goals**
+* Automated deployments
+* Preview builds
+* Production build validation
 
-Clean separation of concerns
+---
 
-Scalable feature-based routing
+## Design Goals
 
-Maintainable layout strategy
+* Enterprise-grade architecture
+* Production-ready workflows
+* Reusable UI patterns
+* Mobile-first experience
+* Scalable feature organization
+* Real-world business process modeling
 
-Resume-ready enterprise architecture
+---
 
- **Future Enhancements**
+## Future Enhancements
 
-Role-based landing pages after login
+* Customer Order History
+* Order Tracking Timeline
+* Advanced Search & Filtering
+* Dashboard Analytics
+* Inventory Alerts
+* Enhanced Reporting
+* Progressive Web App (PWA) Support
 
-Token refresh & session handling
+---
 
-Centralized error UX strategy
+## Notes
 
-Extended architecture documentation
+* Built using Angular 19 Standalone Architecture
+* Designed to work with ASP.NET Core Backend API
+* Optimized for future expansion into mobile clients
+* Business workflows modeled around real spare-parts ordering processes
 
-**Additional Resources**
+---
 
-Angular CLI Documentation
+## Author
+
+Dinesh Varadhan
+
+Full Stack Developer (.NET + Angular)
