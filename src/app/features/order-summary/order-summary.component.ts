@@ -7,7 +7,6 @@ import { EmptyStateComponent } from '../../shared/components/empty-state/empty-s
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogData } from '../../shared/components/confirm-dialog/confirm-dialog-data.interface';
 import { ImagePreviewDialogComponent } from '../../shared/components/image-preview-dialog/image-preview-dialog.component';
 import { FallbackImageDirective } from '../../shared/directives/fallback-image.directive';
 

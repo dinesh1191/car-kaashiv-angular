@@ -10,6 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { MATERIAL_IMPORTS } from '../../shared/material';
 import { FallbackImageDirective } from "../../shared/directives/fallback-image.directive";
+import { MatDialog } from '@angular/material/dialog';
+import { ImagePreviewDialogComponent } from '../../shared/components/image-preview-dialog/image-preview-dialog.component';
 
 @Component({
   selector: 'app-payment',
@@ -37,7 +39,8 @@ export class PaymentComponent implements OnInit {
     private uploadService: UploadService,    
     private fb: FormBuilder,
     private snackBarService: SnackbarService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -116,6 +119,16 @@ export class PaymentComponent implements OnInit {
       });
     }
   }
+   openPaymentPreview(imageUrl: string): void {
+      this.dialog.open(ImagePreviewDialogComponent, {
+        width: '800px',
+        maxWidth: '95vw',
+        data: {
+          imageUrl,
+          title: 'Payment Screenshot',
+        },
+      });
+    }
 
   submitPaymentProof(): void {
     if (!this.orderId) {
