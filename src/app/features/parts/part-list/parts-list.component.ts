@@ -1,5 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedModule } from '../../../shared/shared.module';
 import { Part } from '../../../models/part.model';
@@ -8,21 +7,19 @@ import { AuthService, UserProfile } from '../../../core/services/auth.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { EmptyStateComponent } from "../../../shared/components/empty-state/empty-state.component";
+import { PartListViewComponent } from './part-list-view/part-list-view.component';
 
 
 
 @Component({
   standalone: true,
   selector: 'app-parts-list',
-  imports: [SharedModule, EmptyStateComponent],
+  imports: [SharedModule, PartListViewComponent],
   templateUrl: './parts-list.component.html',
   styleUrl: './parts-list.component.scss',
 })
 export class PartsListComponent {
-  parts: Part[] = [];
-  displayedColumns = ['id', 'name', 'price', 'stock', 'actions'];
-  userInfo: any;
+   parts: Part[] =[];
   currentUser!: UserProfile | null;
 
   constructor(
@@ -30,7 +27,7 @@ export class PartsListComponent {
     private router: Router,
     private snackBarService: SnackbarService,
     private dialog: MatDialog,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -47,26 +44,30 @@ export class PartsListComponent {
       },
       error: (err) => {
         this.snackBarService.show('Error loading Parts', 'error', err);
-      },
+      }
     });
   }
+
   navigationToAddPart() {
+  
     this.router.navigate(['parts/addPart']);
   }
 
-  editPart(id: any) {
-    this.router.navigate(['/parts/edit', id]);
+  editPart(item: any) {
+    var id = item.id    
+    this.router.navigate(['parts/edit', id]);
   }
 
   deletePart(id: number) {
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Delete Part',
         message: 'Are you sure you want to delete this part?',
         confirmText: 'Delete',
         cancelText: 'Cancel',
-        icon: 'delete',
-      },
+        icon: 'delete'
+      }
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
@@ -74,16 +75,17 @@ export class PartsListComponent {
         this.partService.deletePart(id).subscribe({
           next: (res) => {
             this.snackBarService.show(res.message);
-
-            if (res.success) {
-              this.loadParts();
-            }
+            if (res.success) this.loadParts();
           },
           error: (err) => {
             this.snackBarService.show('Server error occurred', err);
-          },
+          }
         });
       }
     });
+  }
+
+  goToEmpDashboard() {
+    this.router.navigate(['/employee/emp-dashboard']);
   }
 }

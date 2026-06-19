@@ -1,7 +1,60 @@
-.spacer{
-    flex: 1 1 auto;
+.spacer {
+  flex: 1 1 auto;
 }
+
+/* Table wrapper */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Table base behavior */
 table {
-    width: 100%;
-    margin-top:1rem;
+  width: max-content;
+  min-width: 700px;
+  table-layout: auto;
+}
+
+/* Image */
+.part-thumb {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Name truncation */
+.name-column {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Actions column */
+.mat-column-actions {
+  min-width: 110px;
+  white-space: nowrap;
+}
+
+/* Small column sizing */
+.mat-column-image {
+  width: 60px;
+}
+
+.mat-column-id {
+  width: 60px;
+}
+
+.mat-column-price {
+  width: 90px;
+}
+
+/* Mobile padding fix */
+@media (max-width: 576px) {
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
