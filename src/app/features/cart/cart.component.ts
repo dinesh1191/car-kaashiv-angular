@@ -9,6 +9,7 @@ import { CartItem, UpdateCartQuantityRequest } from '../../shared/interfaces/car
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ImagePreviewDialogComponent } from '../../shared/components/image-preview-dialog/image-preview-dialog.component';
 
 
 
@@ -82,73 +83,88 @@ export class CartComponent implements OnInit {
         item.quantity = previousQuantity; // Revert to previous quantity on error
         item.subTotal = item.quantity * item.price; // Recalculate subtotal after reverting quantity
         this.calculateGrandTotal(); // Recalculate grand total after reverting quantity
-            // this.cartService.refreshCartCount();
+        // this.cartService.refreshCartCount();
         console.error('Failed to update quantity', err);
-        this.snackbarService.show(err.message || 'Failed to update quantity', 'error',10000);
-   
+        this.snackbarService.show(
+          err.message || 'Failed to update quantity',
+          'error',
+          10000,
+        );
       },
     });
   }
 
-removeItem(item: CartItem) {
-  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-    data: {
-      title: 'Remove Cart Item',
-      message: 'Are you sure you want to remove this item from your cart?',
-      confirmText: 'Remove',
-      cancelText: 'Cancel',
-      icon: 'remove_shopping_cart',
-    },
-  });
+  removeItem(item: CartItem) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Remove Cart Item',
+        message: 'Are you sure you want to remove this item from your cart?',
+        confirmText: 'Remove',
+        cancelText: 'Cancel',
+        icon: 'remove_shopping_cart',
+      },
+    });
 
-  dialogRef.afterClosed().subscribe((result: boolean) => {
-    if (result) {
-      const previousCartItems = [...this.cartItems];
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        const previousCartItems = [...this.cartItems];
 
-      this.cartItems = this.cartItems.filter(
-        (i) => i.cartId !== item.cartId,
-      );
+        this.cartItems = this.cartItems.filter((i) => i.cartId !== item.cartId);
 
-      this.calculateGrandTotal();
+        this.calculateGrandTotal();
 
-      this.cartService.removeItem(item.partId).subscribe({
-        next: (res) => {
-          this.snackbarService.show(
-            res.message || 'Item removed successfully',
-            'warning',
-          );
+        this.cartService.removeItem(item.partId).subscribe({
+          next: (res) => {
+            this.snackbarService.show(
+              res.message || 'Item removed successfully',
+              'warning',
+            );
 
-          this.cartService.refreshCartCount();
-        },
-        error: (err) => {
-          this.cartItems = previousCartItems;
+            this.cartService.refreshCartCount();
+          },
+          error: (err) => {
+            this.cartItems = previousCartItems;
 
-          this.calculateGrandTotal();
+            this.calculateGrandTotal();
 
-          console.error('Remove item API failed:', err);
+            console.error('Remove item API failed:', err);
 
-          this.snackbarService.show(
-            'Failed to remove item. Please try again later',
-            'error',
-          );
-        },
-      });
-    }
-  });
-}
+            this.snackbarService.show(
+              'Failed to remove item. Please try again later',
+              'error',
+            );
+          },
+        });
+      }
+    });
+  }
   calculateGrandTotal() {
-     this.subtotal = this.cartItems.reduce((sum, item) => sum + item.subTotal, 0);
-
-  this.gstAmount = this.subtotal * this.gstRate;
-
-  this.grandTotal = this.subtotal + this.gstAmount;
+    this.subtotal = this.cartItems.reduce(
+      (sum, item) => sum + item.subTotal,
+      0,
+    );
+    this.gstAmount = this.subtotal * this.gstRate;
+    this.grandTotal = this.subtotal + this.gstAmount;
   }
 
-  proceedToCheckout(){
+  proceedToCheckout() {
     this.router.navigate(['checkout/checkout-dashboard']);
-
   }
+
   goBack() {
     this.router.navigate(['user/parts-dashboard']);
   }
+
+  openImagePreview(imageUrl?: string) {
+    if (!imageUrl) return;
+    this.dialog.open(ImagePreviewDialogComponent, {
+      width: '800px',
+      maxWidth: '95vw',
+      data: {
+        imageUrl,
+        title: 'Cart item',
+      },
+    });
+  }
 }
+

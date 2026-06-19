@@ -9,10 +9,12 @@ import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/c
 import { MatDialog } from '@angular/material/dialog';
 import { ImagePreviewDialogComponent } from '../../shared/components/image-preview-dialog/image-preview-dialog.component';
 import { FallbackImageDirective } from '../../shared/directives/fallback-image.directive';
+import { Router } from '@angular/router';
+import { PRIME_IMPORTS } from '../../shared/prime';
 
 @Component({
   selector: 'app-order-summary',
-  imports: [MATERIAL_IMPORTS, CommonModule, EmptyStateComponent, FallbackImageDirective],
+  imports: [MATERIAL_IMPORTS,PRIME_IMPORTS, CommonModule, EmptyStateComponent, FallbackImageDirective],
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.scss'],
 })
@@ -23,6 +25,7 @@ export class OrderSummaryComponent {
   dipatchedOrder: number = 2;
   shippedOrder: number = 3;
   selectedTab = 0;
+  
 
   getInitials(name: string): string {
     return name ? name.substring(0, 2).toUpperCase() : '';
@@ -32,6 +35,7 @@ export class OrderSummaryComponent {
     private orderService: OrderService,
     private snackBarService: SnackbarService,
     private dialog: MatDialog,
+    private router:Router
   ) {}
 
   ngOnInit() {
@@ -133,6 +137,11 @@ export class OrderSummaryComponent {
       }
     });
   }
+
+   goToEmpDashboard(){
+    this.router.navigate(['/employee/emp-dashboard'])
+  }
+ 
 }
 
 
