@@ -61,4 +61,8 @@ export class MyOrdersComponent {
       console.log('Details dialog closed');
     });
   }
+
+  goToUserDashboard(){
+    this.router.navigate(['user/parts-dashboard'])
+  }
 }
