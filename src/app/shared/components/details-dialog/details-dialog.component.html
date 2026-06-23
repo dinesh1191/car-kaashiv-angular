@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>
+  <mat-icon>info</mat-icon>
+  Order #{{ data.order.orderId }}
+</h2>
+
+<mat-dialog-content>
+  <mat-list>
+    <!-- Status -->
+    <mat-list-item>
+      <strong>Status:</strong>&nbsp;{{ data.order.orderStatusText }}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <!-- Recipient -->
+    <mat-list-item>
+      <strong>Recipient:</strong>&nbsp;{{ data.order.recipientName || 'N/A' }}
+    </mat-list-item>
+    <mat-list-item>
+      <strong>Phone:</strong>&nbsp;{{ data.order.recipientPhone || 'N/A' }}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <!-- Delivery Address -->
+    <mat-list-item>
+      <strong>Address:</strong>&nbsp;{{ data.order.address || 'N/A' }}
+    </mat-list-item>
+    <mat-list-item>
+      <strong>Landmark:</strong>&nbsp;{{ data.order.landmark || 'N/A' }}
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <!-- Payment Proof -->
+    <mat-list-item>
+      <strong>Payment Proof:</strong>
+      <button mat-button color="primary" *ngIf="data.order.paymentProofUrl" (click)="viewPaymentProof()">
+        View Image
+      </button>
+      <span *ngIf="!data.order.paymentProofUrl">N/A</span>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+
+    <!-- Total Amount -->
+    <mat-list-item>
+      <strong>Total Amount:</strong>&nbsp;₹{{ data.order.totalAmount }}
+    </mat-list-item>
+  </mat-list>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Close</button>
+</mat-dialog-actions>

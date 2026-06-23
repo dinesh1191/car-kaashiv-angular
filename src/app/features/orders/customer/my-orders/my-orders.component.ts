@@ -7,16 +7,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LableFormatPipe } from '../../../../shared/label-format-pipe';
 import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
+import { DetailsDialogComponent, OrderDetailsData } from '../../../../shared/components/details-dialog/details-dialog.component';
 
 
 @Component({
   selector: 'app-my-orders',
-  imports: [CommonModule, SharedModule,LableFormatPipe,EmptyStateComponent],
+  imports: [CommonModule, SharedModule, LableFormatPipe, EmptyStateComponent],
   templateUrl: './my-orders.component.html',
   styleUrl: './my-orders.component.scss',
 })
 export class MyOrdersComponent {
-  Orders: any[]=[];
+  Orders: any[] = [];
   constructor(
     private orderService: OrderService,
     private snackBarService: SnackbarService,
@@ -30,12 +31,34 @@ export class MyOrdersComponent {
 
   loadMyOrders() {
     this.orderService.getMyOrders().subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         if (res.data.length > 0) {
-          this.Orders = res.data;         
+          this.Orders = res.data;
           console.log('My Orders:', this.Orders);
         }
       },
+    });
+  }
+
+  viewDetails(order: any) {
+    console.log(order, 'order dialog ');
+    const dialogRef = this.dialog.open(DetailsDialogComponent, {
+      width: '500px',
+      data: {
+        order: {
+          orderId: order.orderId,
+          orderStatusText: order.orderStatusText,
+          recipientName: order.recipientName,
+          recipientPhone: order.recipientPhone,
+          address: order.recipientAddress,
+          landmark: order.landmark,
+          paymentProofUrl: order.paymentProofUrl,
+          totalAmount: order.totalAmount,
+        },
+      } as OrderDetailsData,
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('Details dialog closed');
     });
   }
 }

@@ -4,9 +4,10 @@ import {MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle, MatDialo
 import { MATERIAL_IMPORTS } from '../../material';
 import { ConfirmDialogData } from './confirm-dialog-data.interface';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-confirm-dialog',
-  imports: [MatDialogModule, MatDialogTitle, MatDialogContent, MatDialogActions,MATERIAL_IMPORTS,CommonModule],
+  imports: [MatDialogModule, MatDialogTitle, MatDialogContent, MatDialogActions,  MATERIAL_IMPORTS,CommonModule],
   templateUrl: './confirm-dialog.component.html',
   styleUrl: './confirm-dialog.component.scss',
 })
