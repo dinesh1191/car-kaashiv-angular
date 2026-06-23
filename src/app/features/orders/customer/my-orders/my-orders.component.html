@@ -1,1 +1,37 @@
-<p>my-orders works!</p>
+<div class="container mt-3">
+    <div class="row">
+        <ng-container *ngIf="Orders.length > 0; else emptyTpl">
+            <div class="col-md-4" *ngFor="let order of Orders">
+
+                <div class="card shadow-sm mb-3">
+                    <div class="card-body">
+                        <!-- Status -->
+                        <h6 class="text-primary mb-2">{{ order.orderStatusText | lableFormatPipe: 'order' }}</h6>
+                        <!-- Order Info -->
+                        <p class="mb-1"><strong>Order #{{ order.orderId }}</strong></p>
+                        <p class="text-muted mb-1">{{ order.createdAt | date:'dd MMM yyyy' }}</p>
+                        <!-- Amount -->
+                        <p class="fw-bold mb-2">₹{{ order.totalAmount }}</p>
+                        <!-- Customer Info -->
+                        <p class="mb-1">{{ order.recipientName || 'N/A' }}</p>
+                        <p class="mb-3"><i class="pi pi-phone text-success me-1"></i>{{ order.recipientPhone || 'N/A' }}
+                        </p>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-sm btn-outline-primary">View Details</button>
+                            <button class="btn btn-sm btn-outline-secondary">Edit Address</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <!-- Empty State Template -->
+        <ng-template #emptyTpl>
+            <app-empty-state [title]="'No Previous Orders'" [description]="'Your future orders will appear here.'"
+                [icon]="'hourglass_empty'">
+            </app-empty-state>
+        </ng-template>
+
+    </div>
+</div>

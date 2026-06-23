@@ -34,9 +34,10 @@ export interface MyOrdersResponse {
   orderStatusText: string;
   createdAt: string; // ISO date string
   paymentProofUrl: string | null;
-  deliveryName: string | null;
-  phone: string | null;
-  address: string | null;
+  recipientName: string | null;
+  recipientPhone: string | null;
+  recipientAddress: string | null;
+  landMark: string | null;
   canEditAddress: boolean;
 }
 
