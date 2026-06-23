@@ -148,7 +148,7 @@ export class CartComponent implements OnInit {
   }
 
   proceedToCheckout() {
-    this.router.navigate(['checkout/checkout-dashboard']);
+    this.router.navigate(['user/checkout']);
   }
 
   goBack() {

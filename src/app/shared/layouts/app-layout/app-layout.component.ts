@@ -113,7 +113,10 @@ export class AppLayoutComponent {
     this.sidebarVisible = !this.sidebarVisible;
   }
   goToCart() {   
-    this.router.navigate(['/cart']);
+    this.router.navigate(['user/cart']);
+  }
+  goToMyOrders(){
+    this.router.navigate(['user/my-orders']);
   }
   goToHome(){
     this.router.navigate(['/']);

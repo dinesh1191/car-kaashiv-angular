@@ -1,16 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { MATERIAL_IMPORTS } from '../../shared/material'
+import { MATERIAL_IMPORTS } from '../../../../shared/material'
 import { CommonModule } from '@angular/common';
-import { OrderService } from '../../core/services/order.service';
-import { SnackbarService } from '../../core/services/snackbar.service';
-import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state.component';
+import { OrderService } from '../../../../core/services/order.service';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
+import { EmptyStateComponent } from '../../../../shared/components/empty-state/empty-state.component';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from '../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ImagePreviewDialogComponent } from '../../shared/components/image-preview-dialog/image-preview-dialog.component';
-import { FallbackImageDirective } from '../../shared/directives/fallback-image.directive';
+import { ImagePreviewDialogComponent } from '../../../../shared/components/image-preview-dialog/image-preview-dialog.component';
+import { FallbackImageDirective } from '../../../../shared/directives/fallback-image.directive';
 import { Router } from '@angular/router';
-import { PRIME_IMPORTS } from '../../shared/prime';
+import { PRIME_IMPORTS } from '../../../../shared/prime';
 
 @Component({
   selector: 'app-order-summary',
@@ -57,6 +57,7 @@ export class OrderSummaryComponent {
     }
   }
 
+  
   loadOrderList(status: number) {
     this.orderList = [];
     this.orderService.getOrderList(status).subscribe({

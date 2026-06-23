@@ -19,6 +19,9 @@
   <div class="app-topbar-right">
       <span *ngIf="currentUser" >Welcome, {{currentUser.name}} ({{currentUser.role}})</span>
      <div *ngIf="currentUser?.role ==='customer'">
+       <button pButton icon="pi pi-list" class="p-button-text app-topbar-btn"
+          (click)="goToMyOrders()">    My Orders
+  </button>
       <button pButton icon="pi pi-shopping-cart"  badgeClass="p-badge-danger" class="p-button-text app-topbar-btn"
         (click)="goToCart()">
         <span class="cart-badge">{{ cartCount }}</span>

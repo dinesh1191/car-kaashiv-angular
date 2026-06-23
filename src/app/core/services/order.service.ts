@@ -27,6 +27,18 @@ export interface PlaceOrderRequest {
   deliveryAddress: string;
   landmark: string;
 }
+export interface MyOrdersResponse {
+  orderId: number;
+  totalAmount: number;
+  orderStatus: number;
+  orderStatusText: string;
+  createdAt: string; // ISO date string
+  paymentProofUrl: string | null;
+  deliveryName: string | null;
+  phone: string | null;
+  address: string | null;
+  canEditAddress: boolean;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -63,4 +75,8 @@ export class OrderService {
   markOrderShipped(orderId: number): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/${orderId}/mark-shipped`, {});
   }
+  
+  getMyOrders(): Observable<MyOrdersResponse> {
+  return this.http.get<MyOrdersResponse>(`${this.baseUrl}/my-orders`);
+ }
 }
