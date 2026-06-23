@@ -61,21 +61,7 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/parts/parts.routes').then((m) => m.PARTS_ROUTES),
       },
-      {
-        path: 'cart',
-        canActivate: [roleGuard],
-        data: { roles: ['customer'] }, //only customer users can access cart
-        loadChildren: () =>
-          import('./features/cart/cart.routes').then((m) => m.cart_ROUTES),
-      },
-      {
-        path: 'checkout',
-        canActivateChild: [roleGuard],
-        data: { roles: ['customer'] },
-        loadChildren: () =>
-              import('./features/checkout/checkout.routes').then((m) => m.Checkout_ROUTES,
-          ),
-      },
+        
     ],
   },
   /* ---------- Wildcard Route (for 404 Not Found) ---------- */
