@@ -40,29 +40,55 @@ export class MyOrdersComponent {
     });
   }
 
-  viewDetails(order: any) {
-    console.log(order, 'order dialog ');
-    const dialogRef = this.dialog.open(DetailsDialogComponent, {
-      width: '500px',
-      data: {
-        order: {
-          orderId: order.orderId,
-          orderStatusText: order.orderStatusText,
-          recipientName: order.recipientName,
-          recipientPhone: order.recipientPhone,
-          address: order.recipientAddress,
-          landmark: order.landmark,
-          paymentProofUrl: order.paymentProofUrl,
-          totalAmount: order.totalAmount,
-        },
-      } as OrderDetailsData,
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('Details dialog closed');
-    });
-  }
+  // viewDetails(order: any) {
+  //   console.log(order, 'order dialog ');
+  //   const dialogRef = this.dialog.open(DetailsDialogComponent, {
+  //     width: '500px',
+  //     data: {
+  //       order: {
+  //         orderId: order.orderId,
+  //         orderStatusText: order.orderStatusText,
+  //         recipientName: order.recipientName,
+  //         recipientPhone: order.recipientPhone,
+  //         address: order.recipientAddress,
+  //         landmark: order.landmark,
+  //         paymentProofUrl: order.paymentProofUrl,
+  //         totalAmount: order.totalAmount,
+  //       },
+  //     } as OrderDetailsData,
+  //   });
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     console.log('Details dialog closed');
+  //   });
+  // }
 
   goToUserDashboard(){
     this.router.navigate(['user/parts-dashboard'])
   }
+
+
+   loadOrderDetailsById(orderId: number) {
+  console.log('orderId:', orderId);
+
+  this.orderService.getOrderDetailsById(orderId).subscribe({
+    next: (res: any) => {
+      if (res && res.data) {
+        const order = res.data;      
+        const dialogRef = this.dialog.open(DetailsDialogComponent, {          
+        width: '600px',
+          data: {order} as OrderDetailsData        
+             });
+           dialogRef.afterClosed().subscribe(() => {
+          console.log('Details dialog closed');
+        });
+      } else {
+        console.warn('No order found for ID:', orderId);
+      }
+    },
+    error: (err) => {
+      console.error('Error fetching order:', err);
+    },
+  });
 }
+}
+

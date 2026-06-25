@@ -35,3 +35,25 @@ export class LableFormatPipe implements PipeTransform {
     }
   }
 }
+
+// reusable pipe to extract the city:
+
+// @Pipe({ name: 'cityExtractor' })
+// export class CityExtractorPipe implements PipeTransform {
+//   transform(address: string): string {
+//     if (!address) return 'N/A';
+
+//     // Normalize separators
+//     const normalized = address.replace(/[-,]/g, ' ');
+//     const tokens = normalized.split(/\s+/).filter(t => t.trim().length > 0);
+
+//     // Find first numeric token (postal code) and take the word before it
+//     const postalIndex = tokens.findIndex(t => /^\d+$/.test(t));
+//     if (postalIndex > 0) {
+//       return tokens[postalIndex - 1];
+//     }
+
+//     // Fallback: last token
+//     return tokens[tokens.length - 1];
+//   }
+// }

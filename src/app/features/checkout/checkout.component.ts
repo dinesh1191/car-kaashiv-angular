@@ -50,7 +50,7 @@ export class CheckoutComponent {
         next: (res) => {
           this.isPlacingOrder = true;
           this.snackbarService.show('Order placed successfully!', 'success');
-          this.router.navigate(['checkout/invoice'], { queryParams: { id: res.orderId  } });
+          this.router.navigate(['user/invoice'], { queryParams: { id: res.orderId  } });
         },
         error: (err) => {
           this.isPlacingOrder = false;

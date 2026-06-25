@@ -40,6 +40,24 @@ export interface MyOrdersResponse {
   landMark: string | null;
   canEditAddress: boolean;
 }
+export interface OrderItem {
+  partId: number;
+  partName: string;
+  quantity: number;
+  unitPrice: number;
+  lineTotal: number;
+}
+
+export interface OrderData {
+  orderId: number;
+  recipientName: string;
+  recipientPhone: string;
+  recipientAddress: string;
+  landMark: string;
+  totalAmount: number;
+  submittedAt: string | null;
+  items: OrderItem[];
+}
 
 @Injectable({
   providedIn: 'root',
@@ -79,5 +97,9 @@ export class OrderService {
   
   getMyOrders(): Observable<MyOrdersResponse> {
   return this.http.get<MyOrdersResponse>(`${this.baseUrl}/my-orders`);
+ }
+ 
+ getOrderDetailsById(OrderId:number){
+   return this.http.get<OrderData>(`${this.baseUrl}/ordersDetails/${OrderId}`)
  }
 }

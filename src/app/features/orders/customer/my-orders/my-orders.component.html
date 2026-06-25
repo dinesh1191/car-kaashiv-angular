@@ -35,13 +35,13 @@
                         <!-- Amount -->
                         <p class="fw-bold mb-2">₹{{ order.totalAmount }}</p>
                         <!-- Customer Info -->
-                        <p class="mb-1">{{ order.recipientName || 'N/A' }}</p>
-                        <p class="mb-3"><i class="pi pi-phone text-success me-1"></i>{{ order.recipientPhone || 'N/A' }}
-                        </p>
+                        <!-- <p class="mb-1">{{ order.recipientName || 'N/A' }}</p>
+                        <p class="mb-3"><i class="pi pi-phone text-success me-1"></i>{{ order.recipientPhone || 'N/A' }} -->
+                        <!-- </p> -->
 
                         <!-- Action Buttons -->
                         <div class="d-flex justify-content-between">
-                            <button class="btn btn-sm btn-outline-primary" (click)="viewDetails(order)">View Details</button>
+                            <button class="btn btn-sm btn-outline-primary" (click)="loadOrderDetailsById(order.orderId)">View Details</button>
                             <!-- <button class="btn btn-sm btn-outline-secondary">Edit Address</button> -->
                         </div>
                     </div>

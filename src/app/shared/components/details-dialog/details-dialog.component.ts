@@ -5,22 +5,30 @@ import { MATERIAL_IMPORTS } from '../../material';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 
-
+export interface OrderItem {
+  partId: number;
+  partName: string;
+  quantity: number;
+  unitPrice: number;
+  lineTotal: number;
+}
 export interface OrderDetailsData {
 order: {
     orderId: number;
     orderStatusText: string;
     recipientName: string;
     recipientPhone: string;
-    address: string;
-    landmark?: string;
+    recipientAddress: string;
+    landMark?: string;
     paymentProofUrl?: string;
+    gstTaxAmount:number;
     totalAmount: number;
+    items: OrderItem[];
   };
 }
 @Component({
   selector: 'app-details-dialog',
-  imports: [MatDialogModule, MatDialogTitle, MatDialogContent,MatDividerModule,MatListModule, MatDialogActions,MATERIAL_IMPORTS,CommonModule],
+  imports: [MatDialogModule,MatDividerModule,MatListModule, MATERIAL_IMPORTS,CommonModule],
   templateUrl: './details-dialog.component.html',
   styleUrl: './details-dialog.component.scss'
 })

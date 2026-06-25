@@ -11,6 +11,7 @@ import { ImagePreviewDialogComponent } from '../../../../shared/components/image
 import { FallbackImageDirective } from '../../../../shared/directives/fallback-image.directive';
 import { Router } from '@angular/router';
 import { PRIME_IMPORTS } from '../../../../shared/prime';
+import { DetailsDialogComponent, OrderDetailsData } from '../../../../shared/components/details-dialog/details-dialog.component';
 
 @Component({
   selector: 'app-order-summary',
@@ -25,6 +26,7 @@ export class OrderSummaryComponent {
   dipatchedOrder: number = 2;
   shippedOrder: number = 3;
   selectedTab = 0;
+  selectedOrder: any[]=[];
   
 
   getInitials(name: string): string {
@@ -139,6 +141,34 @@ export class OrderSummaryComponent {
     });
   }
 
+
+
+ loadOrderDetailsById(orderId: number) {
+  console.log('orderId:', orderId);
+
+  this.orderService.getOrderDetailsById(orderId).subscribe({
+    next: (res: any) => {
+      if (res && res.data) {
+        const order = res.data;      
+        const dialogRef = this.dialog.open(DetailsDialogComponent, {          
+        width: '600px',
+          data: {order} as OrderDetailsData        
+             });
+           dialogRef.afterClosed().subscribe(() => {
+          console.log('Details dialog closed');
+        });
+      } else {
+        console.warn('No order found for ID:', orderId);
+      }
+    },
+    error: (err) => {
+      console.error('Error fetching order:', err);
+    },
+  });
+}
+
+
+  
    goToEmpDashboard(){
     this.router.navigate(['/employee/emp-dashboard'])
   }
