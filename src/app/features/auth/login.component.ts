@@ -96,9 +96,9 @@ export class LoginComponent {
     this.router.navigate(['/register-user']);
   }
 
-  navigateToEmpRegister() {
-    this.router.navigate(['/register-employee']);
-  }
+  // navigateToEmpRegister() {
+  //   this.router.navigate(['/register-employee']);
+  // }
   goBack() {
     this.router.navigate(['/']);
   }
