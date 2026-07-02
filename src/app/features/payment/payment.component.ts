@@ -143,7 +143,7 @@ export class PaymentComponent implements OnInit {
       next: (res) => {  
         this.snackbarService.show('Payment proof submitted successfully!', 'success');
         console.log('Payment proof submission response:', res);
-        this.router.navigate(['/user/parts-dashboard']);
+        this.router.navigate(['/user/my-orders']);
       },
       error: (err) => {
         this.snackbarService.show('Failed to submit payment proof', 'error', 3000, err);

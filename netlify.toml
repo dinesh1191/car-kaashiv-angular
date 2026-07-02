@@ -8,3 +8,19 @@ command = "npm run build:staging"
 [context.deploy-preview]
 command = "npm run build:staging"
 
+[[redirects]]
+from = "/api/*"
+to = "https://carkaashiv-api-staging.onrender.com/api/:splat"
+status = 200
+force = true
+
+[[redirects]]
+from = "/health/*"
+to = "https://carkaashiv-api-staging.onrender.com/health/:splat"
+status = 200
+force = true
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
