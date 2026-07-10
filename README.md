@@ -1,186 +1,273 @@
-**CarKaashiv 2.0**
+# CarKaashiv 2.0 Frontend
 
-CarKaashivAngular is a feature-based Angular application designed with clean routing, layout separation, and scalable architecture in mind.
-The project emphasizes enterprise-style structure, maintainability, and clear separation of concerns.
+> Modern Angular 19 e-commerce frontend for the CarKaashiv 2.0 platform.
 
-This project was generated using Angular CLI v19.2.18.
+CarKaashiv 2.0 is a full-stack automotive spare parts e-commerce application built using **Angular 19** and **ASP.NET Core Web API**. The frontend follows a scalable feature-first architecture with clean routing, reusable UI components, secure authentication, and role-based dashboards for customers and employees.
 
- **Architecture Overview**
+---
 
-The application follows a feature-first architecture instead of page-based routing.
+# Tech Stack
 
-Key Architectural Decisions
+- Angular 19
+- TypeScript
+- Bootstrap 5
+- Angular Material
+- RxJS
+- HttpClient
+- ASP.NET Core REST API
+- Cookie-based Authentication (HttpOnly)
+- Git & GitHub
 
-Feature-based folder structure (employee, user, auth)
+---
 
-Dedicated layouts for authenticated and unauthenticated users
+# Key Features
 
-Clean URLs based on feature / intent, not layout names
+## Customer
 
-Centralized guards and interceptors
+- User Registration
+- Secure Login
+- Product Browsing
+- Category Filtering
+- Shopping Cart
+- Checkout
+- Address Management
+- Order History
+- Payment Screenshot Upload
+- Responsive Mobile-first UI
 
-Lazy-loaded feature routes for scalability
+## Employee
 
- **Layout Strategy**
- 
-Auth Layout
+- Employee Login
+- Payment Verification Queue
+- Order Processing
+- Ready for Dispatch Queue
+- Shipped Orders
+- Order Details
+- Inventory-aware Workflow
+
+---
+
+# Architecture
+
+The application follows a **feature-first architecture** designed for scalability and long-term maintainability.
+
+```
+src/
+ ├── app/
+ │   ├── core/
+ │   │    ├── guards/
+ │   │    ├── interceptors/
+ │   │    └── services/
+ │   │
+ │   ├── features/
+ │   │    ├── auth/
+ │   │    ├── employee/
+ │   │    ├── user/
+ │   │    ├── cart/
+ │   │    ├── checkout/
+ │   │    └── products/
+ │   │
+ │   ├── shared/
+ │   │    ├── components/
+ │   │    ├── layouts/
+ │   │    ├── directives/
+ │   │    └── pipes/
+ │   │
+ │   ├── models/
+ │   ├── pages/
+ │   └── app.routes.ts
+ │
+ ├── assets/
+ └── environments/
+```
+
+---
+
+# Application Layouts
+
+## Authentication Layout
 
 Used for:
 
-Login
+- Login
+- Customer Registration
+- Employee Registration
 
-User registration
+Features
 
-Employee registration
+- Header
+- Footer
+- Centered Forms
+- Fixed Viewport
+- No Sidebar
 
-**Includes:**
+---
 
-Header
+## Application Layout
 
-Footer
+Used after successful authentication.
 
-Excludes:
+Features
 
-Sidebar
+- Header
+- Footer
+- Sidebar
+- Role-aware Navigation
+- Logout
+- Responsive Dashboard
+- Scrollable Content Area
 
-Logout
+---
 
-Operational actions
+# Routing Philosophy
 
-**UX behavior:**
+URLs represent **business intent**, not UI layouts.
 
-Fixed viewport (no unnecessary scrolling)
+Examples
 
-Centered form content
-
-App Layout (Authenticated Users)
-
-Used after successful login.
-
-**Includes:**
-
-Header
-
-Footer
-
-Sidebar
-
-Logout and role-based actions
-
-Supports scrolling as dashboard content grows.
-
-**Routing Philosophy**
-
-Path = Feature / Intent
-Layout = Internal UI concern
-
-Layouts are not exposed in URLs.
-
-Example Routes
+```
 /login
 /register-user
 /register-employee
-/employee/emp-dashboard
+/products
+/cart
+/checkout
+/orders
+/employee/dashboard
+/employee/payment-review
+```
 
+Benefits
 
-This ensures:
+- Clean URLs
+- Decoupled layouts
+- Easy future expansion
+- Better maintainability
 
-Clean and readable URLs
+---
 
-Layout changes don’t affect navigation
+# Authentication
 
-Long-term scalability
+Authentication is implemented using secure **HttpOnly Cookie-based sessions**.
 
-** Authentication & Authorization**
+Features
 
-Route-level authentication using authGuard
+- Cookie Authentication
+- Route Guards
+- Role Guards
+- Automatic Session Validation
+- Unauthorized Redirects
+- Protected Employee Routes
 
-Role-based access control using roleGuard
+---
 
-Guards applied at routing level, not component level
+# Security
 
-Unauthorized access redirected to /unauthorized
+- HttpOnly Authentication Cookies
+- Route Protection
+- Role-based Authorization
+- HTTP Interceptors
+- Secure API Communication
 
- **Project Structure (Simplified)**
-src/
-├── app/
-│   ├── core/        # guards, interceptors, global services
-│   ├── features/    # auth, employee, user domains
-│   ├── shared/      # reusable components and layouts
-│   ├── pages/       # public pages (landing, contact, privacy)
-│   ├── models/      # shared domain models
-│   └── app.routes.ts
-├── assets/
-└── environments/
+---
 
- **Development Server**
+# Responsive Design
 
-To start a local development server:
+Designed with a mobile-first approach.
 
+Supports
+
+- Mobile
+- Tablet
+- Desktop
+
+Several modules use dedicated mobile layouts for improved usability.
+
+---
+
+# Development
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Run locally
+
+```bash
 ng serve
+```
 
+Navigate to
 
-Open your browser at:
+```
+http://localhost:4200
+```
 
-http://localhost:4200/
+---
 
+# Build
 
-The application automatically reloads on source file changes.
+Development build
 
- **Code Scaffolding**
-
-Generate a new component:
-
-ng generate component component-name
-
-
-List all available schematics:
-
-ng generate --help
-
- **Build**
-
-To build the project:
-
+```bash
 ng build
+```
 
+Production build
 
-Build artifacts will be stored in the dist/ directory.
-Production builds are optimized for performance and speed.
+```bash
+ng build --configuration production
+```
 
- **Testing**
+---
+
+# Testing
+
 Unit Tests
+
+```bash
 ng test
+```
 
+---
 
-Runs unit tests using Karma.
+# Design Principles
 
-End-to-End Tests
-ng e2e
+- Feature-first Architecture
+- Separation of Concerns
+- Lazy-loaded Modules
+- Reusable Components
+- Enterprise-style Folder Structure
+- Scalable Routing
+- Responsive UI
+- Clean Code Practices
 
+---
 
-Angular CLI does not include an e2e framework by default. You may integrate one as needed.
+# Future Improvements
 
- **Design Goals**
+- Progressive Web App (PWA)
+- Signal-based State Management
+- Dashboard Analytics
+- Real-time Notifications
+- Wishlist
+- Product Reviews
+- Advanced Search
+- Order Tracking Timeline
 
-Clean separation of concerns
+---
 
-Scalable feature-based routing
+# Backend
 
-Maintainable layout strategy
+This frontend communicates with the CarKaashiv ASP.NET Core REST API for authentication, product management, order processing, inventory, and employee operations.
 
-Resume-ready enterprise architecture
+---
+# Author
 
- **Future Enhancements**
+**Dinesh V**
 
-Role-based landing pages after login
+Full Stack Developer (.NET + Angular)
 
-Token refresh & session handling
-
-Centralized error UX strategy
-
-Extended architecture documentation
-
-**Additional Resources**
-
-Angular CLI Documentation
+- LinkedIn: https://linkedin.com/in/dineshvaradhan
