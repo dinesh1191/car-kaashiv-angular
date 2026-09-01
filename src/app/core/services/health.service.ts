@@ -12,7 +12,7 @@ export class HealthService {
   
      getServerHealth(): Observable<any> {
       //return this.http.get(`${this.apiUrl}/health/db`, {
-         return this.http.get(`/health/db`, {
+         return this.http.get(environment.healthUrl,{
       responseType:'text',
       headers:{'SKIP_LOADER':'true'}, // global spinner loader will not be executed
       withCredentials: false,

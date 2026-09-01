@@ -1,6 +1,7 @@
 export const environment = {
  production: true,
   apiBaseUrl: '/api',
+  healthUrl: '/health',
   debug: false,
   appVersion: '1.0.0',
   label: 'PROD',

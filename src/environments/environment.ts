@@ -5,6 +5,7 @@ import { isDevMode } from '@angular/core';
 export const environment = {
   production: false,
   apiBaseUrl: 'https://localhost:7170/api', 
+  healthUrl:  'https://localhost:7170/health',
   label: 'LOCAL',
   badgeClass :'env-dev',
   debug: isDevMode(),  // enables dev-only logging or features
