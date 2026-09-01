@@ -1,2 +1,3 @@
+/health  https://carkaashiv-api-staging.onrender.com/health  200
 /api/*  https://carkaashiv-api-staging.onrender.com/api/:splat  200
 /*      /index.html  200
