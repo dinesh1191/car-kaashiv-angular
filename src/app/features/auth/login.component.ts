@@ -81,8 +81,8 @@ export class LoginComponent {
 
     this.authFacade.login(this.loginForm.value).subscribe({
       next: (res) => {
-        this.snackbarService.show(res.messsage, 'success');
-      },
+        this.snackbarService.show(res.message, 'success');
+        },
       error: (err) => {
         this.snackbarService.show(
           err?.error.message || 'Something went wrong Try again later',
@@ -96,9 +96,9 @@ export class LoginComponent {
     this.router.navigate(['/register-user']);
   }
 
-  navigateToEmpRegister() {
-    this.router.navigate(['/register-employee']);
-  }
+  // navigateToEmpRegister() {
+  //   this.router.navigate(['/register-employee']);
+  // }
   goBack() {
     this.router.navigate(['/']);
   }

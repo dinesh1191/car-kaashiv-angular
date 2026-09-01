@@ -89,11 +89,10 @@ export class AppLayoutComponent {
   }
 
   onProfile() {
-    console.log('Profile clicked');
+    throw new Error('Method not implemented.');
   }
 
-  onLogout() {
-    console.log('Logout clicked');
+  onLogout() {   
     this.confirmationService.confirm({
       header: 'Confirm Logout',
       message: 'Are you sure you want to logout?',
@@ -107,15 +106,17 @@ export class AppLayoutComponent {
   }
 
   onSettings() {
-    console.log('Settings clicked');
+    throw new Error('Method not implemented.');
   }
-
+  
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;
   }
-  goToCart() {
-    console.log('Navigating to cart');
-    this.router.navigate(['/cart']);
+  goToCart() {   
+    this.router.navigate(['user/cart']);
+  }
+  goToMyOrders(){
+    this.router.navigate(['user/my-orders']);
   }
   goToHome(){
     this.router.navigate(['/']);

@@ -42,6 +42,11 @@
             styleClass="premium-back-btn" (onClick)="print()">
         </p-button>
     </div>
+    <div class="mt-5 viewport-center no-print">
+        <p-button icon="pi pi-credit-card" label="Payment" [raised]="true" [rounded]="true"
+            styleClass="premium-back-btn" (onClick)="goToPayment()">
+        </p-button>
+    </div>
 </div>
 <div *ngIf="!OrderDetails">
     <p>Order details not available.</p>

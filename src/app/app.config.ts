@@ -15,8 +15,8 @@ import { providePrimeNG } from 'primeng/config';
 import Lara from '@primeng/themes/lara';
 import { PRIME_IMPORTS } from './shared/prime';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
-
+import { ErrorHandler } from '@angular/core';
+import { GlobalErrorHandler } from './core/error-handlers/global-error-handler.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -39,6 +39,9 @@ export const appConfig: ApplicationConfig = {
         preset: Lara, // Configure the theme
       }
     }),
-  
+    { provide: ErrorHandler,
+      useClass: GlobalErrorHandler 
+  }
   ]
 };
+

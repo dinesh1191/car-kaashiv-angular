@@ -1,11 +1,94 @@
-<p>checkout works!</p>
+<form [formGroup]="orderForm" (ngSubmit)="placeOrder()"
+      class="container-fluid p-0">
 
- <p-button
-    icon="pi pi-shopping-cart"
-    label="Place Order"
-    [raised]="true"
-    [rounded]="true"
-    styleClass="premium-back-btn"
-    (onClick)="placeOrder() "
-    [disabled]="isPlacingOrder">
-</p-button>
+  <div class="row g-3">
+
+    <!-- Delivery Name -->
+    <div class="col-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Delivery Name</mat-label>
+        <input matInput  (input)="toUpperCase($event)" formControlName="deliveryName"  />
+
+        <mat-error *ngIf="orderForm.get('deliveryName')?.hasError('required')">
+          Name is required.
+        </mat-error>
+
+        <mat-error *ngIf="orderForm.get('deliveryName')?.hasError('maxlength')">
+          Maximum 100 characters allowed.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Delivery Phone -->
+    <div class="col-12 col-md-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Delivery Phone</mat-label>
+        <input matInput type="tel" inputmode="numeric"  pattern="[0-9]*" maxlength="10" (keypress)="onlyNumbers($event)" formControlName="deliveryPhone" />
+        <mat-error *ngIf="orderForm.get('deliveryPhone')?.hasError('required')">
+          Phone number is required.
+        </mat-error>
+
+        <mat-error *ngIf="orderForm.get('deliveryPhone')?.hasError('pattern')">
+          Enter a valid 10-digit mobile number.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  
+
+    <!-- Delivery Address -->
+    <div class="col-12">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Delivery Address</mat-label>
+
+        <textarea matInput
+                  rows="4"
+                  formControlName="deliveryAddress">
+        </textarea>
+
+        <mat-error *ngIf="orderForm.get('deliveryAddress')?.hasError('required')">
+          Please enter a complete delivery address.
+        </mat-error>
+
+        <mat-error *ngIf="orderForm.get('deliveryAddress')?.hasError('minlength')">
+          Address must be at least 10 characters.
+        </mat-error>
+
+        <mat-error *ngIf="orderForm.get('deliveryAddress')?.hasError('maxlength')">
+          Maximum 250 characters allowed.
+        </mat-error>
+      </mat-form-field>
+      <strong>Please verify your delivery details before placing the order.
+        Delivery information cannot be modified after order creation.</strong>
+    </div>
+      <!-- Landmark -->
+    <div class="col-12 col-md-6">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Landmark</mat-label>
+        <input matInput formControlName="landmark" />
+
+        <mat-error *ngIf="orderForm.get('landmark')?.hasError('required')">
+          Landmark is required.
+        </mat-error>
+
+        <mat-error *ngIf="orderForm.get('landmark')?.hasError('minlength')">
+          Landmark must be at least 3 characters.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="col-12">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="w-100 py-2"
+        [disabled]="orderForm.invalid">
+
+        Place Order
+      </button>
+    </div>
+
+  </div>
+</form>

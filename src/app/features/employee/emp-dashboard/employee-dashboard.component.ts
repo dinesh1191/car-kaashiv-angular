@@ -35,7 +35,7 @@ export class EmployeeDashboardComponent implements OnInit {
     title:'Customer Orders',
     icon:'shopping_cart',
     description:'View and track customer orders.',
-    route:'/employee/orders'
+    route:'/employee/order-summary'
   },  
   // {       
   //   title:'Employee Management',

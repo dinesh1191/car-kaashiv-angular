@@ -23,7 +23,7 @@ export class InvoiceComponent {
 
  
   constructor( private snackbarService: SnackbarService,
-    
+    private router: Router,
     private activatedRoute: ActivatedRoute, 
     private orderService: OrderService,
     private authService:AuthService,
@@ -32,15 +32,9 @@ export class InvoiceComponent {
 ngOnInit(): void {  
    this.activatedRoute.queryParamMap.subscribe(params => { 'id'
     this.orderId= Number(params.get('id')); 
-  });
-      console.log('Resolved OrderId:', this.orderId); // debug
-      console.log('URL:', window.location.href);
-       console.log('OrderId:', this.orderId);
- 
-
-
+  });  
   if (this.orderId) {
-    this.orderService.getOrderDetails(this.orderId).subscribe({
+    this.orderService.getOrderById(this.orderId).subscribe({
       next: (res) => {
       this.OrderDetails = res;     
       this.snackbarService.show('Order details loaded successfully!', 'success');
@@ -58,5 +52,10 @@ print(){
    const content = document.querySelector('.invoice-card')?.innerHTML;
    this.printService.printInvoice(content);
   
+}
+goToPayment(){   
+   if(this.orderId){  
+   this.router.navigate(['/user/payment'], { queryParams: { id: this.orderId } });
+  }
 }
 }

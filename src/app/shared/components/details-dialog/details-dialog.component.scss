@@ -1,0 +1,28 @@
+.dialog-scroll {
+  max-height: 90vh;   // whole dialog scrolls if content grows
+  overflow-y: auto;
+  padding: 1rem;      // slightly reduced padding for tighter layout
+}
+
+.field-block {
+  margin-bottom: 0.5rem; // tighter spacing between fields
+}
+
+.text-break {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.white-space-pre-line {
+  white-space: pre-line; // respects \n line breaks
+}
+
+.btn-close {
+  box-shadow: none;     // remove any focus shadow
+  outline: none;        // no outline on click
+}
+.modal-header.sticky-top {
+  background-color: #381313;   // solid background so text doesn’t bleed through
+  z-index: 1055;            // higher than modal body content
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); // optional subtle shadow
+}

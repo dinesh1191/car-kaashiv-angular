@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { PartService } from '../part.service';
-import { LoaderService } from '../../../core/services/loader.service';
 import { SharedModule } from '../../../shared/shared.module';
 import { UploadService } from '../../../core/services/upload.service';
 import { switchMap,tap } from 'rxjs';
@@ -37,11 +36,11 @@ export class PartDetailsComponent {
   ngOnInit() {
     //Initialize form
     this.partForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      price: ['', [Validators.required, Validators.min(0)]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]],
+      description: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1000)]],
+      price: ['', [Validators.required, Validators.min(1)]],
       stock: ['', [Validators.required, Validators.min(0)]],
-      imageUrl: ['', Validators.required],
+      imageUrl: ['', Validators.required]      
     });
 
     const id = this.route.snapshot.paramMap.get('id'); //get id from url if exists
@@ -57,7 +56,8 @@ export class PartDetailsComponent {
         if (res.data) {
           this.partForm.patchValue(res.data);
           this.previewUrl = res.data.imageUrl ?? null; // Show existing image in edit mode             
-        } else {
+          this.currentImageKey = res.data.imageKey ?? null; // Store existing image key for potential deletion
+       } else {
           this.snackBarService.show('No data found for this part.');
         }
       },
@@ -75,6 +75,7 @@ export class PartDetailsComponent {
   }
 
   upload() {
+    debugger
     if (!this.selectedFile) return;
     const fileName = this.selectedFile.name;
     const contentType = this.selectedFile.type;
@@ -106,20 +107,24 @@ export class PartDetailsComponent {
       });
   }
 
-  onSubmit() {
+  onSubmit() {   
     if (this.partForm.invalid) {
       this.partForm.markAllAsTouched();
       this.snackBarService.show('Please fill the required details', 'error');
       return;
-    }
-    this.savePartToApi({...this.partForm.value,imageKey:this.currentImageKey});
-  }
+    }   
+     this.savePartToApi({
+      ...this.partForm.value,
+      price: Number(this.partForm.value.price),
+      stock: Number(this.partForm.value.stock),
+      imageKey:this.currentImageKey});
+      }
 
   savePartToApi(data:any){   
     const res$ = this.isEditMode
       ? this.partService.updatePart(this.partId, data)
       : this.partService.addPart(data);
-    res$.subscribe({
+      res$.subscribe({
       next: () => {
         this.snackBarService.show(
           `Part ${this.isEditMode ? 'Part updated successfully' : 'Part created successfully'}`,

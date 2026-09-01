@@ -1,0 +1,149 @@
+<!-- Header -->
+<div class="d-flex align-items-center">
+  <!-- Back icon button -->
+  <button
+    pButton
+    type="button"
+    icon="pi pi-arrow-left"
+    class="p-button-text me-1"
+    (click)="goToEmpDashboard()">
+  </button>
+
+  <!-- Section title -->
+  <h3 class="fw-bold text-primary mb-0">
+    My Orders
+  </h3>
+</div>
+
+<mat-tab-group
+  animationDuration="0ms"
+  (selectedTabChange)="onTabChanged($event)">
+  <mat-tab label="Orders"></mat-tab>
+  <mat-tab label="Dispatch"></mat-tab>
+  <mat-tab label="Shipped"></mat-tab>
+</mat-tab-group>
+
+<div class="content-container">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid" style="width:100%">
+    <ng-container *ngIf="orderList.length>0; else emptyTpl">
+
+      <div fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="33.33" fxFlex.gt-md="25" *ngFor="let order of orderList">
+     <mat-card class="payment-card">
+  <div class="card-header">
+    <div class="user-info">
+      <div class="avatar">
+        {{ getInitials(order.customerName) }}
+      </div>
+
+      <div>
+      
+        <div class="name">{{ order.customerName }}</div>
+        
+
+        <a class="call-link" href="tel:{{order.customerPhone}}">
+          <mat-icon>call</mat-icon>
+        <div class="phone">{{ order.customerPhone }}</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="order-info">
+        <div>#{{order.orderId}}</div>
+      <div class="date">
+        {{ order.submittedAt | date:'dd/MMM/yyyy' }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Amount Highlight -->
+  <div class="amount-section text-center">
+    <div class="label">Bill Amount</div>
+    <div class="amount">
+      ₹{{ order.totalAmount }}
+    </div>
+  </div>
+
+ <!-- Screenshot / Info Button -->
+<ng-container [ngSwitch]="selectedTab">
+  <!-- Orders tab: show screenshot -->
+  <ng-container *ngSwitchCase="0">
+    <div
+      class="payment-proof d-flex flex-column align-items-center mb-3"
+      (click)="openPaymentPreview(order.paymentProofUrl)">
+      <img
+        [src]="order.paymentProofUrl"
+        appFallbackImage
+        alt="Payment Screenshot"
+        class="payment-logo" />
+      <div class="preview-text">Tap to Preview</div>
+    </div>
+  </ng-container>
+
+  <!-- Dispatch / Shipped tabs: show info button -->
+  <ng-container *ngSwitchCase="1">
+    <div class="d-flex flex-column align-items-center mb-3">
+    <button mat-icon-button color="primary"
+            (click)="openPaymentPreview(order.paymentProofUrl)">
+      <mat-icon>info</mat-icon>
+    </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="2">
+    <div class="d-flex flex-column align-items-center mb-3">
+    <button mat-icon-button color="primary"
+            (click)="openPaymentPreview(order.paymentProofUrl)">
+      <mat-icon>info</mat-icon>
+    </button>
+    </div>
+  </ng-container>
+</ng-container>
+
+
+
+  <div class="action-buttons justify-content-center">
+    <ng-container [ngSwitch]="selectedTab">
+  
+      <ng-container *ngSwitchCase="0">
+        <button mat-stroked-button color="primary" (click)="verifyPayment(order.orderId)">
+          Verify
+        </button>
+         <button mat-stroked-button color="primary" (click)="loadOrderDetailsById(order.orderId)">
+          View Details
+        </button>
+      </ng-container>
+  
+      <ng-container *ngSwitchCase="1">
+        <button mat-stroked-button color="primary" (click)="markShipped(order.orderId)">
+          Mark Shipped
+        </button>
+         <button mat-stroked-button color="primary" (click)="loadOrderDetailsById(order.orderId)">
+          View Details
+        </button>
+      </ng-container>
+           <ng-container *ngSwitchCase="2">        
+         <button mat-stroked-button color="primary" (click)="loadOrderDetailsById(order.orderId)">
+          View Details
+        </button>
+      </ng-container>
+
+  
+  
+    </ng-container>
+  </div>
+  </mat-card>
+  </div>
+  </ng-container>
+
+    <!-- Empty State Template -->
+    <ng-template #emptyTpl>
+      <app-empty-state [title]="'Review Queue Clear'" [description]="'All submitted payments have been reviewed.'"
+        [icon]="'task_alt'">
+      </app-empty-state>
+    </ng-template>
+  </div>
+</div>
+
+
+
+

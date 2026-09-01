@@ -11,7 +11,7 @@ import { HTTP_CONTEXT } from '../../core/constants/http-context.constants';
   providedIn: 'root'
 })
 export class PartService {
-private apiUrl = `${environment.apiBaseUrl}/api/parts`;
+private apiUrl = `${environment.apiBaseUrl}/parts`;
 
   constructor(private http:HttpClient) { }
 

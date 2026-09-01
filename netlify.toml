@@ -1,0 +1,37 @@
+[build]
+command = "npm run build:prod"
+publish = "dist/car-kaashiv-angular/browser"
+
+[context.branch-deploy]
+command = "npm run build:staging"
+
+[context.deploy-preview]
+command = "npm run build:staging"
+
+# Health check
+[[redirects]]
+from = "/health"
+to = "https://carkaashiv-api-staging.onrender.com/health"
+status = 200
+force = true
+
+# Normal API calls
+[[redirects]]
+from = "/api/*"
+to = "https://carkaashiv-api-staging.onrender.com/:splat"
+status = 200
+force = true
+
+
+# Temporary health proxy test
+[[redirects]]
+from = "/health-test"
+to = "https://carkaashiv-api-staging.onrender.com/health"
+status = 200
+force = true
+
+# Angular SPA fallback
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200

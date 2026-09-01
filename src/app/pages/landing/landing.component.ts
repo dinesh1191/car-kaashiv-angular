@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
 import { MATERIAL_IMPORTS } from '../../shared/material';
-import { Router, RouterLink } from "@angular/router";
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
-import { ServerStatusBannerComponent } from "../../shared/components/server-status-banner/server-status-banner.component";
+import { ServerStatusBannerComponent } from '../../shared/components/server-status-banner/server-status-banner.component';
 import { ServerStatusService } from '../../core/services/server-status.service';
 import { HealthService } from '../../core/services/health.service';
 import { ConfirmationService } from 'primeng/api';
 import { AuthFacade } from '../../core/services/auth.facade';
-
 
 @Component({
   selector: 'app-landing',
   imports: [
     ...MATERIAL_IMPORTS,
     RouterLink,
-    CommonModule,
+    CommonModule,  
     ServerStatusBannerComponent,
   ],
   templateUrl: './landing.component.html',
@@ -28,7 +27,7 @@ export class LandingComponent {
     private serverStatusService: ServerStatusService,
     private authService: AuthService,
     private router: Router,
-     ) {}
+  ) {}
 
   slides = [
     {
@@ -50,9 +49,7 @@ export class LandingComponent {
   currentSlide = 0;
 
   ngOnInit() {
-    setInterval(() => this.nextSlide(), 5000);
-    console.log('Landing Component Initialized');
-
+    setInterval(() => this.nextSlide(), 5000);   
     //get server health/startup
     this.healthService.getServerHealth().subscribe({
       next: (res) => {
@@ -89,5 +86,3 @@ export class LandingComponent {
     }
   }
 }
-
-

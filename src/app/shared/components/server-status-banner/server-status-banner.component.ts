@@ -25,8 +25,7 @@ ngOnInit() {
 
     if(this.status === 'healthy'){
       setTimeout(()=>{
-        this.visible = false;
-        console.log('banner hidden');       
+        this.visible = false;      
       },3500) // hide banner after 1.5 seconds
     }
   });

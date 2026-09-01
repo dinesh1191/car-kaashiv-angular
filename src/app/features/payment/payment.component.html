@@ -1,0 +1,63 @@
+<div class="container py-3">
+
+    <form [formGroup]="paymentForm" (ngSubmit)="submitPaymentProof()">
+
+        <!-- Payment Header -->
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body text-center">
+                <h4 class="fw-bold mb-3"> Payment Verification </h4>
+                <div class="row text-start">
+                    <div class="col-12 mb-2">
+                        <small class="text-muted">Order Number</small>
+                        <div class="fw-semibold">{{ OrderDetails?.invoiceNumber }}</div>
+                    </div>
+                    <div class="col-12">
+                        <small class="text-muted"> Total Amount</small>
+                        <div class="fs-4 fw-bold text-success">
+                            ₹{{ OrderDetails?.totalAmount }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QR Payment Card -->
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body text-center">
+                <h5 class="fw-semibold mb-3">Scan & Pay</h5>
+                <img src="./assets/dummyQRcode.png" appFallbackImage class="img-fluid mx-auto d-block qr-img" alt="Payment QR">
+                <p class="text-muted mt-3 mb-0"> Scan the QR code using GPay, PhonePe, Paytm or any UPI app.</p>
+            </div>
+        </div>
+       <!-- Upload Proof -->
+        <div class="card shadow-sm border-0 mb-3">
+            <div class="card-body">
+                <label class="form-label fw-semibold">
+                         Payment Screenshot
+                    <span class="text-danger">*</span>
+                </label>
+                <input type="file" class="form-control" accept="image/*" (change)="onFileSelected($event)">
+                <div class="text-danger small mt-2" *ngIf="paymentForm.get('proofImage')?.invalid && paymentForm.get('proofImage')?.touched">
+                    Payment screenshot is required.
+                </div>
+            </div>
+        </div>
+
+        <!-- Preview -->
+        <div class="payment-proof d-flex flex-column align-items-center mb-3"
+            (click)="openPaymentPreview(previewUrl)" *ngIf="previewUrl">
+            <img [src]="previewUrl" appFallbackImage alt="Payment Screenshot" class="payment-logo" />
+            <div class="preview-text"> Tap to Preview </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid">
+            <button mat-raised-button color="primary" type="submit" [disabled]="paymentForm.invalid || isSubmitting">
+                <span *ngIf="!isSubmitting">Submit Payment Proof</span>
+                <span *ngIf="isSubmitting" class="d-flex align-items-center justify-content-center gap-2">
+                    <mat-spinner diameter="20"></mat-spinner> Uploading...
+                </span>
+            </button>
+        </div>
+    </form>
+</div>

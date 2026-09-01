@@ -1,0 +1,87 @@
+<!-- TABLE -->
+<ng-container *ngIf="parts.length>0; else emptyTpl">
+<div class="table-container" *ngIf="!isMobile">
+
+  <table mat-table [dataSource]="parts">
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef>Image</th>
+      <td mat-cell *matCellDef="let p">
+        <img [src]="p.imageUrl" class="thumb" appFallbackImage />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let p">{{ p.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>₹</th>
+      <td mat-cell *matCellDef="let p">
+        {{ p.price | currency:'INR' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="stock">
+      <th mat-header-cell *matHeaderCellDef>Stock</th>
+      <td mat-cell *matCellDef="let p">{{ p.stock }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let p">
+        <button mat-icon-button (click)="edit.emit(p)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button mat-icon-button color="warn"
+                (click)="delete.emit(p)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr mat-row *matRowDef="let row; columns: columns"></tr>
+
+  </table>
+</div>
+
+<!-- MOBILE FLEX -->
+<div *ngIf="isMobile">
+    <div class="card" *ngFor="let p of parts">
+
+        <!-- LEFT: IMAGE -->
+        <div class="image">
+            <img [src]="p.imageUrl" appFallbackImage />
+        </div>
+
+        <!-- MIDDLE: DETAILS -->
+        <div class="details">
+            <div class="title">{{ p.name }}</div>
+            <div class="price">{{ p.price | currency:'INR' }}</div>
+            <div class="stock">Stock: {{ p.stock }}</div>
+        </div>
+
+        <!-- RIGHT: ACTIONS -->
+        <div class="actions">
+            <button mat-icon-button (click)="edit.emit(p)">
+                <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button (click)="delete.emit(p)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+
+    </div>
+</div>
+</ng-container>
+
+<ng-template #emptyTpl>
+  <app-empty-state
+    [title]="'No Parts Available'"
+    [description]="'Start by adding a new part'"
+    [icon]="'build'">
+  </app-empty-state>

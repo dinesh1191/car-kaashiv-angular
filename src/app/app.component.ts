@@ -4,6 +4,7 @@ import { MATERIAL_IMPORTS } from './shared/material';
 import { GlobalLoaderComponent } from './shared/components/global-loader/global-loader.component';
 import { LoaderService } from './core/services/loader.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent {
   
 constructor(public loaderService:LoaderService){}
   title = 'car-kaashiv-angular';
-  ngAfterViewInit(){
-console.log("Appcomponent checked at:",performance.now());
-  }
+  ngAfterViewInit(){console.log('ENV', environment);}
+  ngOnInit(){
+    sessionStorage.removeItem('chunkLoadErrorReloaded'); 
+   }
 }
