@@ -22,6 +22,14 @@ to = "https://carkaashiv-api-staging.onrender.com/:splat"
 status = 200
 force = true
 
+
+# Temporary health proxy test
+[[redirects]]
+from = "/health-test"
+to = "https://carkaashiv-api-staging.onrender.com/health"
+status = 200
+force = true
+
 # Angular SPA fallback
 [[redirects]]
 from = "/*"
